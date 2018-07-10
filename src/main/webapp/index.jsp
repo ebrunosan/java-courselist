@@ -16,10 +16,10 @@
 <div class="container" id="getting-started">
 
 <div class="page-header">
-  <h1>Hello #DevBurgos</h1>
+  <h1>Hello #Lambton Team</h1>
 </div>
 
-<h1>Esto se obtiene de la DB:</h1>
+<h1>This was get from DB:</h1>
 <div class="hero-unit">
     <%
       Connection conn = null;
