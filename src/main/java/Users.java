@@ -38,14 +38,14 @@ public class Users extends HttpServlet {
 			res.setContentType("text/html");
 			out.print("<html>");
 			
-			ResultSet result = stmt.executeQuery(sql);
+			conn = DBUtil.getConnection();
+			stmt = conn.createStatement();
+		
+			ResultSet result = stmt.executeQuery("SELECT now();");
 			
 			if(result.next()) {
 			   out.write("<p>" + result.getString(1) + "</p>");
 			}
-		
-			conn = DBUtil.getConnection();
-			stmt = conn.createStatement();
 		} catch (Exception e) {
 			out.print("Error " + e);
 		} finally {
