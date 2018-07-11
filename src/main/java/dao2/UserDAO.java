@@ -1,4 +1,4 @@
-package main.java.dao;
+package main.java.dao2;
 
 import main.java.DBUtil;
 import main.java.model.User;
