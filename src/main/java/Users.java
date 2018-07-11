@@ -21,41 +21,32 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 public class Users extends HttpServlet {
-	public static String sql = "SELECT now()";
+	private Connection conn;
 	
 	public Users() {
 		super();
+		conn = DBUtil.getConnection();
 	}
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// Connection conn = null;
-		Statement stmt = null;
-
 		PrintWriter out = res.getWriter();
+		String sql = "SELECT now();";
 			
-		try (Connection conn = DBUtil.getConnection()) {
+		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			res.setContentType("text/html");
 			out.print("<html>");
 			
-			//conn = DBUtil.getConnection();
-			stmt = conn.createStatement();
+			//Statement stmt = conn.createStatement();
 		
-			ResultSet result = stmt.executeQuery("SELECT now();");
-			
-			if(result.next()) {
-			   out.write("<p>" + result.getString(1) + "</p>");
+			try (ResultSet result = stmt.executeQuery();) {
+				while (result.next()) {
+				   out.write("<p>" + result.getString(1) + "</p>");
+				}
 			}
-			stmt.close();
+			//stmt.close();
 		} catch (Exception e) {
 			out.print("Error " + e);
-		/*} finally {
-			try {
-				//if ( stmt != null ) { stmt.close(); }
-				//if ( conn != null ) { conn.close(); }
-			} catch (SQLException e) {
-				out.print("Error - Finally " + e);
-			}*/
 		}
  	}
 }
