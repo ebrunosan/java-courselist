@@ -56,7 +56,7 @@
 		  }
 
 		} catch (Exception e) {
-		  out.write("<br>message", e.getMessage());
+		  out.write("<br>message " + e.getMessage());
 		}
 
 		
