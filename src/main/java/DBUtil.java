@@ -1,11 +1,22 @@
 package jdbc;
 
-import java.sql.*;
-import java.net.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DBUtil {
-	public static Connection getConnection() throws URISyntaxException, SQLException {
-		String dbUrl = System.getenv("JDBC_DATABASE_URL");
-		return DriverManager.getConnection(dbUrl);
+	
+	private static Connection connection = null;
+	
+	public static Connection getConnection() throws SQLException {
+        if (connection == null) {
+            try {
+				String dbUrl = System.getenv("JDBC_DATABASE_URL");
+				connection = DriverManager.getConnection(dbUrl);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+		}
+        return connection;
 	}
 }
