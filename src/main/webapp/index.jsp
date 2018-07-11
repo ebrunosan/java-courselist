@@ -46,11 +46,10 @@
         result.close();
         stmt.close();
 		
-	    try {
-		  stmt = conn.createStatement();
-		  stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-		  stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-		  ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+	    try (Statement stmt2 = conn.createStatement();) {
+		  stmt2.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
+		  stmt2.executeUpdate("INSERT INTO ticks VALUES (now())");
+		  ResultSet rs = stmt2.executeQuery("SELECT tick FROM ticks");
 
 		  while (rs.next()) {
 			out.write("<br>Read from DB: " + rs.getTimestamp(1));
