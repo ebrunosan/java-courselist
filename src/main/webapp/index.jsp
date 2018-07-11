@@ -53,7 +53,7 @@
 		  ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
 
 		  while (rs.next()) {
-			out.write("<br>Read from DB: " + rs.getTimestamp("tick"));
+			out.write("<br>Read from DB: " + rs.getTimestamp(1));
 		  }
 
 		  out.write("<br>records", output);
