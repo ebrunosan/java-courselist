@@ -1,6 +1,6 @@
 package main.java;
 
-import main.java.dao2.UserDAO;
+import main.java.dao.UserDAO;
 import main.java.model.User;
 
 import java.io.IOException;
