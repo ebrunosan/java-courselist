@@ -45,6 +45,24 @@
  
         result.close();
         stmt.close();
+		
+	    try {
+		  stmt = conn.createStatement();
+		  stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
+		  stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
+		  ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+
+		  while (rs.next()) {
+			out.write(<br>"Read from DB: " + rs.getTimestamp("tick"));
+		  }
+
+		  out.write("<br>records", output);
+		} catch (Exception e) {
+		  out.write("<br>message", e.getMessage());
+		}
+
+		
+		
         conn.close();
       }
       catch (Exception e) {
