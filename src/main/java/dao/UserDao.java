@@ -34,12 +34,14 @@ public class UserDao {
 	public boolean updateRecord(User user) throws Exception {
 		boolean rowUpdated = false;
 		
-		String sql = "update users_sample set firstName = ?, lastName=? where username = ?";
+		String sql = "update users_sample set userName = ?, pass = ?, firstName = ?, lastName=? where user_id = ?";
 
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, user.getFirstName());
-			stmt.setString(2, user.getLastName());
-			stmt.setString(3, user.getUserName());
+			stmt.setString(1, user.getUserName());
+			stmt.setString(2, user.getPass());
+			stmt.setString(3, user.getFirstName());
+			stmt.setString(4, user.getLastName());
+			stmt.setInt(5, user.getUserId());
 			rowUpdated = stmt.executeUpdate() > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,10 +54,10 @@ public class UserDao {
 	public boolean deleteRecord(User user) throws Exception {
 		boolean rowDeleted = false;
 
-		String sql = "delete user_sample where username = ?";
+		String sql = "delete user_sample where user_id = ?";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, user.getUserName());
+			stmt.setInt(1, user.getUserId());
 			rowDeleted = stmt.executeUpdate() > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,17 +67,18 @@ public class UserDao {
 		return rowDeleted;
 	}
 
-	public User selectRecordByUser(String username) throws Exception {
+	public User selectRecordByUser(int userId) throws Exception {
 		User user = null;
 
-		String sql = "select pass, firstName, lastName from users_sample where username = ?";
+		String sql = "select username, pass, firstName, lastName from users_sample where user_id = ?";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, username);
+			stmt.setInt(1, userId);
 			
 			try (ResultSet rs = stmt.executeQuery();) {
 				if ( rs.next() ) {
-					user = new User( username, 
+					user = new User( userId, 
+						rs.getString("username"), 
 						rs.getString("pass"), 
 						rs.getString("firstName"), 
 						rs.getString("lastName"));
@@ -92,13 +95,14 @@ public class UserDao {
 	public List<User> selectAllRecords() throws Exception {
 		List<User> usersList = new ArrayList<User>();
 
-		String sql = "select username, pass, firstName, lastName from users_sample";
+		String sql = "select user_id, username, pass, firstName, lastName from users_sample";
 
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			
 			try (ResultSet rs = stmt.executeQuery();) {
 				while ( rs.next() ) {
 					User user = new User(
+						rs.getInt("user_id"), 
 						rs.getString("username"), 
 						rs.getString("pass"), 
 						rs.getString("firstName"), 

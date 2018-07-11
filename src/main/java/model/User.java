@@ -1,28 +1,45 @@
 package jdbc;
 
 public class User {
-	private String username;
-	private String pass;
-	private String firstName;
-	private String lastName;
+	protected int userId;
+	protected String userName;
+	protected String pass;
+	protected String firstName;
+	protected String lastName;
 
-	public User(String username) {
-		this.username = username;
+	public User(int userId) {
+		this.userId = userId;
 	}
 	
-	public User(String username, String pass, String firstName, String lastName) {
-		this.username = username;
+	public User(int userId, String userName, String pass, String firstName, String lastName) {
+		this.userId = userId;
+		this.userName = userName;
 		this.pass = pass;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
 	
-	public String getUserName() {
-		return username;
+	public User(String userName, String pass, String firstName, String lastName) {
+		this.userName = userName;
+		this.pass = pass;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUserName(String username) {
-		this.username = username;
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	public String getPass() {
