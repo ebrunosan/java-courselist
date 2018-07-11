@@ -1,4 +1,4 @@
-package jdbc;
+package main.java;
 
 import java.sql.*;
 import java.net.*;
@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(
-        name = "TestServlet",
-        urlPatterns = "/test"
+	name = "TestServlet",
+	urlPatterns = "/test"
 )
 
 @SuppressWarnings("serial")

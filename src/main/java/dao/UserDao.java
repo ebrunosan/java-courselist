@@ -1,4 +1,7 @@
-package jdbc;
+package main.java.dao;
+
+import main.java.DBUtil;
+import main.java.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,10 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao {
+public class UserDAO {
 	private Connection conn = null;
 	
-	public UserDao() {
+	public UserDAO() {
 		conn = DBUtil.getConnection();
 	}
 

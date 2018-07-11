@@ -1,4 +1,4 @@
-package jdbc;
+package main.java.model;
 
 public class User {
 	protected int userId;

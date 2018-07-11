@@ -1,4 +1,7 @@
-package jdbc;
+package main.java;
+
+import main.java.dao.UserDAO;
+import main.java.model.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -13,17 +16,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(
-        name = "UsersServlet",
-        urlPatterns = "/users"
+	name = "UserServlet",
+	urlPatterns = "/user"
 )
 
 @SuppressWarnings("serial")
-public class UsersServlet extends HttpServlet {
-	private UserDao userDao;
+public class UserServlet extends HttpServlet {
+	private UserDAO userDAO;
 	
-	public UsersServlet() {
-		super();
-		userDao = new UserDao();
+	@Override
+	public void init() {
+		userDAO = new UserDAO();
 	}
 	
 	@Override
@@ -63,7 +66,7 @@ public class UsersServlet extends HttpServlet {
     private void listUser(HttpServletRequest req, HttpServletResponse res)
             throws SQLException, IOException, ServletException, Exception 
 	{
-        List<User> listUsers = userDao.selectAllRecords();
+        List<User> listUsers = userDAO.selectAllRecords();
         req.setAttribute("listUsers", listUsers);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("UserList.jsp");
@@ -81,7 +84,7 @@ public class UsersServlet extends HttpServlet {
             throws SQLException, ServletException, IOException, Exception
 	{
 		int userId 			= Integer.parseInt(req.getParameter("userId"));
-		User existingUser 	= userDao.selectRecordByUser(userId);
+		User existingUser 	= userDAO.selectRecordByUser(userId);
         req.setAttribute("user", existingUser);
         
 		RequestDispatcher dispatcher = req.getRequestDispatcher("UserForm.jsp");
@@ -96,7 +99,7 @@ public class UsersServlet extends HttpServlet {
         String firstName 	= req.getParameter("firstName");
         String lastName 	= req.getParameter("lastName");
  
-        userDao.insertRecord( new User(username, pass, firstName, lastName) );
+        userDAO.insertRecord( new User(username, pass, firstName, lastName) );
         res.sendRedirect("list");
     }
  
@@ -109,7 +112,7 @@ public class UsersServlet extends HttpServlet {
         String firstName 	= req.getParameter("firstName");
         String lastName 	= req.getParameter("lastName");
  
-        userDao.updateRecord( new User(userId, username, pass, firstName, lastName) );
+        userDAO.updateRecord( new User(userId, username, pass, firstName, lastName) );
         res.sendRedirect("list");
     }
  
@@ -118,7 +121,7 @@ public class UsersServlet extends HttpServlet {
 	{
 		int userId 			= Integer.parseInt(req.getParameter("userId"));
  
-        userDao.deleteRecord( new User(userId) );
+        userDAO.deleteRecord( new User(userId) );
         res.sendRedirect("list");
     }
 }
