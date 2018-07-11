@@ -29,16 +29,16 @@ public class Users extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Connection conn = null;
+		// Connection conn = null;
 		Statement stmt = null;
 
 		PrintWriter out = res.getWriter();
 			
-		try {
+		try (Connection conn = DBUtil.getConnection()) {
 			res.setContentType("text/html");
 			out.print("<html>");
 			
-			conn = DBUtil.getConnection();
+			//conn = DBUtil.getConnection();
 			stmt = conn.createStatement();
 		
 			ResultSet result = stmt.executeQuery("SELECT now();");
@@ -46,15 +46,16 @@ public class Users extends HttpServlet {
 			if(result.next()) {
 			   out.write("<p>" + result.getString(1) + "</p>");
 			}
+			stmt.close();
 		} catch (Exception e) {
 			out.print("Error " + e);
-		} finally {
+		/*} finally {
 			try {
-				if ( stmt != null ) { stmt.close(); }
-				if ( conn != null ) { conn.close(); }
+				//if ( stmt != null ) { stmt.close(); }
+				//if ( conn != null ) { conn.close(); }
 			} catch (SQLException e) {
 				out.print("Error - Finally " + e);
-			}
+			}*/
 		}
  	}
 }
