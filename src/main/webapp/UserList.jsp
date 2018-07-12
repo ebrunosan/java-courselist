@@ -1,17 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="main.java.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="main.java.model.User" %>
+
+<!doctype html>
 <html>
 <head>
     <title>Users Application</title>
 </head>
 <body>
+<%
+	final String bruno = (String) request.getAttribute ("bruno");
+	final String x = (String) request.getAttribute ("bruno");
+    out.write("<h3> 4 " + x + "</h3>");
+%>
+<h3> 1 My name is <c:out value="${bruno}" /></h3>
+<h3> 2 My name with requestScope <c:out value="${requestScope.bruno}" /></h3>
+<h3> 3 My name with param <c:out value="${param.bruno}" /></h3>
+<h3> 5 <%=x %> </h3>
+
     <center>
         <h1>Users Management</h1>
         <h2>
-            <a href="/new">Add New User</a>
+            <a href="/user?action=new">Add New User</a>
             &nbsp;
-            <a href="/list">List All Users</a>
+            <a href="/user?action=list">List All Users</a>
         </h2>
     </center>
 	
@@ -32,9 +45,9 @@
                     <td><c:out value="${user.firstName}" /></td>
                     <td><c:out value="${user.lastName}" /></td>
                     <td>
-                        <a href="/edit?userId=<c:out value='${user.userId}' />">Edit</a>
+                        <a href="/user?action=edit&userId=<c:out value='${user.userId}' />">Edit</a>
                         &nbsp;
-                        <a href="/delete?userId=<c:out value='${user.userId}' />">Delete</a>                     
+                        <a href="/user?action=delete&userId=<c:out value='${user.userId}' />">Delete</a>                     
                     </td>
                 </tr>
             </c:forEach>

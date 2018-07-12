@@ -36,22 +36,23 @@ public class UserServlet extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String action = req.getServletPath();
+		String action = req.getParameter("action");
+System.out.println("Action = " + action );
 		try {
             switch (action) {
-            case "/new":
+            case "new":
                 showNewUser(req, res);
                 break;
-            case "/insert":
+            case "insert":
                 insertUser(req, res);
                 break;
-            case "/delete":
+            case "delete":
                 deleteUser(req, res);
                 break;
-            case "/edit":
+            case "edit":
                 showEditUser(req, res);
                 break;
-            case "/update":
+            case "update":
                 updateUser(req, res);
                 break;
             default:
@@ -66,18 +67,20 @@ public class UserServlet extends HttpServlet {
     private void listUser(HttpServletRequest req, HttpServletResponse res)
             throws SQLException, IOException, ServletException, Exception 
 	{
-        List<User> listUsers = userDAO.selectAllRecords();
-        req.setAttribute("listUsers", listUsers);
+        //List<User> listUsers = userDAO.selectAllRecords();
+        //req.setAttribute("listUsers", listUsers);
+		
+req.setAttribute("bruno", "Bruno Santos");
+System.out.println("bruno SET");
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("UserList.jsp");
-        dispatcher.forward(req, res);
+        req.getRequestDispatcher("UserList.jsp").forward(req, res);
     }
  
     private void showNewUser(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException, Exception
 	{
-        RequestDispatcher dispatcher = req.getRequestDispatcher("UserForm.jsp");
-        dispatcher.forward(req, res);
+req.setAttribute("bruno", "Bruno Santos");
+        req.getRequestDispatcher("UserForm.jsp").forward(req, res);
     }
  
     private void showEditUser(HttpServletRequest req, HttpServletResponse res)
@@ -87,8 +90,8 @@ public class UserServlet extends HttpServlet {
 		User existingUser 	= userDAO.selectRecordByUser(userId);
         req.setAttribute("user", existingUser);
         
-		RequestDispatcher dispatcher = req.getRequestDispatcher("UserForm.jsp");
-        dispatcher.forward(req, res);
+req.setAttribute("bruno", "Bruno Santos");
+        req.getRequestDispatcher("UserForm.jsp").forward(req, res);
     }
  
     private void insertUser(HttpServletRequest req, HttpServletResponse res)
