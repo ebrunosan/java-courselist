@@ -37,39 +37,35 @@
                     <% } %>
                 </h2>
             </caption>
-                <c:if test="${user != null}">
-                    <input type="hidden" name="userId" value="<%out.println(user.getUserId()); %>" />
-                </c:if>           
+				<% if (user != null) { %>
+                    <input type="hidden" name="userId" value="<% out.println(user.getUserId()); %>" />
+                <% } %>
             <tr>
                 <th>User name: </th>
                 <td>
                     <input type="text" name="userName" size="50"
-                            value="<%out.println(user.getUserName()); %>"
-                        />
+                            value="<% out.println(user.getUserName()); %>" />
                 </td>
             </tr>
             <tr>
                 <th>Password: </th>
                 <td>
                     <input type="text" name="pass" size="50"
-                            value="<%out.println(user.getPass()); %>"
-                    />
+                            value="<% out.println(user.getPass()); %>" />
                 </td>
             </tr>
             <tr>
                 <th>First Name: </th>
                 <td>
                     <input type="text" name="firstName" size="50"
-                            value="<%out.println(user.getFirstName()); %>"
-                    />
+                            value="<% out.println(user.getFirstName()); %>" />
                 </td>
             </tr>
             <tr>
                 <th>Last Name: </th>
                 <td>
                     <input type="text" name="lastName" size="50"
-                            value="<%out.println(user.getLastName()); %>"
-                    />
+                            value="<% out.println(user.getLastName()); %>" />
                 </td>
             </tr>
             <tr>
