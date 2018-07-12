@@ -38,15 +38,13 @@
                 </h2>
             </caption>
 				<% if (user != null) { %>
-                    <input type="hidden" name="userId" value="<% out.println(user.getUserId()); %>" />
+                    <input type="hidden" name="userId" value="<% out.println( user.getUserId() ); %>" />
                 <% } %>
             <tr>
                 <th>User name: </th>
                 <td>
                     <input type="text" name="userName" size="50"
-						<% if (user != null) { 
-                            out.println('value="' + user.getUserName() +'"'); 
-						} %>
+						<% if (user != null) { out.println( "value='" + user.getUserName() +"'" ); } %>
 					/>
                 </td>
             </tr>
@@ -54,9 +52,7 @@
                 <th>Password: </th>
                 <td>
                     <input type="text" name="pass" size="50"
-						<% if (user != null) { 
-                            out.println('value="' + user.getPass() +'"'); 
-						} %>
+						<% if (user != null) { out.println( "value='" + user.getPass() + "'" ); } %>
 					/>
                 </td>
             </tr>
@@ -64,9 +60,7 @@
                 <th>First Name: </th>
                 <td>
                     <input type="text" name="firstName" size="50"
-						<% if (user != null) { 
-                            out.println('value="' + user.getFirstName() +'"'); 
-						} %>
+						<% if (user != null) { out.println( "value='" + user.getFirstName() + "'" ); } %>
 					/>
                 </td>
             </tr>
@@ -74,9 +68,7 @@
                 <th>Last Name: </th>
                 <td>
                     <input type="text" name="lastName" size="50"
-						<% if (user != null) { 
-                            out.println('value="' + user.getLastName() +'"'); 
-						} %>
+						<% if (user != null) { out.println( "value='" + user.getLastName() + '"' ); } %>
                 </td>
             </tr>
             <tr>
