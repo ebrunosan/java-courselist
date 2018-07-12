@@ -22,9 +22,9 @@
 	
     <div align="center">
         <% if (user != null) { %>
-            <form action="update" method="post">
+            <form action="/user?action=update" method="post">
         <% } else { %>
-            <form action="insert" method="post">
+            <form action="/user?action=insert" method="post">
         <% } %>
 		
         <table border="1" cellpadding="5">
@@ -44,28 +44,39 @@
                 <th>User name: </th>
                 <td>
                     <input type="text" name="userName" size="50"
-                            value="<% out.println(user.getUserName()); %>" />
+						<% if (user != null) { 
+                            out.println('value="' + user.getUserName() +'"'); 
+						} %>
+					/>
                 </td>
             </tr>
             <tr>
                 <th>Password: </th>
                 <td>
                     <input type="text" name="pass" size="50"
-                            value="<% out.println(user.getPass()); %>" />
+						<% if (user != null) { 
+                            out.println('value="' + user.getPass() +'"'); 
+						} %>
+					/>
                 </td>
             </tr>
             <tr>
                 <th>First Name: </th>
                 <td>
                     <input type="text" name="firstName" size="50"
-                            value="<% out.println(user.getFirstName()); %>" />
+						<% if (user != null) { 
+                            out.println('value="' + user.getFirstName() +'"'); 
+						} %>
+					/>
                 </td>
             </tr>
             <tr>
                 <th>Last Name: </th>
                 <td>
                     <input type="text" name="lastName" size="50"
-                            value="<% out.println(user.getLastName()); %>" />
+						<% if (user != null) { 
+                            out.println('value="' + user.getLastName() +'"'); 
+						} %>
                 </td>
             </tr>
             <tr>
