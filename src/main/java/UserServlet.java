@@ -38,7 +38,8 @@ public class UserServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String action = req.getParameter("action");
-//System.out.println("Action = " + action );
+		if (action == null) { action = "list"; }	// default action
+
 		try {
             switch (action) {
             case "new":
@@ -111,7 +112,7 @@ public class UserServlet extends HttpServlet {
         String lastName 	= req.getParameter("lastName");
  
         userDAO.insertRecord( new User(username, pass, firstName, lastName) );
-        res.sendRedirect("list");
+        res.sendRedirect("user");
     }
  
     private void updateUser(HttpServletRequest req, HttpServletResponse res)
@@ -124,7 +125,7 @@ public class UserServlet extends HttpServlet {
         String lastName 	= req.getParameter("lastName");
  
         userDAO.updateRecord( new User(userId, username, pass, firstName, lastName) );
-        res.sendRedirect("list");
+        res.sendRedirect("user");
     }
  
     private void deleteUser(HttpServletRequest req, HttpServletResponse res)
@@ -133,6 +134,6 @@ public class UserServlet extends HttpServlet {
 		int userId 			= Integer.parseInt(req.getParameter("userId"));
  
         userDAO.deleteRecord( new User(userId) );
-        res.sendRedirect("list");
+        res.sendRedirect("user");
     }
 }

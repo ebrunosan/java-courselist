@@ -68,7 +68,7 @@
                 <th>Last Name: </th>
                 <td>
                     <input type="text" name="lastName" size="50"
-						<% if (user != null) { out.println( "value='" + user.getLastName() + '"' ); } %>
+						<% if (user != null) { out.println( "value='" + user.getLastName() + "'" ); } %>
                 </td>
             </tr>
             <tr>
