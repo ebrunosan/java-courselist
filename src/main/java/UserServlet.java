@@ -6,6 +6,7 @@ import main.java.model.User;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,7 +38,7 @@ public class UserServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String action = req.getParameter("action");
-System.out.println("Action = " + action );
+//System.out.println("Action = " + action );
 		try {
             switch (action) {
             case "new":
@@ -67,11 +68,18 @@ System.out.println("Action = " + action );
     private void listUser(HttpServletRequest req, HttpServletResponse res)
             throws SQLException, IOException, ServletException, Exception 
 	{
-        //List<User> listUsers = userDAO.selectAllRecords();
-        //req.setAttribute("listUsers", listUsers);
+        List<User> listUsers = userDAO.selectAllRecords();
+        req.setAttribute("listUsers", listUsers);
 		
-req.setAttribute("bruno", "Bruno Santos");
-System.out.println("bruno SET");
+//List<User> listUsers = new ArrayList<User>();
+//listUsers.add(new User(1, "username1","pass1", "firstName1", "lastName1"));
+//listUsers.add(new User(2, "username2","pass2", "firstName2", "lastName2"));
+//listUsers.add(new User(3, "username3","pass3", "firstName3", "lastName3"));
+//req.setAttribute("listUsers", listUsers);
+
+//req.setAttribute("bruno", "Bruno Santos");
+
+//System.out.println("bruno SET");
 
         req.getRequestDispatcher("UserList.jsp").forward(req, res);
     }
@@ -79,7 +87,7 @@ System.out.println("bruno SET");
     private void showNewUser(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException, Exception
 	{
-req.setAttribute("bruno", "Bruno Santos");
+//req.setAttribute("bruno", "Bruno Santos");
         req.getRequestDispatcher("UserForm.jsp").forward(req, res);
     }
  
@@ -90,7 +98,7 @@ req.setAttribute("bruno", "Bruno Santos");
 		User existingUser 	= userDAO.selectRecordByUser(userId);
         req.setAttribute("user", existingUser);
         
-req.setAttribute("bruno", "Bruno Santos");
+//req.setAttribute("bruno", "Bruno Santos");
         req.getRequestDispatcher("UserForm.jsp").forward(req, res);
     }
  

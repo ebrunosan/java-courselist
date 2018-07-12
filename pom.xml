@@ -8,12 +8,12 @@
   <name>hidden-eyrie-45825 Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-    <dependency>
+   <!-- <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
-    </dependency>
+    </dependency> -->
 
 	<!-- Postgres driver -->
 	<dependency>
@@ -27,8 +27,10 @@
 		<groupId>javax.servlet</groupId>
 		<artifactId>javax.servlet-api</artifactId>
 		<version>3.1.0</version>
+        <scope>provided</scope>
 	</dependency>
 	
+    <!-- JSP -->
 	<dependency>
         <groupId>javax.servlet.jsp</groupId>
         <artifactId>javax.servlet.jsp-api</artifactId>
@@ -36,8 +38,8 @@
         <scope>provided</scope>
     </dependency>
 	
-	<!-- JSTL jars -->
-    <dependency>
+	<!-- JSTL -->
+<!--    <dependency>
         <groupId>jstl</groupId>
         <artifactId>jstl</artifactId>
         <version>1.2</version>
@@ -46,7 +48,7 @@
 		<groupId>taglibs</groupId>
 		<artifactId>standard</artifactId>
 		<version>1.1.2</version>
-	</dependency>
+	</dependency> -->
   </dependencies>
   <build>
     <finalName>jdbc-app</finalName>

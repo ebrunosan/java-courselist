@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="main.java.model.User" %>
+<%@ page import="main.java.model.User,java.util.*" %>
 
 <!doctype html>
 <html>
@@ -9,16 +7,9 @@
     <title>Users Application</title>
 </head>
 <body>
-<%
-	final String bruno = (String) request.getAttribute ("bruno");
-	final String x = (String) request.getAttribute ("bruno");
-    out.write("<h3> 4 " + x + "</h3>");
+<% 
+	List<User> listUsers = (ArrayList<User>) request.getAttribute ("listUsers");
 %>
-<h3> 1 My name is <c:out value="${bruno}" /></h3>
-<h3> 2 My name with requestScope <c:out value="${requestScope.bruno}" /></h3>
-<h3> 3 My name with param <c:out value="${param.bruno}" /></h3>
-<h3> 5 <%=x %> </h3>
-
     <center>
         <h1>Users Management</h1>
         <h2>
@@ -38,19 +29,20 @@
                 <th>Last Name</th>
                 <th>Actions</th>
             </tr>
-            <c:forEach var="user" items="${listUsers}">
+			<% for(User user : listUsers) { %>
                 <tr>
-                    <td><c:out value="${user.userName}" /></td>
-                    <td><c:out value="${user.pass}" /></td>
-                    <td><c:out value="${user.firstName}" /></td>
-                    <td><c:out value="${user.lastName}" /></td>
+					
+                    <td><%out.println(user.getUserName()); %></td>
+                    <td><%out.println(user.getPass()); %></td>
+                    <td><%out.println(user.getFirstName()); %></td>
+                    <td><%out.println(user.getLastName()); %></td>
                     <td>
-                        <a href="/user?action=edit&userId=<c:out value='${user.userId}' />">Edit</a>
+                        <a href="/user?action=edit&userId=<%out.println(user.getUserId()); %>" >Edit</a>
                         &nbsp;
-                        <a href="/user?action=delete&userId=<c:out value='${user.userId}' />">Delete</a>                     
+                        <a href="/user?action=delete&userId=<%out.println(user.getUserId()); %>" >Delete</a>                     
                     </td>
                 </tr>
-            </c:forEach>
+            <% } %>
         </table>
     </div>   
 </body>

@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="main.java.model.User" %>
 
 <!doctype html>
@@ -8,6 +7,9 @@
     <title>Users Application</title>
 </head>
 <body>
+<% 
+	User user = (User) request.getAttribute ("user");
+%>
 
     <center>
         <h1>Users Management</h1>
@@ -19,32 +21,30 @@
     </center>
 	
     <div align="center">
-        <c:if test="${user != null}">
+        <% if (user != null) { %>
             <form action="update" method="post">
-        </c:if>
-        <c:if test="${user == null}">
+        <% } else { %>
             <form action="insert" method="post">
-        </c:if>
+        <% } %>
 		
         <table border="1" cellpadding="5">
             <caption>
                 <h2>
-                    <c:if test="${user != null}">
+					<% if (user != null) { %>
                         Edit User
-                    </c:if>
-                    <c:if test="${user == null}">
+					<% } else { %>
                         Add New User
-                    </c:if>
+                    <% } %>
                 </h2>
             </caption>
                 <c:if test="${user != null}">
-                    <input type="hidden" name="userId" value="<c:out value='${user.userId}' />" />
+                    <input type="hidden" name="userId" value="<%out.println(user.getUserId()); %>" />
                 </c:if>           
             <tr>
                 <th>User name: </th>
                 <td>
                     <input type="text" name="userName" size="50"
-                            value="<c:out value='${user.userName}' />"
+                            value="<%out.println(user.getUserName()); %>"
                         />
                 </td>
             </tr>
@@ -52,7 +52,7 @@
                 <th>Password: </th>
                 <td>
                     <input type="text" name="pass" size="50"
-                            value="<c:out value='${user.pass}' />"
+                            value="<%out.println(user.getPass()); %>"
                     />
                 </td>
             </tr>
@@ -60,7 +60,7 @@
                 <th>First Name: </th>
                 <td>
                     <input type="text" name="firstName" size="50"
-                            value="<c:out value='${user.firstName}' />"
+                            value="<%out.println(user.getFirstName()); %>"
                     />
                 </td>
             </tr>
@@ -68,7 +68,7 @@
                 <th>Last Name: </th>
                 <td>
                     <input type="text" name="lastName" size="50"
-                            value="<c:out value='${user.lastName}' />"
+                            value="<%out.println(user.getLastName()); %>"
                     />
                 </td>
             </tr>
