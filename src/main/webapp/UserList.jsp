@@ -32,14 +32,14 @@
 			<% for(User user : listUsers) { %>
                 <tr>
 					
-                    <td><%out.println(user.getUserName()); %></td>
-                    <td><%out.println(user.getPass()); %></td>
-                    <td><%out.println(user.getFirstName()); %></td>
-                    <td><%out.println(user.getLastName()); %></td>
+                    <td><%out.print(user.getUserName()); %></td>
+                    <td><%out.print(user.getPass()); %></td>
+                    <td><%out.print(user.getFirstName()); %></td>
+                    <td><%out.print(user.getLastName()); %></td>
                     <td>
-                        <a href="/user?action=edit&userId=<%out.println(user.getUserId()); %>" >Edit</a>
+                        <a href="/user?action=edit&userId=<%out.print(user.getUserId()); %>" >Edit</a>
                         &nbsp;
-                        <a href="/user?action=delete&userId=<%out.println(user.getUserId()); %>" >Delete</a>                     
+                        <a href="/user?action=delete&userId=<%out.print(user.getUserId()); %>" >Delete</a>                     
                     </td>
                 </tr>
             <% } %>
