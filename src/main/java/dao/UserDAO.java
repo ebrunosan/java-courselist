@@ -19,7 +19,7 @@ public class UserDAO {
 	}
 
 	public boolean insertRecord(User user) throws Exception {
-		String sql = "insert into users_sample (username, pass, firstName, lastName) values (?, ?, ?, ?)";
+		String sql = "INSERT INTO users_sample (username, pass, firstName, lastName) VALUES (?, ?, ?, ?)";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, user.getUserName());
@@ -37,7 +37,7 @@ public class UserDAO {
 	public boolean updateRecord(User user) throws Exception {
 		boolean rowUpdated = false;
 		
-		String sql = "update users_sample set userName = ?, pass = ?, firstName = ?, lastName=? where user_id = ?";
+		String sql = "UPDATE users_sample SET userName = ?, pass = ?, firstName = ?, lastName=? WHERE user_id = ?";
 
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, user.getUserName());
@@ -57,7 +57,7 @@ public class UserDAO {
 	public boolean deleteRecord(User user) throws Exception {
 		boolean rowDeleted = false;
 
-		String sql = "delete users_sample where user_id = ?";
+		String sql = "DELETE FROM users_sample WHERE user_id = ?";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setInt(1, user.getUserId());
@@ -74,7 +74,7 @@ System.out.println("stmt userId=" + user.getUserId());
 	public User selectRecordByUser(int userId) throws Exception {
 		User user = null;
 
-		String sql = "select username, pass, firstName, lastName from users_sample where user_id = ?";
+		String sql = "SELECT username, pass, firstName, lastName FROM users_sample WHERE user_id = ?";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setInt(1, userId);
@@ -99,7 +99,7 @@ System.out.println("stmt userId=" + user.getUserId());
 	public List<User> selectAllRecords() throws Exception {
 		List<User> usersList = new ArrayList<User>();
 
-		String sql = "select user_id, username, pass, firstName, lastName from users_sample";
+		String sql = "SELECT user_id, username, pass, firstName, lastName FROM users_sample";
 
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			
