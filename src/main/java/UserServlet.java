@@ -132,7 +132,7 @@ public class UserServlet extends HttpServlet {
             throws SQLException, IOException, Exception
 	{
 		int userId 			= Integer.parseInt(req.getParameter("userId"));
- 
+System.out.println("UserID=" + userId); 
         userDAO.deleteRecord( new User(userId) );
         res.sendRedirect("user");
     }

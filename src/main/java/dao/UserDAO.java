@@ -61,6 +61,7 @@ public class UserDAO {
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setInt(1, user.getUserId());
+System.out.println("stmt userId=" + user.getUserId()); 
 			rowDeleted = stmt.executeUpdate() > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
