@@ -57,7 +57,7 @@ public class UserDAO {
 	public boolean deleteRecord(User user) throws Exception {
 		boolean rowDeleted = false;
 
-		String sql = "delete user_sample where user_id = ?";
+		String sql = "delete users_sample where user_id = ?";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setInt(1, user.getUserId());
