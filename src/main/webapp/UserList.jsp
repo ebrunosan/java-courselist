@@ -7,10 +7,36 @@
     <title>Users Application</title>
 </head>
 <body>
-<% 
+    <center>
+
+<%
+//allow access only if session exists
+	if ( session.getAttribute("user") == null )
+	{
+		response.sendRedirect("login.html");
+	}
+	String userName = null;
+	String sessionID = null;
+	Cookie[] cookies = request.getCookies();
+	if ( cookies != null )
+	{
+		for ( Cookie cookie : cookies )
+		{
+			if ( cookie.getName().equals("user") ) 
+			{
+				userName = cookie.getValue();
+			}
+		}
+	}
+
 	List<User> listUsers = (ArrayList<User>) request.getAttribute ("listUsers");
 %>
-    <center>
+		<form action="logout" method="post">
+			<h3>Hi <%=userName %>, do the checkout.</h3>
+			<br>
+			<input type="submit" value="Logout" >
+		</form>
+
         <h1>Users Management</h1>
         <h2>
             <a href="/user?action=new">Add New User</a>

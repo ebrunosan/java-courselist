@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet
 			Cookie userName = new Cookie("user", user);
 			response.addCookie(userName);
 			
-			String encodedURL = response.encodeRedirectURL("LoginSuccess.jsp");
+			String encodedURL = response.encodeRedirectURL("user");
 			response.sendRedirect(encodedURL);
 		} else
 		{
