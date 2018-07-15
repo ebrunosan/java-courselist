@@ -73,6 +73,8 @@
             </tr>
             <tr>
                 <td colspan="2" align="center">
+                    <input type="reset" value="Reset" />
+					&nbsp;
                     <input type="submit" value="Save" />
                 </td>
             </tr>

@@ -18,6 +18,22 @@ public class UserDAO {
 		conn = DBUtil.getConnection();
 	}
 
+	private void createTable() {
+		String sql = "CREATE TABLE IF NOT EXISTS users_sample (" +
+						"user_id   SERIAL 	   PRIMARY KEY ," +
+						"username  varchar(50) NOT NULL ," +
+						"pass      varchar(50) NOT NULL ," +
+						"firstName varchar(50) NOT NULL ," +
+						"lastName  varchar(50) NOT NULL )";
+		
+		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO treat exception
+		}
+	}
+	
 	public boolean insertRecord(User user) throws Exception {
 		String sql = "INSERT INTO users_sample (username, pass, firstName, lastName) VALUES (?, ?, ?, ?)";
 		
@@ -61,7 +77,6 @@ public class UserDAO {
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setInt(1, user.getUserId());
-System.out.println("stmt userId=" + user.getUserId()); 
 			rowDeleted = stmt.executeUpdate() > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -99,7 +114,7 @@ System.out.println("stmt userId=" + user.getUserId());
 	public List<User> selectAllRecords() throws Exception {
 		List<User> usersList = new ArrayList<User>();
 
-		String sql = "SELECT user_id, username, pass, firstName, lastName FROM users_sample";
+		String sql = "SELECT user_id, username, pass, firstName, lastName FROM users_sample ORDER BY user_id";
 
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			

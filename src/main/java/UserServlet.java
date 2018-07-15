@@ -72,23 +72,12 @@ public class UserServlet extends HttpServlet {
         List<User> listUsers = userDAO.selectAllRecords();
         req.setAttribute("listUsers", listUsers);
 		
-//List<User> listUsers = new ArrayList<User>();
-//listUsers.add(new User(1, "username1","pass1", "firstName1", "lastName1"));
-//listUsers.add(new User(2, "username2","pass2", "firstName2", "lastName2"));
-//listUsers.add(new User(3, "username3","pass3", "firstName3", "lastName3"));
-//req.setAttribute("listUsers", listUsers);
-
-//req.setAttribute("bruno", "Bruno Santos");
-
-//System.out.println("bruno SET");
-
         req.getRequestDispatcher("UserList.jsp").forward(req, res);
     }
  
     private void showNewUser(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException, Exception
 	{
-//req.setAttribute("bruno", "Bruno Santos");
         req.getRequestDispatcher("UserForm.jsp").forward(req, res);
     }
  
@@ -99,7 +88,6 @@ public class UserServlet extends HttpServlet {
 		User existingUser 	= userDAO.selectRecordByUser(userId);
         req.setAttribute("user", existingUser);
         
-//req.setAttribute("bruno", "Bruno Santos");
         req.getRequestDispatcher("UserForm.jsp").forward(req, res);
     }
  
@@ -132,7 +120,7 @@ public class UserServlet extends HttpServlet {
             throws SQLException, IOException, Exception
 	{
 		int userId 			= Integer.parseInt(req.getParameter("userId"));
-System.out.println("UserID=" + userId); 
+
         userDAO.deleteRecord( new User(userId) );
         res.sendRedirect("user");
     }
