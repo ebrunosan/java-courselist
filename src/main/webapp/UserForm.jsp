@@ -1,30 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="main.java.model.User" %>
 
+<%
+	String userID = null;
+	String userName = null;
+	String sessionID = null;
+
+	if ( session.getAttribute( "userName" ) == null )
+	{
+		response.sendRedirect( "login.html" );
+	} else 
+	{
+		userName = (String) session.getAttribute( "userName" );
+	}
+	
+	Cookie[] cookies = request.getCookies();
+	if ( cookies != null )
+	{
+		for ( Cookie cookie : cookies )
+		{
+			if ( cookie.getName().equals( "user" ) ) { userID = cookie.getValue(); }
+			if ( cookie.getName().equals( "JSESSIONID" ) ) { sessionID = cookie.getValue(); }
+		}
+	} else 
+	{
+		sessionID = session.getId();
+	}
+
+	User user = (User) request.getAttribute ("user");
+%>
+
 <!doctype html>
 <html>
 <head>
     <title>Users Application</title>
 </head>
 <body>
-<% 
-	User user = (User) request.getAttribute ("user");
-%>
-
     <center>
         <h1>Users Management</h1>
         <h2>
-            <a href="/user?action=new">Add New User</a>
+            <a href="<%= response.encodeURL( "/user?action=new" ) %>" >Add New User</a>
             &nbsp;
-            <a href="/user?action=list">List All Users</a>
+            <a href="<%= response.encodeURL( "/user?action=list" ) %>" >List All Users</a>
         </h2>
     </center>
 	
     <div align="center">
         <% if (user != null) { %>
-            <form action="/user?action=update" method="post">
+            <form action="<%= response.encodeURL( "/user?action=update" ) %>" method="post">
         <% } else { %>
-            <form action="/user?action=insert" method="post">
+            <form action="<%= response.encodeURL( "/user?action=insert" ) %>" method="post">
         <% } %>
 		
         <table border="1" cellpadding="5">
@@ -38,7 +63,7 @@
                 </h2>
             </caption>
 				<% if (user != null) { %>
-                    <input type="hidden" name="userId" value="<% out.print( user.getUserId() ); %>" />
+                    <input type="hidden" name="userId" value="<%= user.getUserId() %>" />
                 <% } %>
             <tr>
                 <th>User name: </th>

@@ -38,7 +38,7 @@
 	<p>Your UserID [<%= userID %>] </p>
 
 	<!-- need to encode all the URLs where we want session information to be passed -->
-	<form action="<%=response.encodeURL("LogoutServlet") %>" method="post">
+	<form action="<%= response.encodeURL("LogoutServlet") %>" method="post">
 		<input type="submit" value="Logout" >
 	</form>
 </body>
