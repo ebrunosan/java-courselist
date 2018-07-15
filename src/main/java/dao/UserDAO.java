@@ -16,6 +16,7 @@ public class UserDAO {
 	
 	public UserDAO() {
 		conn = DBUtil.getConnection();
+		createTable();
 	}
 
 	private void createTable() {
