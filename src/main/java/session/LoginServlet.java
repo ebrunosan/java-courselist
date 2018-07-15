@@ -35,11 +35,11 @@ public class LoginServlet extends HttpServlet
 		if ( userID.equals( user ) && password.equals( pwd ) )
 		{
 			HttpSession session = req.getSession();
-			session.setAttribute( "user", user );
+			session.setAttribute( "userName", userName );
 			
 			//setting session to expiry in 10 mins
 			session.setMaxInactiveInterval( 10*60 );
-			res.addCookie( new Cookie( "userName", userName ) );
+			res.addCookie( new Cookie( "user", user ) );
 			res.sendRedirect( res.encodeRedirectURL( "user" ) );
 		} else
 		{

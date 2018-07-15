@@ -3,12 +3,12 @@
 <%
 	//allow access only if session exists
 	String user = null;
-	if ( session.getAttribute( "user" ) == null )
+	if ( session.getAttribute( "userName" ) == null )
 	{
 		response.sendRedirect( "login.html" );
 	} else 
 	{
-		user = (String) session.getAttribute( "user" );
+		userName = (String) session.getAttribute( "userName" );
 	}
 	
 	String userName = null;
@@ -16,11 +16,11 @@
 	
 	Cookie[] cookies = request.getCookies();
 	
-	if(cookies !=null)
+	if ( cookies !=null )
 	{
 		for ( Cookie cookie : cookies )
 		{
-			if( cookie.getName().equals( "userName" ) ) { userName = cookie.getValue(); }
+			if( cookie.getName().equals( "user" ) ) { user = cookie.getValue(); }
 			if( cookie.getName().equals( "JSESSIONID" ) ) { sessionID = cookie.getValue(); }
 		}
 	} else 
