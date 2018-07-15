@@ -2,25 +2,29 @@
 <%@ page import="main.java.model.User,java.util.*" %>
 
 <%
-	//allow access only if session exists
-	if ( session.getAttribute("user") == null )
-	{
-		response.sendRedirect("login.html");
-	}
-	
+	String user = null;
 	String userName = null;
 	String sessionID = null;
-	Cookie[] cookies = request.getCookies();
+
+	if ( session.getAttribute( "userName" ) == null )
+	{
+		response.sendRedirect( "login.html" );
+	} else 
+	{
+		userName = (String) session.getAttribute( "userName" );
+	}
 	
-	if ( cookies != null )
+	Cookie[] cookies = request.getCookies();
+	if ( cookies !=null )
 	{
 		for ( Cookie cookie : cookies )
 		{
-			if ( cookie.getName().equals("user") ) 
-			{
-				userName = cookie.getValue();
-			}
+			if( cookie.getName().equals( "user" ) ) { user = cookie.getValue(); }
+			if( cookie.getName().equals( "JSESSIONID" ) ) { sessionID = cookie.getValue(); }
 		}
+	} else 
+	{
+		sessionID = session.getId();
 	}
 
 	List<User> listUsers = (ArrayList<User>) request.getAttribute ("listUsers");
@@ -41,9 +45,9 @@
 
         <h1>Users Management</h1>
         <h2>
-            <a href="/user?action=new">Add New User</a>
+            <a href="<%= response.encodeURL( "/user?action=new" ) %>" >Add New User</a>
             &nbsp;
-            <a href="/user?action=list">List All Users</a>
+            <a href="<%= response.encodeURL( "/user?action=list" ) %>" >List All Users</a>
         </h2>
     </center>
 	
@@ -59,7 +63,6 @@
             </tr>
 			<% for ( User user : listUsers ) { %>
                 <tr>
-					
                     <td><%= user.getUserName() %></td>
                     <td><%= user.getPass() %></td>
                     <td><%= user.getFirstName() %></td>

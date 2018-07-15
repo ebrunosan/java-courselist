@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
 <%
-	//allow access only if session exists
 	String user = null;
 	String userName = null;
 	String sessionID = null;
