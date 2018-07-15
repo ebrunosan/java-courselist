@@ -15,15 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(
-	name = "TestServlet",
-	urlPatterns = "/test"
+	name = "TestSqlServlet",
+	urlPatterns = "/test-sql"
 )
 
 @SuppressWarnings("serial")
-public class TestServlet extends HttpServlet {
+public class TestSqlServlet extends HttpServlet {
 	private Connection conn;
 	
-	public TestServlet() {
+	public TestSqlServlet() {
 		super();
 		conn = DBUtil.getConnection();
 	}
