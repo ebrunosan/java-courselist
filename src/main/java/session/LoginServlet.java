@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet
 			
 			//setting session to expiry in 10 mins
 			session.setMaxInactiveInterval( 10*60 );
-			res.addCookie( new Cookie( "user", user ) );
+			res.addCookie( new Cookie( "user", userID ) );
 			res.sendRedirect( res.encodeRedirectURL( "user" ) );
 		} else
 		{

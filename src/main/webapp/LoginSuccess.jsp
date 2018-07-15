@@ -3,6 +3,9 @@
 <%
 	//allow access only if session exists
 	String user = null;
+	String userName = null;
+	String sessionID = null;
+
 	if ( session.getAttribute( "userName" ) == null )
 	{
 		response.sendRedirect( "login.html" );
@@ -11,11 +14,7 @@
 		userName = (String) session.getAttribute( "userName" );
 	}
 	
-	String userName = null;
-	String sessionID = null;
-	
 	Cookie[] cookies = request.getCookies();
-	
 	if ( cookies !=null )
 	{
 		for ( Cookie cookie : cookies )

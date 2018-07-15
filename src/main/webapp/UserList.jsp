@@ -65,9 +65,9 @@
                     <td><%= user.getFirstName() %></td>
                     <td><%= user.getLastName() %></td>
                     <td>
-                        <a href = "<%response.encodeURL( "/user?action=edit&userId=" + user.getUserId() )%>" >Edit</a>
+                        <a href = "<%= response.encodeURL( "/user?action=edit&userId=" + user.getUserId() ) %>" >Edit</a>
                         &nbsp;
-                        <a href = "<%response.encodeURL( "/user?action=delete&userId=" + user.getUserId() )%>" >Delete</a>                     
+                        <a href = "<%= response.encodeURL( "/user?action=delete&userId=" + user.getUserId() ) %>" >Delete</a>                     
                     </td>
                 </tr>
             <% } %>
