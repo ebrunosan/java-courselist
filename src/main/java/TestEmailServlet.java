@@ -35,9 +35,12 @@ public class TestEmailServlet extends HttpServlet {
 			request.setMethod(Method.POST);
 			request.setEndpoint("mail/send");
 			
+			// TODO get email address from DB
+			String emailToAddr = "ebrunosan@gmail.com";
+			
 			Email from = new Email("app101305838@heroku.com");
 			String subject = "Hello World from the SendGrid Java Library!";
-			Email to = new Email("ebrunosan@gmail.com");
+			Email to = new Email(emailToAddr);
 			Content content = new Content("text/plain", "Hello, Email!");
 			Mail mail = new Mail(from, subject, to, content);
 			
@@ -45,16 +48,14 @@ public class TestEmailServlet extends HttpServlet {
 			
 			Response response = sg.api(request);
 			
-			System.out.println("+++ EMAIL SENT !!! +++");
-			
 			PrintWriter out = res.getWriter();
 			out.print("<html>");
-			out.write("<p> Email sent sucessfully!!!</p>");
-			out.write("<p>" + response.getStatusCode() + "</p>");
-			out.write("<p>" + response.getBody() + "</p>");
-			out.write("<p>" + response.getHeaders() + "</p>");
+			out.write("<p>E-mail sent to [" + emailToAddr + "]. Status code returned [" + response.getStatusCode() + "]");
+			
+			System.out.println("[SUCCESS] E-mail sent to [" + emailToAddr + "]. Status code returned [" + response.getStatusCode() + "]");
 		} catch (IOException ex) {
-		  throw ex;
+			System.out.println(ex.getMessage());
+			throw ex;
 		}
  	}
 }
