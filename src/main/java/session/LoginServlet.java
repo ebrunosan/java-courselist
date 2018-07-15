@@ -20,35 +20,33 @@ import javax.servlet.http.HttpSession;
 @SuppressWarnings("serial")
 public class LoginServlet extends HttpServlet 
 {
+	// TODO SELECT userName WHERE userID=? and password=? FROM DB
 	private final String userID = "admin";
 	private final String password = "admin";
+	private final String userName = "Administrator Name";
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
 	{
-		// get request parameters for userID and password
-		String user = request.getParameter("user");
-		String pwd = request.getParameter("pwd");
+		// get req parameters for userID and password
+		String user = req.getParameter( "user" );
+		String pwd = req.getParameter( "pwd" );
 		
-		if(userID.equals(user) && password.equals(pwd))
+		// TODO if user NOT_FOUND at query
+		if ( userID.equals( user ) && password.equals( pwd ) )
 		{
-			HttpSession session = request.getSession();
-			session.setAttribute("user", "Pankaj");
+			HttpSession session = req.getSession();
+			session.setAttribute( "user", user );
 			
-			//setting session to expiry in 30 mins
-			session.setMaxInactiveInterval(30*60);
-			Cookie userName = new Cookie("user", user);
-			response.addCookie(userName);
-			
-			String encodedURL = response.encodeRedirectURL("user");
-			response.sendRedirect(encodedURL);
+			//setting session to expiry in 10 mins
+			session.setMaxInactiveInterval( 10*60 );
+			res.addCookie( new Cookie( "userName", userName ) );
+			res.sendRedirect( res.encodeRedirectURL( "user" ) );
 		} else
 		{
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
-			PrintWriter out= response.getWriter();
-			out.println("<font color=red>Either user name or password is wrong.</font>");
-			rd.include(request, response);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher( "/login.html" );
+			PrintWriter out = res.getWriter();
+			out.println( "<font color=red>Either user name or password is wrong.</font>" );
+			rd.include( req, res );
 		}
-
 	}
-
 }

@@ -18,34 +18,31 @@ import javax.servlet.http.HttpSession;
 @SuppressWarnings("serial")
 public class LogoutServlet extends HttpServlet 
 {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
 	{
-    	response.setContentType("text/html");
-    	Cookie[] cookies = request.getCookies();
+    	res.setContentType( "text/html" );
+    	Cookie[] cookies = req.getCookies();
 
-    	if(cookies != null) 
+    	if ( cookies != null )
 		{
-			for(Cookie cookie : cookies)
+			for ( Cookie cookie : cookies )
 			{
-				if(cookie.getName().equals("JSESSIONID"))
+				if ( cookie.getName().equals( "JSESSIONID" ) )
 				{
-					System.out.println("JSESSIONID="+cookie.getValue());
+					System.out.println( "JSESSIONID="+cookie.getValue() );
 				}
-				cookie.setMaxAge(0);
-				response.addCookie(cookie);
+				cookie.setMaxAge( 0 );
+				res.addCookie( cookie );
 			}
     	}
 
-    	//invalidate the session if exists
-    	HttpSession session = request.getSession(false);
-    	System.out.println("User="+session.getAttribute("user"));
+    	// invalidate the session if exists
+    	HttpSession session = req.getSession( false );
+    	System.out.println( "User="+session.getAttribute( "user" ) );
 
-    	if(session != null)
-		{
-    		session.invalidate();
-    	}
+    	if ( session != null ) { session.invalidate(); }
 
-    	//no encoding because we have invalidated the session
-    	response.sendRedirect("login.html");
+    	// no need to encoding because the session is invalid
+    	res.sendRedirect( "login.html" );
     }
 }

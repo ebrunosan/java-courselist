@@ -2,7 +2,7 @@
 <%@ page import="main.java.model.User,java.util.*" %>
 
 <%
-//allow access only if session exists
+	//allow access only if session exists
 	if ( session.getAttribute("user") == null )
 	{
 		response.sendRedirect("login.html");
@@ -61,13 +61,13 @@
                 <tr>
 					
                     <td><%= user.getUserName() %></td>
-                    <td><%out.print(user.getPass()); %></td>
-                    <td><%out.print(user.getFirstName()); %></td>
-                    <td><%out.print(user.getLastName()); %></td>
+                    <td><%= user.getPass() %></td>
+                    <td><%= user.getFirstName() %></td>
+                    <td><%= user.getLastName() %></td>
                     <td>
-                        <a href="/user?action=edit&userId=<%out.print(user.getUserId()); %>" >Edit</a>
+                        <a href = "<%response.encodeURL( "/user?action=edit&userId=" + user.getUserId() )%>" >Edit</a>
                         &nbsp;
-                        <a href="/user?action=delete&userId=<%out.print(user.getUserId()); %>" >Delete</a>                     
+                        <a href = "<%response.encodeURL( "/user?action=delete&userId=" + user.getUserId() )%>" >Delete</a>                     
                     </td>
                 </tr>
             <% } %>
