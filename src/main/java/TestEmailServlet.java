@@ -42,7 +42,6 @@ public class TestEmailServlet extends HttpServlet {
 			Mail mail = new Mail(from, subject, to, content);
 			
 			request.setBody(mail.build());
-			//request.setBody("{\"personalizations\":[{\"to\":[{\"email\":\"ebrunosan@gmail.com\"}],\"subject\":\"Sending with SendGrid is Fun\"}],\"from\":{\"email\":\"app101305838@heroku.com\"},\"content\":[{\"type\":\"text/plain\",\"value\": \"and easy to do anywhere, even with Java\"}]}");
 			
 			Response response = sg.api(request);
 			
@@ -52,40 +51,10 @@ public class TestEmailServlet extends HttpServlet {
 			out.print("<html>");
 			out.write("<p> Email sent sucessfully!!!</p>");
 			out.write("<p>" + response.getStatusCode() + "</p>");
-			//out.write("<p>" + response.statusCode + "</p>");
-			//out.write("<p>" + response.body + "</p>");
-			//out.write("<p>" + response.headers + "</p>");
+			out.write("<p>" + response.getBody() + "</p>");
+			out.write("<p>" + response.getHeaders() + "</p>");
 		} catch (IOException ex) {
 		  throw ex;
 		}
  	}
-
-/*
-	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		Email from = new Email("app101305838@heroku.com");
-		String subject = "Hello World from the SendGrid Java Library!";
-		Email to = new Email("ebrunosan@gmail.com");
-		Content content = new Content("text/plain", "Hello, Email!");
-		Mail mail = new Mail(from, subject, to, content);
-
-		SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
-		Request request = new Request();
-		try {
-			request.method = Method.POST;
-			request.endpoint = "mail/send";
-			request.body = mail.build();
-			Response response = sg.api(request);
-
-			PrintWriter out = res.getWriter();
-			out.print("<html>");
-			out.write("<p> Test email executed ...</p>");
-//			out.write("<p>" + response.statusCode + "</p>");
-//			out.write("<p>" + response.body + "</p>");
-//			out.write("<p>" + response.headers + "</p>");
-		} catch (Exception ex) {
-		  throw ex;
-		}
- 	}
-*/
 }
