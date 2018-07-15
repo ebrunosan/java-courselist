@@ -2,7 +2,7 @@
 <%@ page import="main.java.model.User,java.util.*" %>
 
 <%
-	String user = null;
+	String userID = null;
 	String userName = null;
 	String sessionID = null;
 
@@ -15,12 +15,12 @@
 	}
 	
 	Cookie[] cookies = request.getCookies();
-	if ( cookies !=null )
+	if ( cookies != null )
 	{
 		for ( Cookie cookie : cookies )
 		{
-			if( cookie.getName().equals( "user" ) ) { user = cookie.getValue(); }
-			if( cookie.getName().equals( "JSESSIONID" ) ) { sessionID = cookie.getValue(); }
+			if ( cookie.getName().equals( "user" ) ) { userID = cookie.getValue(); }
+			if ( cookie.getName().equals( "JSESSIONID" ) ) { sessionID = cookie.getValue(); }
 		}
 	} else 
 	{

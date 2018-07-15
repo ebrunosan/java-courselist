@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
 <%
-	String user = null;
+	String userID = null;
 	String userName = null;
 	String sessionID = null;
 
@@ -14,12 +14,12 @@
 	}
 	
 	Cookie[] cookies = request.getCookies();
-	if ( cookies !=null )
+	if ( cookies != null )
 	{
 		for ( Cookie cookie : cookies )
 		{
-			if( cookie.getName().equals( "user" ) ) { user = cookie.getValue(); }
-			if( cookie.getName().equals( "JSESSIONID" ) ) { sessionID = cookie.getValue(); }
+			if ( cookie.getName().equals( "user" ) ) { userID = cookie.getValue(); }
+			if ( cookie.getName().equals( "JSESSIONID" ) ) { sessionID = cookie.getValue(); }
 		}
 	} else 
 	{
@@ -33,10 +33,9 @@
 	<title>Login Success Page</title>
 </head>
 <body>
-	<h3>Hi <%=userName %>, Login successful. Your Session ID=<%=sessionID %></h3>
-	<br>
-	User=<%=user %>
-	<br>
+	<h3>Hi <%=userName %>, Login successful.</h3> 
+	<p>Your Session ID [<%= sessionID %>] </p>
+	<p>Your UserID [<%= userID %>] </p>
 
 	<!-- need to encode all the URLs where we want session information to be passed -->
 	<form action="<%=response.encodeURL("LogoutServlet") %>" method="post">
