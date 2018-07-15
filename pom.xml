@@ -39,12 +39,6 @@
 		<version>4.2.1</version>
 	</dependency>
 	
-	<dependency>
-		<groupId>com.sendgrid</groupId>
-		<artifactId>java-http-client</artifactId>
-		<version>4.2.0</version>
-	</dependency>
-
   </dependencies>
   
   <build>
