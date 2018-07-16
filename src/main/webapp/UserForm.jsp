@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="main.java.model.User" %>
 
 <%
@@ -51,15 +51,6 @@
         </h2>
     </center>
 
-	<center>
-        <h1>Users Management</h1>
-        <h2>
-            <a href="<%= response.encodeURL( "/user?action=new" ) %>" >Add New User</a>
-            &nbsp;
-            <a href="<%= response.encodeURL( "/user?action=list" ) %>" >List All Users</a>
-        </h2>
-    </center>
-	
     <div align="center">
         <% if (user != null) { %>
             <form action="<%= response.encodeURL( "/user?action=update" ) %>" method="post">

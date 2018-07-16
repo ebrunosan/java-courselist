@@ -18,6 +18,11 @@ import javax.servlet.http.HttpSession;
 @SuppressWarnings("serial")
 public class LogoutServlet extends HttpServlet 
 {
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
+	{
+		doPost(req, res);
+	}
+	
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
 	{
     	res.setContentType( "text/html" );

@@ -25,6 +25,20 @@ public class LoginServlet extends HttpServlet
 	private final String password = "admin";
 	private final String userName = "Administrator Name";
 
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
+	{
+		//TODO if user logged in THEN redirect to menu ELSE redirect to login.html
+		
+		// invalidate the session if exists
+    	HttpSession session = req.getSession( false );
+    	System.out.println( "User="+session.getAttribute( "user" ) );
+
+    	if ( session != null ) { session.invalidate(); }
+
+    	// no need to encoding because the session is invalid
+    	res.sendRedirect( "login.html" );
+	}
+	
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
 	{
 		// get req parameters for userID and password
