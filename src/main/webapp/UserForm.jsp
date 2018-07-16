@@ -19,7 +19,7 @@
 	{
 		for ( Cookie cookie : cookies )
 		{
-			if ( cookie.getName().equals( "user" ) ) { userID = cookie.getValue(); }
+			if ( cookie.getName().equals( "userID" ) ) { userID = cookie.getValue(); }
 			if ( cookie.getName().equals( "JSESSIONID" ) ) { sessionID = cookie.getValue(); }
 		}
 	} else 
@@ -37,6 +37,21 @@
 </head>
 <body>
     <center>
+		<form action="logout" method="post">
+			<h3>Hi <%= userName %>, welcome to our Java Lambton Project.</h3>
+			<br>
+			<input type="submit" value="Logout" >
+		</form>
+
+        <h1>Users Management</h1>
+        <h2>
+            <a href="<%= response.encodeURL( "/user?action=new" ) %>" >Add New User</a>
+            &nbsp;
+            <a href="<%= response.encodeURL( "/user?action=list" ) %>" >List All Users</a>
+        </h2>
+    </center>
+
+	<center>
         <h1>Users Management</h1>
         <h2>
             <a href="<%= response.encodeURL( "/user?action=new" ) %>" >Add New User</a>

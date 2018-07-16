@@ -19,7 +19,7 @@
 	{
 		for ( Cookie cookie : cookies )
 		{
-			if ( cookie.getName().equals( "user" ) ) { userID = cookie.getValue(); }
+			if ( cookie.getName().equals( "userID" ) ) { userID = cookie.getValue(); }
 			if ( cookie.getName().equals( "JSESSIONID" ) ) { sessionID = cookie.getValue(); }
 		}
 	} else 

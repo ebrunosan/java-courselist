@@ -21,14 +21,14 @@ import javax.servlet.http.HttpSession;
 public class LoginServlet extends HttpServlet 
 {
 	// TODO SELECT userName WHERE userID=? and password=? FROM DB
-	private final String userID = "admin";
+	private final String userID = "admin@admin.com";
 	private final String password = "admin";
 	private final String userName = "Administrator Name";
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
 	{
 		// get req parameters for userID and password
-		String user = req.getParameter( "user" );
+		String user = req.getParameter( "userID" );
 		String pwd = req.getParameter( "pwd" );
 		
 		// TODO if user NOT_FOUND at query
@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet
 			
 			//setting session to expiry in 10 mins
 			session.setMaxInactiveInterval( 10*60 );
-			res.addCookie( new Cookie( "user", userID ) );
+			res.addCookie( new Cookie( "userID", userID ) );
 			res.sendRedirect( res.encodeRedirectURL( "user" ) );
 		} else
 		{
