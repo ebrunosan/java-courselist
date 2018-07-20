@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 public class LoginServlet extends HttpServlet 
 {
 	// TODO SELECT userName WHERE userID=? and password=? FROM DB
-	private final String userID = "admin@admin.com";
+	private final String user = "admin@admin.com";
 	private final String password = "admin";
 	private final String userName = "Administrator Name";
 
@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet
 		
 		// invalidate the session if exists
     	HttpSession session = req.getSession( false );
-    	System.out.println( "User="+session.getAttribute( "user" ) );
+    	System.out.println( "UserName="+session.getAttribute( "userName" ) );
 
     	if ( session != null ) { session.invalidate(); }
 
@@ -42,11 +42,11 @@ public class LoginServlet extends HttpServlet
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
 	{
 		// get req parameters for userID and password
-		String user = req.getParameter( "userID" );
+		String userID = req.getParameter( "userID" );
 		String pwd = req.getParameter( "pwd" );
 		
 		// TODO if user NOT_FOUND at query
-		if ( userID.equals( user ) && password.equals( pwd ) )
+		if ( user.equals( userID ) && password.equals( pwd ) )
 		{
 			HttpSession session = req.getSession();
 			session.setAttribute( "userName", userName );

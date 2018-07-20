@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="main.java.model.User" %>
+<%@ page import="main.java.model.User,java.util.*" %>
 
 <%
 	String userID = null;
