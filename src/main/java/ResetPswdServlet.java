@@ -34,7 +34,7 @@ public class ResetPswdServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
 	{
-		doPost( req, res );
+		req.getRequestDispatcher( "/resetpswd.jsp" ).forward(req, res);
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class ResetPswdServlet extends HttpServlet {
 		String token = req.getParameter( "token" );
 		String newPswd = req.getParameter( "user-pwd" );
 		String confPswd = req.getParameter( "conf-pwd" );
-		if ( !newPswd.equals(confPswd) )
+		if ( !newPswd.equals( confPswd ) )
 		{
 			req.setAttribute( "message", "Both password MUST be equal. Try it again, please!" );
 			req.getRequestDispatcher( "/resetpswd.jsp" ).forward( req, res );
