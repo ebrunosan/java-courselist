@@ -67,7 +67,7 @@ public class ResetPswdServlet extends HttpServlet {
 			}
 			else
 			{
-				userDAO.setNewPassword(newPswd);
+				//userDAO.setNewPassword( newPswd );
 				
 				req.setAttribute( "message", "Password changed successfully!" );
 				req.getRequestDispatcher( "/auth/login.jsp" ).forward( req, res );
