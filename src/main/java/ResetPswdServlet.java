@@ -32,6 +32,12 @@ public class ResetPswdServlet extends HttpServlet {
 	}
 	
 	@Override
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
+	{
+		doPost( req, res );
+	}
+	
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
 	{
 		ServletContext context = getServletContext();
