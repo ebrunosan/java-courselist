@@ -29,19 +29,25 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/auth/welcome.jsp">:: WebSiteName ::</a>
+				<% if ( isLogged ) { %>
+					<a class="navbar-brand" href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>">:: WebSiteName ::</a>
+				<% } else {%>
+					<a class="navbar-brand" href="/auth/welcome.jsp">:: WebSiteName ::</a>
+				<% } %>
 			</div>
 
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="/auth/welcome.jsp">Home</a></li>
 				<% if ( isLogged ) { %>
-					<li><a href="/auth/user-list.jsp">User</a></li>
+					<li class="active"><a href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>" >Home</a></li>
+					<li><a href="<%= response.encodeURL( "user" ) %>">User</a></li>
+				<% } else {%>
+					<li class="active"><a href="/welcome.jsp" >Home</a></li>
 				<% } %>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
 				<% if ( isLogged ) { %>
-					<li><a href="<%= response.encodeURL( "/auth/user?action=edit&userId="+userId ) %>">
+					<li><a href="<%= response.encodeURL( "/auth/user?action=edit&userId=" + userId ) %>">
 						<span class="glyphicon glyphicon-cog"></span> Hi <%= userName %></a>
 					</li>
 					<li><a href="<%= response.encodeURL( "logout" ) %>">
