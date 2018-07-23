@@ -2,7 +2,7 @@
 <%@ page import="main.java.model.User,java.util.*" %>
 
 <%
-	List<User> listUsers = (ArrayList<User>) request.getAttribute ("listUsers");
+	List<User> listUsers = ( ArrayList<User> ) request.getAttribute ( "listUsers" );
 %>
 
 <jsp:include page="_top-page.jsp" />
@@ -10,9 +10,9 @@
 <div class="container">
 	<h1>Users Management</h1>
 	<h2>
-		<a href="<%= response.encodeURL( "/user?action=new" ) %>" >Add New User</a>
+		<a href="<%= response.encodeURL( "/auth/user?action=new" ) %>" >Add New User</a>
 		&nbsp;
-		<a href="<%= response.encodeURL( "/user?action=list" ) %>" >List All Users</a>
+		<a href="<%= response.encodeURL( "/auth/user?action=list" ) %>" >List All Users</a>
 	</h2>
 
 	<table border="1" cellpadding="5">
@@ -31,9 +31,9 @@
 				<td><%= user.getFirstName() %></td>
 				<td><%= user.getLastName() %></td>
 				<td>
-					<a href = "<%= response.encodeURL( "/user?action=edit&userId=" + user.getUserId() ) %>" >Edit</a>
+					<a href = "<%= response.encodeURL( "/auth/user?action=edit&userId=" + user.getUserId() ) %>" >Edit</a>
 					&nbsp;
-					<a href = "<%= response.encodeURL( "/user?action=delete&userId=" + user.getUserId() ) %>" >Delete</a>                     
+					<a href = "<%= response.encodeURL( "/auth/user?action=delete&userId=" + user.getUserId() ) %>" >Delete</a>                     
 				</td>
 			</tr>
 		<% } %>

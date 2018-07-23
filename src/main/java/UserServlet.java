@@ -70,13 +70,13 @@ public class UserServlet extends HttpServlet {
 	{
         List<User> listUsers = userDAO.selectAllRecords();
         req.setAttribute( "listUsers", listUsers );
-        req.getRequestDispatcher( "auth/UserList.jsp" ).forward(req, res);
+        req.getRequestDispatcher( "auth/user-list.jsp" ).forward(req, res);
     }
  
     private void showNewUser(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException, Exception
 	{
-        req.getRequestDispatcher( "auth/UserForm.jsp" ).forward(req, res);
+        req.getRequestDispatcher( "auth/user-form.jsp" ).forward(req, res);
     }
  
     private void showEditUser(HttpServletRequest req, HttpServletResponse res)
@@ -86,7 +86,7 @@ public class UserServlet extends HttpServlet {
 		User existingUser 	= userDAO.selectRecordByUser( userId );
         req.setAttribute( "user", existingUser );
         
-        req.getRequestDispatcher( "auth/UserForm.jsp" ).forward(req, res);
+        req.getRequestDispatcher( "auth/user-form.jsp" ).forward(req, res);
     }
  
     private void insertUser(HttpServletRequest req, HttpServletResponse res)
