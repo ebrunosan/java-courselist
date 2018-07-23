@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings( "serial" )
 public class UserServlet extends HttpServlet {
-	private UserDAO userDAO = null;
+	private UserDAO userDAO;
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -31,7 +32,11 @@ public class UserServlet extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		if ( userDAO == null ) { userDAO = new UserDAO(); }
+		ServletContext context = getServletContext();
+		context.log( ">>> [UserServlet | BEGIN]" );
+
+		//if ( userDAO == null ) { userDAO = new UserDAO(); }
+		userDAO = new UserDAO();
 		
 		String action = req.getParameter( "action" );
 		if (action == null) { action = "list"; }	// default action
@@ -61,8 +66,10 @@ public class UserServlet extends HttpServlet {
                 break;
             }
         } catch (Exception ex) {
+			context.log( "<<< [UserServlet | END] Exception!");
             throw new ServletException(ex);
         }
+		context.log( "<<< [UserServlet | END] Successfully action=" + action );
     }
  
     private void listUser(HttpServletRequest req, HttpServletResponse res)
