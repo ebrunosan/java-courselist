@@ -85,7 +85,7 @@ public class ForgotPswdServlet extends HttpServlet {
 			Email to 		= new Email( emailToAddr );
 			String subject 	= "Password reset request";
 			Content content = new Content( "text/plain", 
-				"To reset your password, click the link below:<br/><a href='" \
+				"To reset your password, click the link below:<br/><a href='"
 				+ resetTokenUrl + "'>Here</a><br/>OR copy/paste this link:" + resetTokenUrl );
 
 			Mail mail = new Mail( from, subject, to, content );

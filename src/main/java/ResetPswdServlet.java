@@ -51,7 +51,7 @@ public class ResetPswdServlet extends HttpServlet {
 		else 
 		{
 			//User user = userDAO.selectUserByToken( token );
-			User user = new User( "userName", "pass", "firstName", "lastName", emailTo );
+			User user = new User( "userName", "pass", "firstName", "lastName", "emailTo" );
 			
 			if ( user == null )
 			{

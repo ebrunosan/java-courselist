@@ -3,6 +3,8 @@ package main.java.dao;
 import main.java.DBUtil;
 import main.java.model.User;
 
+import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -141,11 +143,11 @@ public class UserDAO {
 		return usersList;
 	}
 	
-	public String getNewResetToken() throws Exception {
+	public String getNewResetToken() throws IOException {
 		return UUID.randomUUID().toString();				// TODO
 	}
 	
-	public boolean setNewPassword(String password) throws Exception {
+	public boolean setNewPassword(String password) throws IOException {
 		return true;				// TODO
 	}
 }
