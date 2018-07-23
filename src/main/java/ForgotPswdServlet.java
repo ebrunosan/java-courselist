@@ -32,7 +32,7 @@ public class ForgotPswdServlet extends HttpServlet {
 	}
 	
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
 	{
 		ServletContext context = getServletContext();
 		context.log( ">>> [ForgotPswdServlet | BEGIN]" );
@@ -83,7 +83,7 @@ public class ForgotPswdServlet extends HttpServlet {
 			request.setMethod( Method.POST );
 			request.setEndpoint( "mail/send" );
 			
-			Email from 		= new Email( "do-not-reply@heroku.com" );
+			Email from 		= new Email( "do-not-reply@java-prj-team-summer2018.ca" );
 			Email to 		= new Email( emailToAddr );
 			String subject 	= "Password reset request";
 			Content content = new Content( "text/plain", 
