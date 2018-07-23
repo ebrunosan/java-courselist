@@ -70,10 +70,8 @@ public class ForgotPswdServlet extends HttpServlet {
 			}
 		}
  	}
-
 	
-	
-    private boolean sendResetEmail( String emailToAddr, String resetTokenUrl ) throws IOException 
+    private boolean sendResetEmail( String emailToAddr, String resetTokenUrl ) 
 	{
 		try 
 		{
@@ -82,13 +80,14 @@ public class ForgotPswdServlet extends HttpServlet {
 			Request request = new Request();
 			request.setMethod( Method.POST );
 			request.setEndpoint( "mail/send" );
-			
+
 			Email from 		= new Email( "do-not-reply@java-prj-team-summer2018.ca" );
 			Email to 		= new Email( emailToAddr );
 			String subject 	= "Password reset request";
 			Content content = new Content( "text/plain", 
-					"To reset your password, click the link below:\n"+resetTokenUrl );
-			
+				"To reset your password, click the link below:<br/><a href='" \
+				+ resetTokenUrl + "'>Here</a><br/>OR copy/paste this link:" + resetTokenUrl );
+
 			Mail mail = new Mail( from, subject, to, content );
 			
 			request.setBody( mail.build() );
@@ -105,6 +104,4 @@ public class ForgotPswdServlet extends HttpServlet {
 		
 		return true;
     }
- 
-
 }

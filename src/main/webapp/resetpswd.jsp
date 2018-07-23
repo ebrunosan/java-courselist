@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <% 
-	String message = (String) request.getAttribute( "message" ); 
+	String message = (String) request.getAttribute( "message" );
+	String token = (String) request.getParameter( "token" );
 %>
 
 <jsp:include page="/auth/_top-page.jsp" />
@@ -12,6 +13,8 @@
             <form class="form-horizontal" data-toggle="validator" 
 			role="form" action="/reset" method="post">
 			
+				<input type="hidden" name="token" value="<%= token%>" />
+				
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-8">
 						<% if ( message != null && !message.isEmpty() ) { %>

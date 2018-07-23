@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,5 +139,13 @@ public class UserDAO {
 		}
 		
 		return usersList;
+	}
+	
+	public String getNewResetToken() throws Exception {
+		return UUID.randomUUID().toString();				// TODO
+	}
+	
+	public boolean setNewPassword(String password) throws Exception {
+		return true;				// TODO
 	}
 }
