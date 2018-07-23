@@ -16,19 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(
-	name = "UserServlet",
-	urlPatterns = "/user"
-)
+@WebServlet( "/auth/user" )
 
-@SuppressWarnings("serial")
+@SuppressWarnings( "serial" )
 public class UserServlet extends HttpServlet {
-	private UserDAO userDAO;
-	
-	@Override
-	public void init() {
-		userDAO = new UserDAO();
-	}
+	private UserDAO userDAO = null;
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -37,7 +29,9 @@ public class UserServlet extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String action = req.getParameter("action");
+		if ( userDAO == null ) { userDAO = new UserDAO(); }
+		
+		String action = req.getParameter( "action" );
 		if (action == null) { action = "list"; }	// default action
 
 		try {
@@ -46,16 +40,19 @@ public class UserServlet extends HttpServlet {
                 showNewUser(req, res);
                 break;
             case "insert":
-                insertUser(req, res);
+                insertUser(req, res);		// TODO check successful operation
+				listUser(req, res);
                 break;
             case "delete":
-                deleteUser(req, res);
+                deleteUser(req, res);		// TODO check successful operation
+				listUser(req, res);
+                break;
+            case "update":
+                updateUser(req, res);		// TODO check successful operation
+				listUser(req, res);
                 break;
             case "edit":
                 showEditUser(req, res);
-                break;
-            case "update":
-                updateUser(req, res);
                 break;
             default:
                 listUser(req, res);
@@ -70,58 +67,57 @@ public class UserServlet extends HttpServlet {
             throws SQLException, IOException, ServletException, Exception 
 	{
         List<User> listUsers = userDAO.selectAllRecords();
-        req.setAttribute("listUsers", listUsers);
-		
-        req.getRequestDispatcher("UserList.jsp").forward(req, res);
+        req.setAttribute( "listUsers", listUsers );
+        req.getRequestDispatcher( "auth/UserList.jsp" ).forward(req, res);
     }
  
     private void showNewUser(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException, Exception
 	{
-        req.getRequestDispatcher("UserForm.jsp").forward(req, res);
+        req.getRequestDispatcher( "auth/UserForm.jsp" ).forward(req, res);
     }
  
     private void showEditUser(HttpServletRequest req, HttpServletResponse res)
             throws SQLException, ServletException, IOException, Exception
 	{
-		int userId 			= Integer.parseInt(req.getParameter("userId"));
-		User existingUser 	= userDAO.selectRecordByUser(userId);
-        req.setAttribute("user", existingUser);
+		int userId 			= Integer.parseInt( req.getParameter( "userId" ) );
+		User existingUser 	= userDAO.selectRecordByUser( userId );
+        req.setAttribute( "user", existingUser );
         
-        req.getRequestDispatcher("UserForm.jsp").forward(req, res);
+        req.getRequestDispatcher( "auth/UserForm.jsp" ).forward(req, res);
     }
  
     private void insertUser(HttpServletRequest req, HttpServletResponse res)
             throws SQLException, IOException, Exception
 	{
-        String username 	= req.getParameter("userName");
-        String pass 		= req.getParameter("pass");
-        String firstName 	= req.getParameter("firstName");
-        String lastName 	= req.getParameter("lastName");
+        String username 	= req.getParameter( "userName" );
+        String pass 		= req.getParameter( "pass" );
+        String firstName 	= req.getParameter( "firstName" );
+        String lastName 	= req.getParameter( "lastName" );
  
-        userDAO.insertRecord( new User(username, pass, firstName, lastName) );
-        res.sendRedirect("user");
+        userDAO.insertRecord( new User( username, pass, firstName, lastName, "TODO@email" ) );
+//        res.sendRedirect( "user" );
     }
  
     private void updateUser(HttpServletRequest req, HttpServletResponse res)
             throws SQLException, IOException, Exception 
 	{
-		int userId 			= Integer.parseInt(req.getParameter("userId"));
-		String username 	= req.getParameter("userName");
-        String pass 		= req.getParameter("pass");
-        String firstName 	= req.getParameter("firstName");
-        String lastName 	= req.getParameter("lastName");
+		int userId 			= Integer.parseInt( req.getParameter( "userId" ) );
+		String username 	= req.getParameter( "userName" );
+        String pass 		= req.getParameter( "pass" );
+        String firstName 	= req.getParameter( "firstName" );
+        String lastName 	= req.getParameter( "lastName" );
  
-        userDAO.updateRecord( new User(userId, username, pass, firstName, lastName) );
-        res.sendRedirect("user");
+        userDAO.updateRecord( new User( userId, username, pass, firstName, lastName, "TODO@email" ) );
+//        res.sendRedirect( "user" );
     }
  
     private void deleteUser(HttpServletRequest req, HttpServletResponse res)
             throws SQLException, IOException, Exception
 	{
-		int userId 			= Integer.parseInt(req.getParameter("userId"));
+		int userId 			= Integer.parseInt( req.getParameter( "userId" ) );
 
-        userDAO.deleteRecord( new User(userId) );
-        res.sendRedirect("user");
+        userDAO.deleteRecord( new User( userId ) );
+//        res.sendRedirect( "user" );
     }
 }

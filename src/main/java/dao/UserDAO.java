@@ -101,7 +101,8 @@ public class UserDAO {
 						rs.getString("username"), 
 						rs.getString("pass"), 
 						rs.getString("firstName"), 
-						rs.getString("lastName"));
+						rs.getString("lastName"),
+						"TODO@email");
 				}
 			}
 		} catch (Exception e) {
@@ -126,7 +127,8 @@ public class UserDAO {
 						rs.getString("username"), 
 						rs.getString("pass"), 
 						rs.getString("firstName"), 
-						rs.getString("lastName"));
+						rs.getString("lastName"),
+						"TODO@email");
 					usersList.add(user);
 				}
 			}

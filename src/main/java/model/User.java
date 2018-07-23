@@ -6,24 +6,27 @@ public class User {
 	protected String pass;
 	protected String firstName;
 	protected String lastName;
+	protected String email;
 
-	public User(int userId) {
+	public User( int userId ) {
 		this.userId = userId;
 	}
 	
-	public User(int userId, String userName, String pass, String firstName, String lastName) {
+	public User( int userId, String userName, String pass, String firstName, String lastName, String email ) {
 		this.userId = userId;
 		this.userName = userName;
 		this.pass = pass;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
 	}
 	
-	public User(String userName, String pass, String firstName, String lastName) {
+	public User( String userName, String pass, String firstName, String lastName, String email) {
 		this.userName = userName;
 		this.pass = pass;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
 	}
 	
 	public int getUserId() {
@@ -64,5 +67,13 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return lastName;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
