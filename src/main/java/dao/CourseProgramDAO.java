@@ -24,7 +24,7 @@ public class CourseProgramDAO {
 						"course_code   SERIAL 	   PRIMARY KEY ," +
 						"course_name   varchar(50)     NOT NULL ," +
 						"duration      varchar(6) 	   NOT NULL ," +
-						"description   varchar(50)     NULL ,";
+						"description   varchar(50)     NULL)";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.executeUpdate();

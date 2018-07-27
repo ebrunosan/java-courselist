@@ -35,7 +35,7 @@
 			<th>Student name: </th>
 			<td>
 				<input type="text" name="name" size="50"
-					<% if (student != null) { out.print( "value='" + user.getName() +"'" ); } %>
+					<% if (student != null) { out.print( "value='" + student.getName() +"'" ); } %>
 				/>
 			</td>
         </tr>
@@ -44,7 +44,7 @@
 			<th>Age: </th>
 			<td>
 				<input type="text" name="age" size="50"
-					<% if (student != null) { out.print( "value='" + user.getAge() +"'" ); } %>
+					<% if (student != null) { out.print( "value='" + student.getAge() +"'" ); } %>
 				/>
 			</td>
         </tr>
@@ -53,7 +53,7 @@
 			<th>Gender: </th>
 			<td>
 				<input type="text" name="gender" size="50"
-					<% if (student != null) { out.print( "value='" + user.getGender() +"'" ); } %>
+					<% if (student != null) { out.print( "value='" + student.getGender() +"'" ); } %>
 				/>
 			</td>
         </tr>
@@ -62,7 +62,7 @@
 			<th>Country: </th>
 			<td>
 				<input type="text" name="country" size="50"
-					<% if (student != null) { out.print( "value='" + user.getCountry() +"'" ); } %>
+					<% if (student != null) { out.print( "value='" + student.getCountry() +"'" ); } %>
 				/>
 			</td>
 		</tr>
