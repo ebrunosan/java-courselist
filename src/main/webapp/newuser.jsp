@@ -8,10 +8,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-offset-2 col-sm-8">
-			<h3>Login</h3>
+			<h3>Register new user</h3>
             <form class="form-horizontal" data-toggle="validator" 
-			role="form" action="/auth/login" method="post">
-			
+			role="form" action="/user" method="post">
+
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-8">
 						<% if ( message != null && !message.isEmpty() ) { %>
@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="user-email" class="col-sm-4 control-label">User email</label>
+                    <label for="user-email" class="col-sm-4 control-label">Your email</label>
                     <div class="col-sm-8">
 					
                         <input type="email" name="user-email" id="user-email" class="form-control" 
@@ -32,13 +32,13 @@
 						<div class="help-block with-errors"></div>
                     </div>
                 </div>
-				
+
                 <div class="form-group">
-                    <label for="user-pwd" class="col-sm-4 control-label">Password</label>
+                    <label for="firstName" class="col-sm-4 control-label">Your first name</label>
                     <div class="col-sm-8">
 					
-						<input type="password" name="user-pwd" id="user-pwd" class="form-control" 
-							placeholder="User password" data-minlength="4"  maxlength="8" required
+						<input type="text" name="firstName" id="firstName" class="form-control" 
+							placeholder="First name" data-minlength="4"  maxlength="20" required
 						/>
 						
 						<div class="help-block with-errors">Minimum of 4 characters</div>
@@ -46,10 +46,20 @@
                 </div>
 				
                 <div class="form-group">
+                    <label for="lastName" class="col-sm-4 control-label">Your last name</label>
+                    <div class="col-sm-8">
+					
+						<input type="text" name="lastName" id="lastName" class="form-control" 
+							placeholder="First name" data-minlength="4"  maxlength="30" required
+						/>
+						
+						<div class="help-block with-errors">Minimum of 4 characters</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-8">
-                        <button type="submit" class="btn btn-sm btn-primary">Login</button>
-						&nbsp
-						<a href="#">Create account</a> or <a href="/forgotpswd.jsp">Forgot password</a>
+                        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
 					</div>
                 </div>
 				

@@ -26,16 +26,15 @@ public class UserServlet extends HttpServlet {
 	private UserDAO userDAO;
 	
 	@Override
-	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	public void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
 		doGet(req, res);
 	}
 	
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	public void doGet( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException {
 		ServletContext context = getServletContext();
 		context.log( ">>> [UserServlet | BEGIN]" );
 
-		//if ( userDAO == null ) { userDAO = new UserDAO(); }
 		userDAO = new UserDAO();
 		
 		String action = req.getParameter( "action" );
@@ -43,36 +42,33 @@ public class UserServlet extends HttpServlet {
 
 		try {
             switch (action) {
-            case "new":
-                showNewUser(req, res);
-                break;
-            case "insert":
-                insertUser(req, res);		// TODO check successful operation
-				listUser(req, res);
-                break;
-            case "delete":
-                deleteUser(req, res);		// TODO check successful operation
-				listUser(req, res);
-                break;
-            case "update":
-                updateUser(req, res);		// TODO check successful operation
-				listUser(req, res);
-                break;
-            case "edit":
-                showEditUser(req, res);
-                break;
-            default:
-                listUser(req, res);
-                break;
+				case "new":
+					showNewUser( req, res );
+					break;
+				case "insert":
+					insertUser( req, res );
+					break;
+				case "delete":
+					deleteUser( req, res );
+					break;
+				case "update":
+					updateUser( req, res );
+					break;
+				case "edit":
+					showEditUser( req, res );
+					break;
+				default:
+					listUser( req, res );
+					break;
             }
-        } catch (Exception ex) {
+			context.log( "<<< [UserServlet | END] Successfully action=" + action );
+        } catch ( Exception ex ) {
 			context.log( "<<< [UserServlet | END] Exception!");
-            throw new ServletException(ex);
+            throw new ServletException( ex );
         }
-		context.log( "<<< [UserServlet | END] Successfully action=" + action );
     }
  
-    private void listUser(HttpServletRequest req, HttpServletResponse res)
+    private void listUser( HttpServletRequest req, HttpServletResponse res )
             throws SQLException, IOException, ServletException, Exception 
 	{
         List<User> listUsers = userDAO.selectAllRecords();
@@ -80,13 +76,13 @@ public class UserServlet extends HttpServlet {
         req.getRequestDispatcher( "/auth/user-list.jsp" ).forward(req, res);
     }
  
-    private void showNewUser(HttpServletRequest req, HttpServletResponse res)
+    private void showNewUser( HttpServletRequest req, HttpServletResponse res )
             throws ServletException, IOException, Exception
 	{
         req.getRequestDispatcher( "/auth/user-form.jsp" ).forward(req, res);
     }
  
-    private void showEditUser(HttpServletRequest req, HttpServletResponse res)
+    private void showEditUser( HttpServletRequest req, HttpServletResponse res )
             throws SQLException, ServletException, IOException, Exception
 	{
 		int userId 			= Integer.parseInt( req.getParameter( "userId" ) );
@@ -96,37 +92,54 @@ public class UserServlet extends HttpServlet {
         req.getRequestDispatcher( "/auth/user-form.jsp" ).forward(req, res);
     }
  
-    private void insertUser(HttpServletRequest req, HttpServletResponse res)
+    private void insertUser( HttpServletRequest req, HttpServletResponse res )
             throws SQLException, IOException, Exception
 	{
-        String username 	= req.getParameter( "userName" );
+        String email 		= req.getParameter( "email" );
         String pass 		= req.getParameter( "pass" );
         String firstName 	= req.getParameter( "firstName" );
         String lastName 	= req.getParameter( "lastName" );
  
-        userDAO.insertRecord( new User( username, pass, firstName, lastName, "TODO@email" ) );
-//        res.sendRedirect( "user" );
+        if ( userDAO.insertRecord( new User( email, firstName, lastName, pass, null ) ) )
+		{
+			listUser( req, res );
+		}
+		else
+		{
+	        throw new ServletException( "Fail when inserting user" );
+		}
     }
  
-    private void updateUser(HttpServletRequest req, HttpServletResponse res)
+    private void updateUser( HttpServletRequest req, HttpServletResponse res )
             throws SQLException, IOException, Exception 
 	{
 		int userId 			= Integer.parseInt( req.getParameter( "userId" ) );
-		String username 	= req.getParameter( "userName" );
+        String email 		= req.getParameter( "email" );
         String pass 		= req.getParameter( "pass" );
         String firstName 	= req.getParameter( "firstName" );
         String lastName 	= req.getParameter( "lastName" );
  
-        userDAO.updateRecord( new User( userId, username, pass, firstName, lastName, "TODO@email" ) );
-//        res.sendRedirect( "user" );
-    }
+        if ( userDAO.updateRecord( new User( userId, email, firstName, lastName, pass, null ) ) )
+		{
+			listUser( req, res );
+		}
+		else
+		{
+	        throw new ServletException( "Fail when updating user" );
+		}
+   }
  
-    private void deleteUser(HttpServletRequest req, HttpServletResponse res)
+    private void deleteUser( HttpServletRequest req, HttpServletResponse res )
             throws SQLException, IOException, Exception
 	{
 		int userId 			= Integer.parseInt( req.getParameter( "userId" ) );
-
-        userDAO.deleteRecord( new User( userId ) );
-//        res.sendRedirect( "user" );
+        if ( userDAO.deleteRecord( userId ) )
+		{
+			listUser( req, res );
+		}
+		else
+		{
+	        throw new ServletException( "Fail when deleting user" );
+		}
     }
 }

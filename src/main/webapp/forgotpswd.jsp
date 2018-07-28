@@ -25,8 +25,7 @@
                     <div class="col-sm-8">
 					
                         <input type="email" name="user-email" id="user-email" class="form-control" 
-						value='admin@admin.com'
-						placeholder="User email" maxlength="50" required
+						placeholder="User email" maxlength="40" required
 						data-error="Oops, that email address is invalid" 
 						/>
 						

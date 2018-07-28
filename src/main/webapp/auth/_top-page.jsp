@@ -8,7 +8,6 @@
 	
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/hyperform/0.9.9/hyperform.css" rel="stylesheet" />
-	<!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" /> -->
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
@@ -32,7 +31,7 @@
 				<% if ( isLogged ) { %>
 					<a class="navbar-brand" href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>">:: WebSiteName ::</a>
 				<% } else {%>
-					<a class="navbar-brand" href="/auth/welcome.jsp">:: WebSiteName ::</a>
+					<a class="navbar-brand" href="/index.jsp">:: WebSiteName ::</a>
 				<% } %>
 			</div>
 
@@ -43,7 +42,7 @@
 					<li><a href="<%= response.encodeURL( "student" ) %>">Student</a></li>
 					<li><a href="<%= response.encodeURL( "course" ) %>">Course</a></li>
 				<% } else {%>
-					<li class="active"><a href="/welcome.jsp" >Home</a></li>
+					<li class="active"><a href="/index.jsp" >Home</a></li>
 				<% } %>
 			</ul>
 

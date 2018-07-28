@@ -31,22 +31,6 @@
 			<input type="hidden" name="userId" value="<%= user.getUserId() %>" />
 		<% } %>
 		<tr>
-			<th>User name: </th>
-			<td>
-				<input type="text" name="userName" size="50"
-					<% if (user != null) { out.print( "value='" + user.getUserName() +"'" ); } %>
-				/>
-			</td>
-		</tr>
-		<tr>
-			<th>Password: </th>
-			<td>
-				<input type="text" name="pass" size="50"
-					<% if (user != null) { out.print( "value='" + user.getPass() + "'" ); } %>
-				/>
-			</td>
-		</tr>
-		<tr>
 			<th>First Name: </th>
 			<td>
 				<input type="text" name="firstName" size="50"
@@ -59,6 +43,22 @@
 			<td>
 				<input type="text" name="lastName" size="50"
 					<% if (user != null) { out.print( "value='" + user.getLastName() + "'" ); } %>
+			</td>
+		</tr>
+		<tr>
+			<th>User email: </th>
+			<td>
+				<input type="text" name="userEmail" size="50"
+					<% if (user != null) { out.print( "value='" + user.getEmail() +"'" ); } %>
+				/>
+			</td>
+		</tr>
+		<tr>
+			<th>Password: </th>
+			<td>
+				<input type="text" name="pass" size="50"
+					<% if (user != null) { out.print( "value='" + user.getPass() + "'" ); } %>
+				/>
 			</td>
 		</tr>
 		<tr>

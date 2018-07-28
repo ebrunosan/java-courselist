@@ -7,8 +7,6 @@ import java.net.*;
 
 import com.sendgrid.*;
 
-import java.util.UUID;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -20,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet( "/reset" )
 
@@ -43,35 +42,44 @@ public class ResetPswdServlet extends HttpServlet {
 		ServletContext context = getServletContext();
 		context.log( ">>> [ResetPswdServlet | BEGIN]" );
 
-		//if ( userDAO == null ) { userDAO = new UserDAO(); }
-
-		String token = req.getParameter( "token" );
-		String newPswd = req.getParameter( "user-pwd" );
+		String token 	= req.getParameter( "token" );
+		String newPswd 	= req.getParameter( "user-pwd" );
 		String confPswd = req.getParameter( "conf-pwd" );
+		
 		if ( !newPswd.equals( confPswd ) )
 		{
 			req.setAttribute( "message", "Both password MUST be equal. Try it again, please!" );
 			req.getRequestDispatcher( "/resetpswd.jsp" ).forward( req, res );
 			context.log( "<<< [ResetPswdServlet | END] Password not equal" );
-		} 
-		else 
+		}
+		else
 		{
-			//User user = userDAO.selectUserByToken( token );
-			User user = new User( "userName", "pass", "firstName", "lastName", "emailTo" );
-			
-			if ( user == null )
-			{
-				req.setAttribute( "message", "Token not found! Please check your email again!" );
-				req.getRequestDispatcher( "/resetpswd.jsp" ).forward( req, res );
-				context.log( "<<< [ResetPswdServlet | END] Tokenn not found" );
-			}
-			else
-			{
-				//userDAO.setNewPassword( newPswd );
+			try {
+				userDAO 	= new UserDAO();
+				User user 	= userDAO.selectRecordByToken( token );
 				
-				req.setAttribute( "message", "Password changed successfully!" );
-				req.getRequestDispatcher( "/auth/login.jsp" ).forward( req, res );
-				context.log( "<<< [ResetPswdServlet | END] Password changed successfully" );
+				if ( user == null )
+				{
+					req.setAttribute( "message", "Token not found! Please check your email again!" );
+					req.getRequestDispatcher( "/resetpswd.jsp" ).forward( req, res );
+					context.log( "<<< [ResetPswdServlet | END] Token not found" );
+				}
+				else
+				{
+					user.setPass( newPswd );
+					userDAO.setNewPassword( user );
+
+					HttpSession session = req.getSession();			// Setting session to store user data
+					session.setAttribute( "userName", user.getFirstName() );
+					session.setAttribute( "userId", String.valueOf( user.getUserId() ) );
+					session.setMaxInactiveInterval( 10*60 );		// setting session to expiry in 10 mins
+
+					req.getRequestDispatcher( "/auth/welcome.jsp" ).forward( req, res );
+					context.log( "<<< [ResetPswdServlet | END] Password changed successfully" );
+				}
+			} catch ( Exception ex ) {
+				context.log( "<<< [ResetPswdServlet | END] Exception!");
+				throw new ServletException( ex );
 			}
 		}
  	}	

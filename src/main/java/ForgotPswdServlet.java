@@ -32,43 +32,45 @@ public class ForgotPswdServlet extends HttpServlet {
 	}
 	
 	@Override
-	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
+	public void doPost( HttpServletRequest req, HttpServletResponse res ) throws ServletException, IOException 
 	{
 		ServletContext context = getServletContext();
 		context.log( ">>> [ForgotPswdServlet | BEGIN]" );
 
-		//if ( userDAO == null ) { userDAO = new UserDAO(); }
-
-		String emailTo = req.getParameter( "user-email" );
-        //User user = userDAO.selectUserByEmail( emailTo );
-        User user = new User( "userName", "pass", "firstName", "lastName", emailTo );
-		
-		if ( user == null )
-		{
-			req.setAttribute( "message", "Email not found. Please try again!" );
-			req.getRequestDispatcher( "/forgotpswd.jsp" ).forward( req, res );
-			context.log( "<<< [ForgotPswdServlet | END] Email not found" );
-		}
-		else
-		{
-			//String resetToken = userDAO.getNewResetToken();
-			String resetToken 	 = UUID.randomUUID().toString();
-			String appUrl 		 = req.getScheme() + "://" + req.getServerName();
-			String resetTokenUrl = appUrl + "/reset?token=" + resetToken;
+		String emailTo 	= req.getParameter( "user-email" );
+		try	{
+			userDAO 		= new UserDAO();
+			User user 		= userDAO.selectRecordByEmail( emailTo );
 			
-			if ( sendResetEmail( emailTo, resetTokenUrl ) )
+			if ( user == null )
 			{
-				req.setAttribute( "message", "Email sent successfully. Check your mail box!" );
+				req.setAttribute( "message", "Email not found. Please try again!" );
 				req.getRequestDispatcher( "/forgotpswd.jsp" ).forward( req, res );
-				context.log( "<<< [ForgotPswdServlet | END] Email sent successfully" );
+				context.log( "<<< [ForgotPswdServlet | END] Email not found" );
 			}
 			else
 			{
-				req.setAttribute( "message", "Application fail when trying to send an email!" );
-				req.getRequestDispatcher( "/forgotpswd.jsp" ).forward( req, res );
-				context.log( "<<< [ForgotPswdServlet | END] Fail sent email" );
+				userDAO.setNewToken( user );
+				String appUrl 		 = req.getScheme() + "://" + req.getServerName();
+				String resetTokenUrl = appUrl + "/reset?token=" + user.getToken();
+				
+				if ( sendResetEmail( user.getEmail(), resetTokenUrl ) )
+				{
+					req.setAttribute( "message", "Email sent successfully. Check your mail box!" );
+					req.getRequestDispatcher( "/forgotpswd.jsp" ).forward( req, res );
+					context.log( "<<< [ForgotPswdServlet | END] Email sent successfully" );
+				}
+				else
+				{
+					req.setAttribute( "message", "Application fail when trying to send an email!" );
+					req.getRequestDispatcher( "/forgotpswd.jsp" ).forward( req, res );
+					context.log( "<<< [ForgotPswdServlet | END] Fail when sending email" );
+				}
 			}
-		}
+        } catch ( Exception ex ) {
+			context.log( "<<< [ForgotPswdServlet | END] Exception!");
+            throw new ServletException( ex );
+        }
  	}
 	
     private boolean sendResetEmail( String emailToAddr, String resetTokenUrl ) 
