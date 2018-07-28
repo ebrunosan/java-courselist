@@ -69,7 +69,8 @@ public class UserDAO {
 			stmt.executeUpdate();
 		} catch ( SQLException e ) {
 			//if ( e instanceof SQLIntegrityConstraintViolationException ) {
-			if ( e.getErrorCode() == 23505 ) {
+			//if ( e.getErrorCode() == 23505 ) {
+			if ( "23505".equals( e.getSQLState() ) ) {
 				return false;
 			} else {
 				throw new IOException ( e );
