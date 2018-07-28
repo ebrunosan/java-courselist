@@ -21,7 +21,7 @@ public class ErrorHandler extends HttpServlet {
 		throws IOException, ServletException 
 	{
 		userDAO = new UserDAO();
-		User newUser = new User();
+		User newUser = new User( "bdasilvasantos@mylambton.ca", "xx", "yy", null, null );
 		userDAO.insertRecord( newUser );
 		//throw new ServletException( "Get method error testing" );
 	}

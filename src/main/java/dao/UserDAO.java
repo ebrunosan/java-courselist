@@ -49,9 +49,15 @@ public class UserDAO {
 			stmt.setString( 5, user.getToken() 		);
 			
 			stmt.executeUpdate();
-		} catch ( Exception e ) {
-			e.printStackTrace();
-			throw new IOException ( e );
+		} catch ( SQLException e ) {
+			//if ( e instanceof SQLIntegrityConstraintViolationException ) {
+			if ( e.getErrorCode() == 23505 ) {
+				return false;
+			} else {
+				throw new IOException ( e );
+			}
+		} catch ( Exception ex ) {
+			throw new IOException ( ex );
 		}
 		return true;
 	}

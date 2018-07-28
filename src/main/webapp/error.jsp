@@ -16,7 +16,7 @@
 	{
 		out.print( "<h3>Error Information Is Missing</h3>");			
 	} 
-	else if ( statusCode != 500 ) 
+	else if ( statusCode != 500 )
 	{
 		out.print( "<h3>Error Details</h3>");
 		out.print( "<ul><li><strong>Status Code</strong> = "+ statusCode + "</li>");
