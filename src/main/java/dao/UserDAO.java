@@ -41,12 +41,12 @@ public class UserDAO {
 	
 	public boolean testInsert () throws IOException {
 		String sql = "SELECT test_insert(1,'foo')";
-		boolean ret = false;
+		//boolean ret = false;
 		try ( PreparedStatement stmt = conn.prepareStatement( sql ) ) {
 			stmt.executeUpdate();
 			try ( ResultSet rs = stmt.executeQuery(); ) {
-				if ( rs.next() ) {
-					ret = rs.getBoolean( 1 );
+				if ( rs.next() && ( rs.getInt( 1 ) == -1 ) ) {
+					return false;
 				}
 			}
 		} catch ( SQLException e ) {
@@ -54,7 +54,7 @@ public class UserDAO {
 		} catch ( Exception ex ) {
 			throw new IOException ( ex );
 		}
-		return ret;
+		return true;
 	}
 	
 	public boolean insertRecord( User user ) throws IOException {
