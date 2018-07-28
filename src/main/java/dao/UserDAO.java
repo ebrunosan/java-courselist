@@ -17,12 +17,12 @@ import java.util.List;
 public class UserDAO {
 	private Connection conn = null;
 	
-	public UserDAO() {
+	public UserDAO() throws IOException {
 		conn = DBUtil.getConnection();
 		createTable();
 	}
 
-	private void createTable() {
+	private void createTable() throws IOException {
 		String sql = "CREATE TABLE IF NOT EXISTS users (" +
 						"user_id   SERIAL 	   PRIMARY KEY     	," +
 						"email     varchar(40) NOT NULL UNIQUE 	," +
@@ -35,7 +35,7 @@ public class UserDAO {
 			stmt.executeUpdate();
 		} catch ( Exception e ) {
 			e.printStackTrace();
-			//throw new IOException( "Error create table USERS" );
+			throw new IOException ( e );
 		}
 	}
 	
@@ -53,10 +53,12 @@ public class UserDAO {
 			if ( "23505".equals( e.getSQLState() ) ) {	// duplicate key
 				return false;
 			} else {
+				e.printStackTrace();
 				throw new IOException ( e );
 			}
-		} catch ( Exception ex ) {
-			throw new IOException ( ex );
+		} catch ( Exception e ) {
+			e.printStackTrace();
+			throw new IOException ( e );
 		}
 		return true;
 	}
@@ -77,10 +79,12 @@ public class UserDAO {
 			if ( "23505".equals( e.getSQLState() ) ) {	// duplicate key
 				return false;
 			} else {
+				e.printStackTrace();
 				throw new IOException ( e );
 			}
-		} catch ( Exception ex ) {
-			throw new IOException ( ex );
+		} catch ( Exception e ) {
+			e.printStackTrace();
+			throw new IOException ( e );
 		}
 		return rowUpdated;
 	}
