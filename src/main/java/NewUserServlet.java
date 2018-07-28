@@ -36,56 +36,71 @@ public class NewUserServlet extends HttpServlet {
 		ServletContext context = getServletContext();
 		context.log( ">>> [NewUserServlet | BEGIN]" );
 
-		userDAO = new UserDAO();
-		
-		try {
-			String msg = null;
-			User newUser = insertUser( req, res );
-
-			if ( newUser == null )
-			{
-				msg = "Fail to create new user! Perhaps your email already exists in our database.";
-			}
-			else
-			{
-				String appUrl 		 = req.getScheme() + "://" + req.getServerName();
-				String resetTokenUrl = appUrl + "/reset?token=" + newUser.getToken();
-
-				if ( sendResetEmail( newUser.getEmail(), resetTokenUrl ) )
+		User newUser = getValidUserFromRequest( req );
+		if ( newUser == null )
+		{
+			req.getRequestDispatcher( "/newuser.jsp" ).forward(req, res);
+			context.log( "<<< [NewUserServlet | END] Request form has invalid data" );
+		}
+		else
+		{
+			try {
+				String msg = null;
+				userDAO = new UserDAO();
+				
+				if ( !userDAO.insertRecord( newUser ) )
 				{
-					msg = "Thanks for your registration. Check your email box to complete your authentication.";
+					msg = "Fail to create new user! Perhaps your email already exists in our database.";
 				}
 				else
 				{
-					msg = "Fail sending the email to complete your registration! Please try again later.";
-				}
-			}
+					String appUrl 		 = req.getScheme() + "://" + req.getServerName();
+					String resetTokenUrl = appUrl + "/reset?token=" + newUser.getToken();
 
-			req.setAttribute( "message", msg );
-			req.getRequestDispatcher( "/auth/newuser.jsp" ).forward(req, res);
-        } catch ( Exception ex ) {
-			context.log( "<<< [NewUserServlet | END] Exception!");
-            throw new ServletException( ex );
-        }
-		context.log( "<<< [NewUserServlet | END] User successfully created" );
+					if ( sendResetEmail( newUser.getEmail(), resetTokenUrl ) )
+					{
+						msg = "Thanks for your registration. Check your email box to complete your authentication.";
+					}
+					else
+					{
+						msg = "Fail sending the email to complete your registration! Please try again later.";
+					}
+				}
+
+				req.setAttribute( "message", msg );
+				req.getRequestDispatcher( "/newuser.jsp" ).forward(req, res);
+			} 
+			catch ( Exception ex ) 
+			{
+				context.log( "<<< [NewUserServlet | END] Exception!");
+				throw new ServletException( ex );
+			}
+			context.log( "<<< [NewUserServlet | END] User successfully created" );
+		}
     }
  
-    private User insertUser( HttpServletRequest req, HttpServletResponse res )
-            throws SQLException, IOException, Exception
+    private User getValidUserFromRequest( HttpServletRequest req )
 	{
-        String email 		= req.getParameter( "user-email" );
+        String msg = "";
+		
+		String email 		= req.getParameter( "userEmail" );
         String firstName 	= req.getParameter( "firstName" );
         String lastName 	= req.getParameter( "lastName" );
-		String token 	 	= UUID.randomUUID().toString();
- 
-		User newUser = new User( email, firstName, lastName, null, token );
-
-		if ( !userDAO.insertRecord( newUser ) )
-		{
-			newUser = null;
-		}
 		
-		return newUser;
+		if ( email.isEmpty() ) { msg += "Email MUST be informed!<br />"; }
+		if ( firstName.isEmpty() ) { msg += "First name MUST be informed!<br />"; }
+		if ( lastName.isEmpty() ) { msg += "Last name MUST be informed!<br />"; }
+		
+		if ( msg.isEmpty() )
+		{
+			String token 	 	= UUID.randomUUID().toString();
+			return new User( email, firstName, lastName, null, token );
+		}
+		else
+		{
+			req.setAttribute( "message", msg );
+			return null;
+		}
     }
  
     private boolean sendResetEmail( String emailToAddr, String resetTokenUrl ) 

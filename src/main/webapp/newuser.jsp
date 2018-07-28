@@ -10,7 +10,7 @@
         <div class="col-sm-offset-2 col-sm-8">
 			<h3>Register new user</h3>
             <form class="form-horizontal" data-toggle="validator" 
-			role="form" action="/user" method="post">
+			role="form" action="/newuser" method="post">
 
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-8">
@@ -21,10 +21,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="user-email" class="col-sm-4 control-label">Your email</label>
+                    <label for="userEmail" class="col-sm-4 control-label">Your email</label>
                     <div class="col-sm-8">
 					
-                        <input type="email" name="user-email" id="user-email" class="form-control" 
+                        <input type="email" name="userEmail" id="userEmail" class="form-control" 
 							placeholder="User email" maxlength="40" required
 							data-error="Oops, that email address is invalid" 
 						/>
@@ -41,7 +41,7 @@
 							placeholder="First name" data-minlength="4"  maxlength="20" required
 						/>
 						
-						<div class="help-block with-errors">Minimum of 4 characters</div>
+						<div class="help-block with-errors"></div>
                     </div>
                 </div>
 				
@@ -53,7 +53,7 @@
 							placeholder="First name" data-minlength="4"  maxlength="30" required
 						/>
 						
-						<div class="help-block with-errors">Minimum of 4 characters</div>
+						<div class="help-block with-errors"></div>
                     </div>
                 </div>
 

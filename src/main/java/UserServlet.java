@@ -41,7 +41,7 @@ public class UserServlet extends HttpServlet {
 		if (action == null) { action = "list"; }	// default action
 
 		try {
-            switch (action) {
+            switch ( action ) {
 				case "new":
 					showNewUser( req, res );
 					break;
