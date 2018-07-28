@@ -21,12 +21,13 @@ public class ErrorHandler extends HttpServlet {
 		throws IOException, ServletException 
 	{
 		userDAO = new UserDAO();
-		User newUser = new User( "bdasilvasantos@mylambton.ca", "xx", "yy", null, null );
-		boolean ret = userDAO.insertRecord( newUser );
+		User newUser = new User( 2, "bdasilvasantos@mylambton.ca", "xx", "yy", null, null );
+		boolean retInsert = userDAO.insertRecord( newUser );
+		boolean retUpdate = userDAO.updateRecord( newUser );
 		res.setContentType("text/html");
 		PrintWriter out = res.getWriter();
 		out.println("<HTML><HEAD><TITLE>Hello World!</TITLE>"+
-		"</HEAD><BODY>" + ret + "</BODY></HTML>");
+		"</HEAD><BODY> insert = " + retInsert + " | update = " + retUpdate + "</BODY></HTML>");
 		out.close();
 	}
 }

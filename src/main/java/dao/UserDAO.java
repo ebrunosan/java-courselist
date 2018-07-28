@@ -73,11 +73,15 @@ public class UserDAO {
 			stmt.setInt( 5, user.getUserId() );
 			
 			rowUpdated = ( stmt.executeUpdate() > 0 );
-		} catch ( Exception e ) {
-			e.printStackTrace();
-			throw new IOException ( e );
+		} catch ( SQLException e ) {
+			if ( "23505".equals( e.getSQLState() ) ) {	// duplicate key
+				return false;
+			} else {
+				throw new IOException ( e );
+			}
+		} catch ( Exception ex ) {
+			throw new IOException ( ex );
 		}
-		
 		return rowUpdated;
 	}
 
