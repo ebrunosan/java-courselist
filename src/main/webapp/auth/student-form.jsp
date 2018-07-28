@@ -28,9 +28,9 @@
 				<% if (student != null) { %>Edit Student<% } else { %>Add New Student<% } %>
 			</h2>
 		</caption>
-			<% if (student != null) { %>
-				<input type="hidden" name="studentId" value="<%= student.getStudentId() %>" />
-			<% } %>
+		<% if (student != null) { %>
+			<input type="hidden" name="studentId" value="<%= student.getStudentId() %>" />
+		<% } %>
 		<tr>
 			<th>Student name: </th>
 			<td>

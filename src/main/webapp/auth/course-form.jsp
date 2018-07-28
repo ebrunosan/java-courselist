@@ -27,16 +27,9 @@
 				<% if (course != null) { %>Edit Course<% } else { %>Add New Course<% } %>
 			</h2>
 		</caption>
-		<tr>
-			<th>Course Code</th>
-			<td>
-				<% if (course != null) { %>
-				<input type="text" name="courseCode" size="8" readonly 
-					<% if (course != null) { out.print( "value='" + course.getCourseCode() +"'" ); } %>
-				/>
-			</td>
-			
-		</tr>
+		<% if (course != null) { %>
+			<input type="hidden" name="courseCode" value="<%= course.getCourseCode() %>" />
+		<% } %>
 		<tr>
 			<th>Course name: </th>
 			<td>

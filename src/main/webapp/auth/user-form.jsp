@@ -27,9 +27,9 @@
 				<% if (user != null) { %>Edit User<% } else { %>Add New User<% } %>
 			</h2>
 		</caption>
-			<% if (user != null) { %>
-				<input type="hidden" name="userId" value="<%= user.getUserId() %>" />
-			<% } %>
+		<% if (user != null) { %>
+			<input type="hidden" name="userId" value="<%= user.getUserId() %>" />
+		<% } %>
 		<tr>
 			<th>User name: </th>
 			<td>
