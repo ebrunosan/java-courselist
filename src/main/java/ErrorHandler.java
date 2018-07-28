@@ -22,8 +22,7 @@ public class ErrorHandler extends HttpServlet {
 	{
 		userDAO = new UserDAO();
 		User newUser = new User( "bdasilvasantos@mylambton.ca", "xx", "yy", null, null );
-		//userDAO.insertRecord( newUser );
-		boolean ret = userDAO.testInsert();
+		boolean ret = userDAO.insertRecord( newUser );
 		res.setContentType("text/html");
 		PrintWriter out = res.getWriter();
 		out.println("<HTML><HEAD><TITLE>Hello World!</TITLE>"+

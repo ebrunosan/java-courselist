@@ -39,24 +39,6 @@ public class UserDAO {
 		}
 	}
 	
-	public boolean testInsert () throws IOException {
-		String sql = "SELECT test_insert(1,'foo')";
-		//boolean ret = false;
-		try ( PreparedStatement stmt = conn.prepareStatement( sql ) ) {
-			stmt.executeUpdate();
-			try ( ResultSet rs = stmt.executeQuery(); ) {
-				if ( rs.next() && ( rs.getInt( 1 ) == -1 ) ) {
-					return false;
-				}
-			}
-		} catch ( SQLException e ) {
-			throw new IOException ( e );
-		} catch ( Exception ex ) {
-			throw new IOException ( ex );
-		}
-		return true;
-	}
-	
 	public boolean insertRecord( User user ) throws IOException {
 		String sql = "INSERT INTO users ( email, pass, firstName, lastName, token ) VALUES (?, ?, ?, ?, ?)";
 		try ( PreparedStatement stmt = conn.prepareStatement( sql ) ) {
@@ -68,9 +50,7 @@ public class UserDAO {
 			
 			stmt.executeUpdate();
 		} catch ( SQLException e ) {
-			//if ( e instanceof SQLIntegrityConstraintViolationException ) {
-			//if ( e.getErrorCode() == 23505 ) {
-			if ( "23505".equals( e.getSQLState() ) ) {
+			if ( "23505".equals( e.getSQLState() ) ) {	// duplicate key
 				return false;
 			} else {
 				throw new IOException ( e );

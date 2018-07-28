@@ -50,7 +50,7 @@ public class NewUserServlet extends HttpServlet {
 				
 				if ( !userDAO.insertRecord( newUser ) )
 				{
-					msg = "Fail to create new user! Perhaps your email already exists in our database.";
+					msg = "Fail to create new user! Email already exists in our database.";
 				}
 				else
 				{
@@ -68,7 +68,7 @@ public class NewUserServlet extends HttpServlet {
 				}
 
 				req.setAttribute( "message", msg );
-				req.getRequestDispatcher( "/newuser.jsp" ).forward( req, res );
+				//req.getRequestDispatcher( "/newuser.jsp" ).forward( req, res );
 			} 
 			catch ( Exception ex ) 
 			{
