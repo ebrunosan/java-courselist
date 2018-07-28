@@ -30,12 +30,11 @@ public class CourseServlet extends HttpServlet {
 		doGet(req, res);
 	}
 	
-		@Override
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		ServletContext context = getServletContext();
 		context.log( ">>> [CourseServlet | BEGIN]" );
 
-		//if ( userDAO == null ) { userDAO = new UserDAO(); }
 		courseDAO = new CourseProgramDAO();
 		
 		String action = req.getParameter( "action" );
