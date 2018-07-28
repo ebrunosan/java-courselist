@@ -62,7 +62,9 @@ public class UserServlet extends HttpServlet {
 					break;
             }
 			context.log( "<<< [UserServlet | END] Successfully action=" + action );
-        } catch ( Exception ex ) {
+        } 
+		catch ( Exception ex ) 
+		{
 			context.log( "<<< [UserServlet | END] Exception!");
             throw new ServletException( ex );
         }
@@ -100,13 +102,17 @@ public class UserServlet extends HttpServlet {
         String email 		= req.getParameter( "userEmail" );
         String pass 		= req.getParameter( "pass" );
  
-        if ( userDAO.insertRecord( new User( email, firstName, lastName, pass, null ) ) )
+		User newUser = new User( email, firstName, lastName, pass, null );
+ 
+        if ( userDAO.insertRecord( newUser ) )
 		{
 			listUser( req, res );
 		}
 		else
 		{
-	        throw new ServletException( "Fail when inserting user" );
+			req.setAttribute( "user", newUser );
+			req.setAttribute( "message", "Email already exists in our database. Please, try another one." );
+			req.getRequestDispatcher( "/auth/user-form.jsp" ).forward(req, res);
 		}
     }
  
@@ -119,13 +125,17 @@ public class UserServlet extends HttpServlet {
         String email 		= req.getParameter( "userEmail" );
         String pass 		= req.getParameter( "pass" );
  
-        if ( userDAO.updateRecord( new User( userId, email, firstName, lastName, pass, null ) ) )
+		User user = new User( userId, email, firstName, lastName, pass, null );
+ 
+        if ( userDAO.updateRecord( user ) )
 		{
 			listUser( req, res );
 		}
 		else
 		{
-	        throw new ServletException( "Fail when updating user" );
+			req.setAttribute( "user", user );
+			req.setAttribute( "message", "Email already exists in our database. Please, try another one." );
+			req.getRequestDispatcher( "/auth/user-form.jsp" ).forward(req, res);
 		}
    }
  
@@ -139,7 +149,7 @@ public class UserServlet extends HttpServlet {
 		}
 		else
 		{
-	        throw new ServletException( "Fail when deleting user" );
+	        throw new IOException( "Fail when deleting user" );
 		}
     }
 }

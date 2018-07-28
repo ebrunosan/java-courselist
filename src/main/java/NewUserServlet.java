@@ -45,12 +45,13 @@ public class NewUserServlet extends HttpServlet {
 		else
 		{
 			try {
-				String msg = null;
+				req.setAttribute( "user", newUser );
 				userDAO = new UserDAO();
 				
 				if ( !userDAO.insertRecord( newUser ) )
 				{
-					msg = "Fail to create new user! Email already exists in our database.";
+					req.setAttribute( "message", "Email already exists in our database. Please use another address!" );
+					req.getRequestDispatcher( "/newuser.jsp" ).forward( req, res );
 				}
 				else
 				{
@@ -59,16 +60,15 @@ public class NewUserServlet extends HttpServlet {
 					
 					if ( sendResetEmail( newUser.getEmail(), resetTokenUrl ) )
 					{
-						msg = "Thanks for your registration. Check your email box to complete your authentication.";
+						req.setAttribute( "message", "Thanks for your interest! Check your email box to complete your registration." );
+						req.getRequestDispatcher( "/newuser.jsp" ).forward( req, res );
 					}
 					else
 					{
-						msg = "Fail sending the email to complete your registration! Please try again later.";
+						req.setAttribute( "message", "Fail sending the email to complete your registration! Please inform your email again." );
+						req.getRequestDispatcher( "/forgotpswd.jsp" ).forward( req, res );
 					}
 				}
-
-				req.setAttribute( "message", msg );
-				req.getRequestDispatcher( "/newuser.jsp" ).forward( req, res );
 			} 
 			catch ( Exception ex ) 
 			{
@@ -93,7 +93,7 @@ public class NewUserServlet extends HttpServlet {
 		
 		if ( msg.isEmpty() )
 		{
-			String token 	 	= UUID.randomUUID().toString();
+			String token = UUID.randomUUID().toString();
 			return new User( email, firstName, lastName, null, token );
 		}
 		else

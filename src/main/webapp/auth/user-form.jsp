@@ -2,7 +2,8 @@
 <%@ page import="main.java.model.User,java.util.*" %>
 
 <%
-	User user = (User) request.getAttribute ("user");
+	String message 	= (String) request.getAttribute ( "message" );
+	User user 		= (User) request.getAttribute ("user");
 %>
 
 <jsp:include page="_top-page.jsp" />

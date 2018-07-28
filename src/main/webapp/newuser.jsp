@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="main.java.model.User,java.util.*" %>
 <% 
-	String message 		= (String) request.getAttribute( "message" ); 
-	String userEmail 	= (String) request.getAttribute( "userEmail" ); 
-	String firstName 	= (String) request.getAttribute( "firstName" ); 
-	String lastName 	= (String) request.getAttribute( "lastName" ); 
+	String message 	= (String) request.getAttribute( "message" ); 
+	User user 		= (User) request.getAttribute ( "user" );
 %>
 
 <jsp:include page="/auth/_top-page.jsp" />
@@ -28,7 +27,7 @@
                     <div class="col-sm-8">
 					
                         <input type="email" name="userEmail" id="userEmail" class="form-control" 
-							<% if ( userEmail != null) { out.print( "value='" + userEmail + "'" ); }%>
+							<% if ( user != null ) { out.print( "value='" + user.getEmail() + "'" ); }%>
 							placeholder="User email" maxlength="40" required
 							data-error="Oops, that email address is invalid" 
 						/>
@@ -42,7 +41,7 @@
                     <div class="col-sm-8">
 					
 						<input type="text" name="firstName" id="firstName" class="form-control" 
-							<% if ( firstName != null) { out.print( "value='" + firstName + "'" ); }%>
+							<% if ( user != null ) { out.print( "value='" + user.getFirstName() + "'" ); }%>
 							placeholder="First name" data-minlength="4"  maxlength="20" required
 						/>
 						
@@ -55,7 +54,7 @@
                     <div class="col-sm-8">
 					
 						<input type="text" name="lastName" id="lastName" class="form-control" 
-							<% if ( lastName != null) { out.print( "value='" + lastName + "'" ); }%>
+							<% if ( user != null ) { out.print( "value='" + user.getLastName() + "'" ); }%>
 							placeholder="First name" data-minlength="4"  maxlength="30" required
 						/>
 						

@@ -45,7 +45,6 @@ public class ForgotPswdServlet extends HttpServlet {
 			if ( user == null )
 			{
 				req.setAttribute( "message", "Email not found. Please try again!" );
-				req.getRequestDispatcher( "/forgotpswd.jsp" ).forward( req, res );
 				context.log( "<<< [ForgotPswdServlet | END] Email not found" );
 			}
 			else
@@ -57,19 +56,20 @@ public class ForgotPswdServlet extends HttpServlet {
 				if ( sendResetEmail( user.getEmail(), resetTokenUrl ) )
 				{
 					req.setAttribute( "message", "Email sent successfully. Check your mail box!" );
-					res.sendRedirect( "/forgotpswd.jsp" );			// Redirects to authenticated area
 					context.log( "<<< [ForgotPswdServlet | END] Email sent successfully" );
 				}
 				else
 				{
 					req.setAttribute( "message", "Application fail when trying to send an email!" );
-					req.getRequestDispatcher( "/forgotpswd.jsp" ).forward( req, res );
 					context.log( "<<< [ForgotPswdServlet | END] Fail when sending email" );
 				}
 			}
-        } catch ( IOException ex ) {
+			req.getRequestDispatcher( "/forgotpswd.jsp" ).forward( req, res );
+        } 
+		catch ( Exception ex ) 
+		{
 			context.log( "<<< [ForgotPswdServlet | END] Exception!");
-            throw new IOException( ex );
+            throw new ServletException( ex );
         }
  	}
 	
@@ -103,7 +103,6 @@ public class ForgotPswdServlet extends HttpServlet {
 			System.err.println( ex.getMessage() );
 			return false;
 		}
-		
 		return true;
     }
 }

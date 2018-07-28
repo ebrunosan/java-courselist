@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <% 
 	String message = (String) request.getAttribute( "message" ); 
+	User user 		= (User) request.getAttribute ( "user" );
 %>
 
 <jsp:include page="/auth/_top-page.jsp" />
@@ -25,8 +26,9 @@
                     <div class="col-sm-8">
 					
                         <input type="email" name="user-email" id="user-email" class="form-control" 
-						placeholder="User email" maxlength="40" required
-						data-error="Oops, that email address is invalid" 
+							<% if ( user != null ) { out.print( "value='" + user.getEmail() + "'" ); }%>
+							placeholder="User email" maxlength="40" required
+							data-error="Oops, that email address is invalid" 
 						/>
 						
 						<div class="help-block with-errors"></div>
