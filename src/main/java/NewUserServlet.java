@@ -130,7 +130,7 @@ public class NewUserServlet extends HttpServlet {
 		} 
 		catch ( IOException ex ) 
 		{
-			System.out.println( ex.getMessage() );
+			System.err.println( ex.getMessage() );
 			return false;
 		}
 		

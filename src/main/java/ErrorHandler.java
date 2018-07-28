@@ -35,6 +35,8 @@ public class ErrorHandler extends HttpServlet {
 		req.getRequestDispatcher( "/auth/_top-page.jsp" ).include( req, res );
 		
 		PrintWriter out = res.getWriter();
+
+		out.println( "<div class='container-fluid'>" );
 		
 		if ( throwable == null && statusCode == null ) 
 		{
@@ -43,18 +45,19 @@ public class ErrorHandler extends HttpServlet {
 		else if ( statusCode != 500 ) 
 		{
 			out.write( "<h3>Error Details</h3>");
-			out.write( "<ul><li><strong>Status Code</strong>?= "+ statusCode + "</li>");
-			out.write( "<li><strong>Requested URI</strong>?= "+ reqUri + "</li></ul>");
+			out.write( "<ul><li><strong>Status Code</strong> = "+ statusCode + "</li>");
+			out.write( "<li><strong>Requested URI</strong> = "+ reqUri + "</li></ul>");
 		} 
 		else 
 		{
 			out.println( "<h3>Exception Details</h3>" );
-			out.println( "<ul><li><strong>Servlet Name</strong>?= " + servletName + "</li>" );
-			out.println( "<li><strong>Exception Name</strong>?= " + throwable.getClass( ).getName( ) + "</li>" );
-			out.println( "<li><strong>Requested URI</strong>?= " + reqUri + "</li>" );
-			out.println( "<li><strong>Exception Message</strong>?= " + throwable.getMessage( ) + "</li></ul>" );
+			out.println( "<ul><li><strong>Servlet Name</strong> = " + servletName + "</li>" );
+			out.println( "<li><strong>Exception Name</strong> = " + throwable.getClass( ).getName( ) + "</li>" );
+			out.println( "<li><strong>Requested URI</strong> = " + reqUri + "</li>" );
+			out.println( "<li><strong>Exception Message</strong> = " + throwable.getMessage( ) + "</li></ul>" );
 		}
 
+		out.println( "</div>" );
 		out.close();
 		req.getRequestDispatcher( "/auth/_botton-page.jsp" ).include( req, res );
 	}

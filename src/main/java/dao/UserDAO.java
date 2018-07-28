@@ -35,11 +35,11 @@ public class UserDAO {
 			stmt.executeUpdate();
 		} catch ( Exception e ) {
 			e.printStackTrace();
-			// TODO treat exception
+			//throw new IOException( "Error create table USERS" );
 		}
 	}
 	
-	public boolean insertRecord( User user ) throws Exception {
+	public boolean insertRecord( User user ) throws IOException {
 		String sql = "INSERT INTO users ( email, pass, firstName, lastName, token ) VALUES (?, ?, ?, ?, ?)";
 		try ( PreparedStatement stmt = conn.prepareStatement( sql ) ) {
 			stmt.setString( 1, user.getEmail() 		);
@@ -51,12 +51,12 @@ public class UserDAO {
 			stmt.executeUpdate();
 		} catch ( Exception e ) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		return true;
 	}
 
-	public boolean updateRecord( User user ) throws Exception {
+	public boolean updateRecord( User user ) throws IOException {
 		boolean rowUpdated = false;
 		
 		String sql = "UPDATE users SET email = ?, pass = ?, firstName = ?, lastName=? WHERE user_id = ?";
@@ -70,13 +70,13 @@ public class UserDAO {
 			rowUpdated = ( stmt.executeUpdate() > 0 );
 		} catch ( Exception e ) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		
 		return rowUpdated;
 	}
 
-	public boolean deleteRecord( int userId ) throws Exception {
+	public boolean deleteRecord( int userId ) throws IOException {
 		boolean rowDeleted = false;
 
 		String sql = "DELETE FROM users WHERE user_id = ?";
@@ -86,27 +86,32 @@ public class UserDAO {
 			rowDeleted = ( stmt.executeUpdate() > 0 );
 		} catch ( Exception e ) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		return rowDeleted;
 	}
 
-	public User getUserResultSet( ResultSet rs ) throws Exception {
+	public User getUserResultSet( ResultSet rs ) throws IOException {
 		User user = null;
-		if ( rs.next() ) {
-			user = new User( 
-				rs.getInt( "user_id" )		,
-				rs.getString( "email" )		,
-				rs.getString( "firstName" )	, 
-				rs.getString( "lastName" )	,
-				rs.getString( "pass" )		,
-				rs.getString( "token" )		
-			);
+		try {
+			if ( rs.next() ) {
+				user = new User( 
+					rs.getInt( "user_id" )		,
+					rs.getString( "email" )		,
+					rs.getString( "firstName" )	, 
+					rs.getString( "lastName" )	,
+					rs.getString( "pass" )		,
+					rs.getString( "token" )		
+				);
+			}
+		} catch ( Exception e ) {
+			e.printStackTrace();
+			throw new IOException ( e );
 		}
 		return user;
 	}
 
-	public User selectRecordByUser( int userId ) throws Exception {
+	public User selectRecordByUser( int userId ) throws IOException {
 		User user = null;
 
 		String sql = "SELECT * FROM users WHERE user_id = ?";
@@ -118,12 +123,12 @@ public class UserDAO {
 			}
 		} catch ( Exception e ) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		return user;
 	}
 
-	public User selectRecordByEmail( String email ) throws Exception {
+	public User selectRecordByEmail( String email ) throws IOException {
 		User user = null;
 
 		String sql = "SELECT * FROM users WHERE email = ?";
@@ -135,12 +140,12 @@ public class UserDAO {
 			}
 		} catch ( Exception e ) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		return user;
 	}
 
-	public User selectRecordByToken( String token ) throws Exception {
+	public User selectRecordByToken( String token ) throws IOException {
 		User user = null;
 
 		String sql = "SELECT * FROM users WHERE token = ?";
@@ -152,12 +157,12 @@ public class UserDAO {
 			}
 		} catch ( Exception e ) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		return user;
 	}
 
-	public List<User> selectAllRecords() throws Exception {
+	public List<User> selectAllRecords() throws IOException {
 		List<User> usersList = new ArrayList<User>();
 
 		String sql = "SELECT * FROM users ORDER BY user_id";
@@ -178,12 +183,12 @@ public class UserDAO {
 			}
 		} catch ( Exception e ) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		return usersList;
 	}
 	
-	public boolean setNewToken( User user ) throws Exception {
+	public boolean setNewToken( User user ) throws IOException {
 		boolean rowUpdated = false;
 		String token = UUID.randomUUID().toString();
 		
@@ -195,7 +200,7 @@ public class UserDAO {
 			rowUpdated = ( stmt.executeUpdate() > 0 );
 		} catch ( Exception e ) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		if ( rowUpdated ) 
 		{ 
@@ -204,7 +209,7 @@ public class UserDAO {
 		return rowUpdated;
 	}
 	
-	public boolean setNewPassword( User user ) throws Exception {
+	public boolean setNewPassword( User user ) throws IOException {
 		boolean rowUpdated = false;
 		
 		String sql = "UPDATE users SET token = NULL, pass = ? WHERE user_id = ?";
@@ -215,7 +220,7 @@ public class UserDAO {
 			rowUpdated = ( stmt.executeUpdate() > 0 );
 		} catch ( Exception e ) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		
 		user.setToken( null );			// reset user token

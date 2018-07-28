@@ -7,7 +7,7 @@
 
 <jsp:include page="_top-page.jsp" />
 
-<div class="container">
+<div class="container-fluid">
 	<h1>Users Management</h1>
 	<h2>
 		<a href="<%= response.encodeURL( "/auth/user?action=new" ) %>" >Add New User</a>

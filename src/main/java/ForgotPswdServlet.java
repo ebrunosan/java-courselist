@@ -67,9 +67,9 @@ public class ForgotPswdServlet extends HttpServlet {
 					context.log( "<<< [ForgotPswdServlet | END] Fail when sending email" );
 				}
 			}
-        } catch ( Exception ex ) {
+        } catch ( IOException ex ) {
 			context.log( "<<< [ForgotPswdServlet | END] Exception!");
-            throw new ServletException( ex );
+            throw new IOException( ex );
         }
  	}
 	
@@ -100,7 +100,7 @@ public class ForgotPswdServlet extends HttpServlet {
 		} 
 		catch ( IOException ex ) 
 		{
-			System.out.println( ex.getMessage() );
+			System.err.println( ex.getMessage() );
 			return false;
 		}
 		

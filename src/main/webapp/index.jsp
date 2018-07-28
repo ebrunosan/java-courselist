@@ -2,7 +2,7 @@
 
 <jsp:include page="/auth/_top-page.jsp" />
 
-<div class="container">
+<div class="container-fluid">
 	<h2>:: Public Area Main Page ::</h2>
 	<p>Welcome annonymous user !!!</p>
 	
