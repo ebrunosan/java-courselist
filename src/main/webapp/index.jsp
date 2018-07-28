@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<jsp:include page="_top-page.jsp" />
+<jsp:include page="/auth/_top-page.jsp" />
 
 <div class="container">
 	<h2>:: Public Area Main Page ::</h2>
@@ -13,4 +13,4 @@
 	<p>Suggestion: fill this page with a simple image</p>
 </div>
 
-<jsp:include page="_botton-page.jsp" />
+<jsp:include page="/auth/_botton-page.jsp" />

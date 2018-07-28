@@ -55,7 +55,7 @@
 						<span class="glyphicon glyphicon-log-out"></span> Logout</a>
 					</li>
 				<% } else { %>
-					<li><a href="/auth/user-form.jsp">
+					<li><a href="/newuser.jsp">
 						<span class="glyphicon glyphicon-user"></span> Sign Up</a>
 					</li>
 					<li><a href="/auth/login.jsp">
