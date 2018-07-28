@@ -33,14 +33,36 @@ public class ResetPswdServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
 	{
-		req.getRequestDispatcher( "/resetpswd.jsp" ).forward(req, res);
+		ServletContext context = getServletContext();
+		context.log( ">>> [ResetPswdServlet | BEGIN] Get" );
+
+		String token 	= req.getParameter( "token" );
+		try {
+			userDAO 	= new UserDAO();
+			User user 	= userDAO.selectRecordByToken( token );
+
+			if ( user == null  )
+			{
+				req.setAttribute( "message", "Please request a new token for reseting your password!" );
+				req.getRequestDispatcher( "/resetpswd.jsp" ).forward( req, res );
+				context.log( "<<< [ResetPswdServlet | END] Token invalid" );
+			}
+			else
+				req.getRequestDispatcher( "/resetpswd.jsp" ).forward(req, res);
+				context.log( "<<< [ResetPswdServlet | END] Token valid" );
+		} 
+		catch ( Exception ex ) 
+		{
+			context.log( "<<< [ResetPswdServlet | END] Exception!");
+			throw new ServletException( ex );
+		}
 	}
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
 	{
 		ServletContext context = getServletContext();
-		context.log( ">>> [ResetPswdServlet | BEGIN]" );
+		context.log( ">>> [ResetPswdServlet | BEGIN] Post" );
 
 		String token 	= req.getParameter( "token" );
 		String newPswd 	= req.getParameter( "user-pwd" );

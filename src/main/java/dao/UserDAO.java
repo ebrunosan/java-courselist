@@ -59,7 +59,7 @@ public class UserDAO {
 	public boolean updateRecord( User user ) throws Exception {
 		boolean rowUpdated = false;
 		
-		String sql = "UPDATE users SET userName = ?, pass = ?, firstName = ?, lastName=? WHERE user_id = ?";
+		String sql = "UPDATE users SET email = ?, pass = ?, firstName = ?, lastName=? WHERE user_id = ?";
 		try ( PreparedStatement stmt = conn.prepareStatement( sql ) ) {
 			stmt.setString( 1, user.getEmail() );
 			stmt.setString( 2, user.getPass() );
