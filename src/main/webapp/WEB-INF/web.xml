@@ -22,7 +22,7 @@
    
    <!-- Exception Type Related Error Pages -->
    <error-page>
-      <exception-type>javax.servlet.ServletException</exception-type>
+      <exception-type>javax.servlet.Throwable</exception-type>
       <location>/error.jsp</location>
    </error-page>
 </web-app>
