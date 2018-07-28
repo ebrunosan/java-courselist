@@ -40,12 +40,13 @@ public class UserDAO {
 	}
 	
 	public boolean insertRecord( User user ) throws Exception {
-		String sql = "INSERT INTO users ( email, pass, firstName, lastName ) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO users ( email, pass, firstName, lastName, token ) VALUES (?, ?, ?, ?, ?)";
 		try ( PreparedStatement stmt = conn.prepareStatement( sql ) ) {
 			stmt.setString( 1, user.getEmail() 		);
 			stmt.setString( 2, user.getPass() 		);
 			stmt.setString( 3, user.getFirstName() 	);
 			stmt.setString( 4, user.getLastName() 	);
+			stmt.setString( 5, user.getToken() 		);
 			
 			stmt.executeUpdate();
 		} catch ( Exception e ) {
