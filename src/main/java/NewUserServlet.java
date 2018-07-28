@@ -56,7 +56,7 @@ public class NewUserServlet extends HttpServlet {
 				{
 					String appUrl 		 = req.getScheme() + "://" + req.getServerName();
 					String resetTokenUrl = appUrl + "/reset?token=" + newUser.getToken();
-
+					
 					if ( sendResetEmail( newUser.getEmail(), resetTokenUrl ) )
 					{
 						msg = "Thanks for your registration. Check your email box to complete your authentication.";
