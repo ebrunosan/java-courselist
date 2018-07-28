@@ -4,10 +4,10 @@
 
 <div class="container-fluid">
 <%
-	Integer statusCode 	= ( Integer ) req.getAttribute( "javax.servlet.error.status_code" );
-	String servletName 	= ( String ) req.getAttribute( "javax.servlet.error.servlet_name" );
-	String reqUri 		= ( String ) req.getAttribute( "javax.servlet.error.req_uri" );
-	Throwable throwable = ( Throwable ) req.getAttribute( "javax.servlet.error.exception" );
+	Integer statusCode 	= ( Integer ) request.getAttribute( "javax.servlet.error.status_code" );
+	String servletName 	= ( String ) request.getAttribute( "javax.servlet.error.servlet_name" );
+	String reqUri 		= ( String ) request.getAttribute( "javax.servlet.error.req_uri" );
+	Throwable throwable = ( Throwable ) request.getAttribute( "javax.servlet.error.exception" );
 
 	if ( servletName == null ) { servletName = "Unknown"; }
 	if ( reqUri == null ) { reqUri = "Unknown"; }
