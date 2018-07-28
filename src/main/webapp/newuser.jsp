@@ -3,7 +3,7 @@
 	String message = (String) request.getAttribute( "message" ); 
 %>
 
-<jsp:include page="_top-page.jsp" />
+<jsp:include page="/auth/_top-page.jsp" />
 
 <div class="container-fluid">
     <div class="row">
@@ -68,4 +68,4 @@
     </div>
 </div>
 
-<jsp:include page="_botton-page.jsp" />
+<jsp:include page="/auth/_botton-page.jsp" />
