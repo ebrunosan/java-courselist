@@ -36,7 +36,7 @@
                 </div>
 				
                 <div class="form-group">
-                    <label for="conf-pwd" class="col-sm-4 control-label">Confirm</label>
+                    <label for="conf-pwd" class="col-sm-4 control-label">Repeat password</label>
                     <div class="col-sm-8">
 					
 						<input type="password" name="conf-pwd" id="conf-pwd" class="form-control" 

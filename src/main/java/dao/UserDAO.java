@@ -143,7 +143,7 @@ public class UserDAO {
 	public User selectRecordByToken( String token ) throws Exception {
 		User user = null;
 
-		String sql = "SELECT * FROM users WHERE email = ?";
+		String sql = "SELECT * FROM users WHERE token = ?";
 		try ( PreparedStatement stmt = conn.prepareStatement( sql ) ) {
 			stmt.setString( 1, token );
 			
