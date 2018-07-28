@@ -22,7 +22,12 @@ public class ErrorHandler extends HttpServlet {
 	{
 		userDAO = new UserDAO();
 		User newUser = new User( "bdasilvasantos@mylambton.ca", "xx", "yy", null, null );
-		userDAO.insertRecord( newUser );
-		//throw new ServletException( "Get method error testing" );
+		//userDAO.insertRecord( newUser );
+		boolean ret = userDAO.testInsert();
+		res.setContentType("text/html");
+		PrintWriter out = res.getWriter();
+		out.println("<HTML><HEAD><TITLE>Hello World!</TITLE>"+
+		"</HEAD><BODY>" + ret + "</BODY></HTML>");
+		out.close();
 	}
 }
