@@ -95,10 +95,10 @@ public class UserServlet extends HttpServlet {
     private void insertUser( HttpServletRequest req, HttpServletResponse res )
             throws SQLException, IOException, Exception
 	{
-        String email 		= req.getParameter( "email" );
-        String pass 		= req.getParameter( "pass" );
         String firstName 	= req.getParameter( "firstName" );
         String lastName 	= req.getParameter( "lastName" );
+        String email 		= req.getParameter( "userEmail" );
+        String pass 		= req.getParameter( "pass" );
  
         if ( userDAO.insertRecord( new User( email, firstName, lastName, pass, null ) ) )
 		{
@@ -114,10 +114,10 @@ public class UserServlet extends HttpServlet {
             throws SQLException, IOException, Exception 
 	{
 		int userId 			= Integer.parseInt( req.getParameter( "userId" ) );
-        String email 		= req.getParameter( "email" );
-        String pass 		= req.getParameter( "pass" );
         String firstName 	= req.getParameter( "firstName" );
         String lastName 	= req.getParameter( "lastName" );
+        String email 		= req.getParameter( "userEmail" );
+        String pass 		= req.getParameter( "pass" );
  
         if ( userDAO.updateRecord( new User( userId, email, firstName, lastName, pass, null ) ) )
 		{

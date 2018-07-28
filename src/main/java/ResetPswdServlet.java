@@ -44,7 +44,7 @@ public class ResetPswdServlet extends HttpServlet {
 			if ( user == null  )
 			{
 				req.setAttribute( "message", "Please request a new token for reseting your password!" );
-				req.getRequestDispatcher( "/resetpswd.jsp" ).forward( req, res );
+				req.getRequestDispatcher( "/forgotpswd.jsp" ).forward( req, res );
 				context.log( "<<< [ResetPswdServlet | END] Token invalid" );
 			}
 			else
@@ -96,7 +96,7 @@ public class ResetPswdServlet extends HttpServlet {
 					session.setAttribute( "userId", String.valueOf( user.getUserId() ) );
 					session.setMaxInactiveInterval( 10*60 );		// setting session to expiry in 10 mins
 
-					req.getRequestDispatcher( "/auth/welcome.jsp" ).forward( req, res );
+					res.sendRedirect( "/auth/welcome.jsp" );		// Redirects to authenticated area
 					context.log( "<<< [ResetPswdServlet | END] Password changed successfully" );
 				}
 			} catch ( Exception ex ) {

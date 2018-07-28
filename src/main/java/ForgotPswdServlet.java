@@ -57,7 +57,7 @@ public class ForgotPswdServlet extends HttpServlet {
 				if ( sendResetEmail( user.getEmail(), resetTokenUrl ) )
 				{
 					req.setAttribute( "message", "Email sent successfully. Check your mail box!" );
-					req.getRequestDispatcher( "/forgotpswd.jsp" ).forward( req, res );
+					res.sendRedirect( "/forgotpswd.jsp" );			// Redirects to authenticated area
 					context.log( "<<< [ForgotPswdServlet | END] Email sent successfully" );
 				}
 				else

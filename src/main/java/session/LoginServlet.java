@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet
 				session.setAttribute( "userId", String.valueOf( user.getUserId() ) );
 				session.setMaxInactiveInterval( 10*60 );		// setting session to expiry in 10 mins
 
-				req.getRequestDispatcher( "/auth/welcome.jsp" ).forward(req, res);
+				res.sendRedirect( "/auth/welcome.jsp" );		// Redirects to authenticated area
 				context.log( "<<< [LoginServlet | END] Successfully!" );
 			}
         } catch ( Exception ex ) {
