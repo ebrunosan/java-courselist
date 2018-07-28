@@ -16,6 +16,6 @@ public class ErrorHandler extends HttpServlet {
 	public void doGet( HttpServletRequest req, HttpServletResponse res ) 
 		throws IOException, ServletException 
 	{
-		req.getRequestDispatcher( "/error.jsp" ).forward( req, res );
+		throw new ServletException( "Get method error testing" );
 	}
 }
