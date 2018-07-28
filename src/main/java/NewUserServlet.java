@@ -87,9 +87,9 @@ public class NewUserServlet extends HttpServlet {
         String firstName 	= req.getParameter( "firstName" );
         String lastName 	= req.getParameter( "lastName" );
 		
-		if ( email.isEmpty() ) { msg += "Email MUST be informed!<br />"; }
-		if ( firstName.isEmpty() ) { msg += "First name MUST be informed!<br />"; }
-		if ( lastName.isEmpty() ) { msg += "Last name MUST be informed!<br />"; }
+		if ( email == null || email.isEmpty() ) { msg += "Email MUST be informed!<br />"; }
+		if ( firstName == null || firstName.isEmpty() ) { msg += "First name MUST be informed!<br />"; }
+		if ( lastName == null || lastName.isEmpty() ) { msg += "Last name MUST be informed!<br />"; }
 		
 		if ( msg.isEmpty() )
 		{
