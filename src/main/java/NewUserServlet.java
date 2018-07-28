@@ -68,7 +68,7 @@ public class NewUserServlet extends HttpServlet {
 				}
 
 				req.setAttribute( "message", msg );
-				//req.getRequestDispatcher( "/newuser.jsp" ).forward( req, res );
+				req.getRequestDispatcher( "/newuser.jsp" ).forward( req, res );
 			} 
 			catch ( Exception ex ) 
 			{
