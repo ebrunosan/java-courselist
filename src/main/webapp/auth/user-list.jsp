@@ -8,34 +8,49 @@
 <jsp:include page="_top-page.jsp" />
 
 <div class="container-fluid">
-	<h1>Users Management</h1>
-	<h2>
-		<a href="<%= response.encodeURL( "/auth/user?action=new" ) %>" >Add New User</a>
-		&nbsp;
-		<a href="<%= response.encodeURL( "/auth/user?action=list" ) %>" >List All Users</a>
-	</h2>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+			
+			<h3>Users List</h3>
+			<div class="col-sm-offset-4 col-sm-8">
+				<a href="<%= response.encodeURL( "/auth/user?action=new" ) %>" >
+					<button type="button" class="btn">Add New User</button>
+				</a>
+				&nbsp;
+				<a href="<%= response.encodeURL( "/auth/user?action=list" ) %>" >
+					<button type="button" class="btn">List All Users</button>
+				</a>
+			</div>
 
-	<table border="1" cellpadding="5">
-		<caption><h2>List of Users</h2></caption>
-		<tr>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>User email</th>
-			<th>Actions</th>
-		</tr>
-		<% for ( User user : listUsers ) { %>
-			<tr>
-				<td><%= user.getFirstName() %></td>
-				<td><%= user.getLastName() %></td>
-				<td><%= user.getEmail() %></td>
-				<td>
-					<a href = "<%= response.encodeURL( "/auth/user?action=edit&userId=" + user.getUserId() ) %>" >Edit</a>
-					&nbsp;
-					<a href = "<%= response.encodeURL( "/auth/user?action=delete&userId=" + user.getUserId() ) %>" >Delete</a>                     
-				</td>
-			</tr>
-		<% } %>
-	</table>
-</div>   
+
+			<table class="table table-striped">
+				<caption><h2>List of Users</h2></caption>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>User email</th>
+					<th>Actions</th>
+				</tr>
+				<% for ( User user : listUsers ) { %>
+					<tr>
+						<td><%= user.getFirstName() %></td>
+						<td><%= user.getLastName() %></td>
+						<td><%= user.getEmail() %></td>
+						<td>
+							<a href = "<%= response.encodeURL( "/auth/user?action=edit&userId=" + user.getUserId() ) %>" >
+								<button type="button" class="btn">Edit</button>
+							</a>
+							&nbsp;
+							<a href = "<%= response.encodeURL( "/auth/user?action=delete&userId=" + user.getUserId() ) %>" >
+								<button type="button" class="btn">Delete</button>
+							</a>                     
+						</td>
+					</tr>
+				<% } %>
+			</table>
+			
+        </div> <!-- col -->
+    </div> <!-- row -->
+</div> <!-- container -->
 
 <jsp:include page="_botton-page.jsp" />

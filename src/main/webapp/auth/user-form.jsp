@@ -21,6 +21,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-offset-2 col-sm-8">
+			
 			<h3>User profile ::
 				<% if ( editMode ) { %>Edit<% } else { %>Add New<% } %>
 			</h3>
@@ -118,8 +119,9 @@
                 </div>
 				
             </form>
-        </div>
-    </div>
-</div>
+			
+        </div> <!-- col -->
+    </div> <!-- row -->
+</div> <!-- container -->
 
 <jsp:include page="_botton-page.jsp" />
