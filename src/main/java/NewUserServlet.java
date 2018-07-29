@@ -60,7 +60,7 @@ public class NewUserServlet extends HttpServlet {
 					
 					if ( sendResetEmail( newUser.getEmail(), resetTokenUrl ) )
 					{
-						req.setAttribute( "message", "Thanks for your interest! Check your email box to complete your registration." );
+						req.setAttribute( "message", "Thanks for your interest! Check your email inbox to complete your registration." );
 						req.getRequestDispatcher( "/newuser.jsp" ).forward( req, res );
 					}
 					else

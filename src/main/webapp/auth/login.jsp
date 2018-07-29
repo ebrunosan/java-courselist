@@ -49,7 +49,7 @@
                     <div class="col-sm-offset-4 col-sm-8">
                         <button type="submit" class="btn btn-sm btn-primary">Login</button>
 						&nbsp
-						<a href="#">Create account</a> or <a href="/forgotpswd.jsp">Forgot password</a>
+						<a href="/newuser.jsp">Create account</a> or <a href="/forgotpswd.jsp">Forgot password</a>
 					</div>
                 </div>
 				

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <% 
-	String message = (String) request.getAttribute( "message" );
-	String token = (String) request.getParameter( "token" );
+	String message 	= (String) request.getAttribute( "message" );
+	String token 	= (String) request.getParameter( "token" );
 %>
 
 <jsp:include page="/auth/_top-page.jsp" />

@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet
 
 			if ( user == null || user.getPass() == null || !pwd.equals( user.getPass() ))
 			{
-				req.setAttribute( "message", "Either email or password is wrong. Submit your regitration form and check your mail box." );
+				req.setAttribute( "message", "Either email or password not found in our database. Please try again." );
 
 				req.getRequestDispatcher( "/auth/login.jsp" ).forward( req, res );
 				context.log( "<<< [LoginServlet | END] Email or password incorret!" );

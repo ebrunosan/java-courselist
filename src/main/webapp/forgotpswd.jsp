@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="main.java.model.User,java.util.*" %>
 <% 
-	String message = (String) request.getAttribute( "message" ); 
-	User user 		= (User) request.getAttribute ( "user" );
+	User user = ( User ) request.getAttribute ( "user" );
+	String message = ( String ) request.getAttribute( "message" );
 %>
 
 <jsp:include page="/auth/_top-page.jsp" />
