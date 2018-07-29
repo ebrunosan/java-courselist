@@ -55,7 +55,7 @@ public class NewUserServlet extends HttpServlet {
 				}
 				else
 				{
-					String appUrl 		 = req.getScheme() + "://" + req.getServerName();
+					String appUrl 		 = "https://" + req.getServerName();
 					String resetTokenUrl = appUrl + "/reset?token=" + newUser.getToken();
 					
 					if ( sendResetEmail( newUser.getEmail(), resetTokenUrl ) )

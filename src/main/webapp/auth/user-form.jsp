@@ -6,7 +6,7 @@
 	User user 		= ( User ) request.getAttribute ( "user" );
 	
 	boolean editMode;
-	if ( user != null && user.getUserId() != null && user.getUserId() != 0 )
+	if ( user != null && user.getUserId() > 0 )
 	{
 		editMode = true;
 	}

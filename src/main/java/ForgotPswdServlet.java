@@ -50,7 +50,7 @@ public class ForgotPswdServlet extends HttpServlet {
 			else
 			{
 				userDAO.setNewToken( user );
-				String appUrl 		 = req.getScheme() + "://" + req.getServerName();
+				String appUrl 		 = "https://" + req.getServerName();
 				String resetTokenUrl = appUrl + "/reset?token=" + user.getToken();
 				
 				if ( sendResetEmail( user.getEmail(), resetTokenUrl ) )
