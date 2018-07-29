@@ -51,23 +51,11 @@ public class AuthFilter implements Filter {
 		} 
 		catch ( Throwable e ) 
 		{
-            logException( request, response, e );
+			e.printStackTrace();
+			throw new ServletException( e );
         }
     }
 
-    private void logException( ServletRequest request, ServletResponse response, Throwable e ) 
-			throws IOException, ServletException 
-	{
-        HttpServletRequest req = ( HttpServletRequest ) request;
-		
-        System.err.println( "Request.RequestURL=" + req.getRequestURL() );
-        System.err.println( "Request.UserPrincipal=" + req.getUserPrincipal() );
-		
-		e.printStackTrace();
-        
-		throw new ServletException( e.getMessage(), e );
-	}
-	
     @Override
     public void destroy() 
 	{

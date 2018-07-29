@@ -137,12 +137,12 @@ public class UserServlet extends HttpServlet {
 			req.setAttribute( "message", "Email already exists in our database. Please, try another one." );
 			req.getRequestDispatcher( "/auth/user-form.jsp" ).forward(req, res);
 		}
-   }
+    }
  
     private void deleteUser( HttpServletRequest req, HttpServletResponse res )
             throws SQLException, IOException, Exception
 	{
-		int userId 			= Integer.parseInt( req.getParameter( "userId" ) );
+		int userId = Integer.parseInt( req.getParameter( "userId" ) );
         if ( userDAO.deleteRecord( userId ) )
 		{
 			listUser( req, res );
