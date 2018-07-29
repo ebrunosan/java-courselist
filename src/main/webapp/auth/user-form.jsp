@@ -61,7 +61,7 @@
                     <div class="col-sm-8">
 					
                         <input type="email" name="userEmail" id="userEmail" class="form-control" 
-							<% if ( editMode ) { out.print( "value='" + user.getEmail() + "'" ); }%>
+							<% if ( user != null ) { out.print( "value='" + user.getEmail() + "'" ); }%>
 							placeholder="User email" maxlength="40" required
 							data-error="Oops, that email address is invalid" 
 						/>
@@ -75,7 +75,7 @@
                     <div class="col-sm-8">
 					
 						<input type="text" name="firstName" id="firstName" class="form-control" 
-							<% if ( editMode ) { out.print( "value='" + user.getFirstName() + "'" ); }%>
+							<% if ( user != null ) { out.print( "value='" + user.getFirstName() + "'" ); }%>
 							placeholder="First name" data-minlength="4"  maxlength="20" required
 						/>
 						
@@ -88,7 +88,7 @@
                     <div class="col-sm-8">
 					
 						<input type="text" name="lastName" id="lastName" class="form-control" 
-							<% if ( editMode ) { out.print( "value='" + user.getLastName() + "'" ); }%>
+							<% if ( user != null ) { out.print( "value='" + user.getLastName() + "'" ); }%>
 							placeholder="First name" data-minlength="4"  maxlength="30" required
 						/>
 						
@@ -101,7 +101,7 @@
                     <div class="col-sm-8">
 					
 						<input type="password" name="pass" id="pass" class="form-control" 
-							<% if ( editMode ) { out.print( "value='" + user.getPass() + "'" ); }%>
+							<% if ( user != null ) { out.print( "value='" + user.getPass() + "'" ); }%>
 							placeholder="User password" data-minlength="4"  maxlength="8" required
 						/>
 						
