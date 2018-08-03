@@ -91,7 +91,10 @@ public class ForgotPswdServlet extends HttpServlet {
 				+ resetTokenUrl + "'>Here</a><br/>OR copy/paste this link:" + resetTokenUrl );
 
 			Mail mail = new Mail( from, subject, to, content );
-			
+			mail.personalization.get(0).addSubstitution("-name-", "Example User");
+			mail.personalization.get(0).addSubstitution("-city-", "Denver");
+			mail.setTemplateId("787f8a6ba0914e59b2fcf456e2a7d430");
+	
 			request.setBody( mail.build() );
 			
 			Response response = sg.api( request );
