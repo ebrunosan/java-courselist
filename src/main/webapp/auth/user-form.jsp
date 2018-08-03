@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="userEmail" class="col-sm-4 control-label">Your email</label>
+                    <label for="userEmail" class="col-sm-4 control-label">Email</label>
                     <div class="col-sm-8">
 					
                         <input type="email" name="userEmail" id="userEmail" class="form-control" 
@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="firstName" class="col-sm-4 control-label">Your first name</label>
+                    <label for="firstName" class="col-sm-4 control-label">First name</label>
                     <div class="col-sm-8">
 					
 						<input type="text" name="firstName" id="firstName" class="form-control" 
@@ -85,7 +85,7 @@
                 </div>
 				
                 <div class="form-group">
-                    <label for="lastName" class="col-sm-4 control-label">Your last name</label>
+                    <label for="lastName" class="col-sm-4 control-label">Last name</label>
                     <div class="col-sm-8">
 					
 						<input type="text" name="lastName" id="lastName" class="form-control" 
@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="pass" class="col-sm-4 control-label">Your password</label>
+                    <label for="pass" class="col-sm-4 control-label">Password</label>
                     <div class="col-sm-8">
 					
 						<input type="password" name="pass" id="pass" class="form-control" 
