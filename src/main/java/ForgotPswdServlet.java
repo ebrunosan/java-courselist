@@ -93,7 +93,7 @@ public class ForgotPswdServlet extends HttpServlet {
 			Mail mail = new Mail( from, subject, to, content );
 			mail.personalization.get(0).addSubstitution("-name-", "Example User");
 			mail.personalization.get(0).addSubstitution("-city-", "Denver");
-			mail.setTemplateId("787f8a6ba0914e59b2fcf456e2a7d430");
+			mail.setTemplateId("790ff8ef-034c-467f-acf2-500fb3bf9920");
 	
 			request.setBody( mail.build() );
 			
