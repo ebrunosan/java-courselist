@@ -116,11 +116,14 @@ public class NewUserServlet extends HttpServlet {
 			Email from 		= new Email( "do-not-reply@java-prj-team-summer2018.ca" );
 			Email to 		= new Email( emailToAddr );
 			String subject 	= "Welcome to our website";
-			Content content = new Content( "text/plain", 
-				"To set your password, click the link below:<br/><a href='"
-				+ resetTokenUrl + "'>Here</a><br/>OR copy/paste this link:" + resetTokenUrl );
+			Content content = new Content( "text/plain", "To complete your set up, click the link below:");
+			//Content content = new Content( "text/plain", 
+			//	"To complet your set up, please click the link below:<br/><a href='"
+			//	+ resetTokenUrl + "'>Here</a><br/>OR copy/paste this link:" + resetTokenUrl );
 
 			Mail mail = new Mail( from, subject, to, content );
+			mail.personalization.get(0).addSubstitution("-resetTokenUrl-", resetTokenUrl);
+			mail.setTemplateId("790ff8ef-034c-467f-acf2-500fb3bf9920");
 			
 			request.setBody( mail.build() );
 			
