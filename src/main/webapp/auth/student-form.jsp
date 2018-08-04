@@ -4,6 +4,16 @@
 <%
 	Student student = (Student) request.getAttribute ("student");
 	List<CourseProgram> listCourses = ( ArrayList<CourseProgram> ) request.getAttribute ( "listCourses" );
+	
+	boolean editMode;
+	if ( student != null && student.getStudentId() > 0 )
+	{
+		editMode = true;
+	}
+	else
+	{
+		editMode = false;
+	}
 %>
 
 <jsp:include page="_top-page.jsp" />
