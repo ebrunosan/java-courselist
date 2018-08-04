@@ -4,6 +4,7 @@
 <% 
 	List<Student> listStudents = (ArrayList<Student>) request.getAttribute ("listStudents");
 %>
+
 <jsp:include page="_top-page.jsp" />
  
 <div class="container-fluid">
@@ -12,9 +13,13 @@
 			
 			<h3>Students List</h3>
 			<div class="col-sm-offset-4 col-sm-8">
-				<a href="<%= response.encodeURL( "/auth/student?action=new" ) %>" >Add New Student</a>
+				<a href="<%= response.encodeURL( "/auth/student?action=new" ) %>" >
+					<button type="button" class="btn">Add New Student</button>
+				</a>
                 &nbsp;
-                <a href="<%= response.encodeURL( "/auth/student?action=list" ) %>" >List All Students</a>
+                <a href="<%= response.encodeURL( "/auth/student?action=list" ) %>" >
+					<button type="button" class="btn">List All Students</button>
+				</a>
 			</div>
 
 

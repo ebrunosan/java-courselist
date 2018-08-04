@@ -27,11 +27,11 @@
 			</h3>
 
 			<form class="form-horizontal" data-toggle="validator" role="form" 
-			<% if ( editMode ) { %>
-				action="<%= response.encodeURL( "/auth/user?action=update" ) %>" method="post">
-			<% } else { %>
-				action="<%= response.encodeURL( "/auth/user?action=insert" ) %>" method="post">
-			<% } %>
+				<% if ( editMode ) { %>
+					action="<%= response.encodeURL( "/auth/user?action=update" ) %>" method="post">
+				<% } else { %>
+					action="<%= response.encodeURL( "/auth/user?action=insert" ) %>" method="post">
+				<% } %>
 			
 				<% if ( editMode ) { %>
 					<input type="hidden" name="userId" value="<%= user.getUserId() %>" />

@@ -2,6 +2,7 @@
 <%@ page import="main.java.model.*" %>
 
 <%
+	String message 	= ( String ) request.getAttribute ( "message" );
 	Student student = (Student) request.getAttribute ("student");
 	List<CourseProgram> listCourses = ( ArrayList<CourseProgram> ) request.getAttribute ( "listCourses" );
 	
@@ -27,11 +28,11 @@
 			</h3>
 
 			<form class="form-horizontal" data-toggle="validator" role="form" 
-			<% if ( editMode ) { %>
-				action="<%= response.encodeURL( "/auth/student?action=update" ) %>" method="post">
-			<% } else { %>
-				action="<%= response.encodeURL( "/auth/student?action=insert" ) %>" method="post">
-			<% } %>
+				<% if ( editMode ) { %>
+					action="<%= response.encodeURL( "/auth/student?action=update" ) %>" method="post">
+				<% } else { %>
+					action="<%= response.encodeURL( "/auth/student?action=insert" ) %>" method="post">
+				<% } %>
 			
 				<% if ( editMode ) { %>
 					<input type="hidden" name="studentId" value="<%= student.getStudentId() %>" />
