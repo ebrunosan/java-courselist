@@ -1,6 +1,7 @@
 package main.java;
 
 import main.java.dao.StudentDAO;
+import main.java.dao.CourseProgramDAO;
 import main.java.model.Student;
 import main.java.model.CourseProgram;
 
@@ -22,7 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 public class StudentServlet extends HttpServlet {
-	private StudentDAO studentDAO;
+    private StudentDAO studentDAO;
+    private CourseProgramDAO courseDAO;
 		
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -35,7 +37,8 @@ public class StudentServlet extends HttpServlet {
 		context.log( ">>> [StudentServlet | BEGIN]" );
 
 		//if ( StudentDAO == null ) { StudentDAO = new StudentDAO(); }
-		studentDAO = new StudentDAO();
+        studentDAO = new StudentDAO();
+        courseDAO = new CourseProgramDAO();
 		
 		String action = req.getParameter( "action" );
 		if (action == null) { action = "list"; }	// default action
@@ -83,6 +86,8 @@ public class StudentServlet extends HttpServlet {
     private void showNewStudent(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException, Exception
 	{
+        List<CourseProgram> listCourses = courseDAO.selectAllCourses();
+        req.setAttribute( "listCourses", listCourses );
         req.getRequestDispatcher( "/auth/student-form.jsp" ).forward(req, res);
     }
  
@@ -92,6 +97,8 @@ public class StudentServlet extends HttpServlet {
 		int studentId 			= Integer.parseInt(req.getParameter("studentId"));
 		Student existingStudent 	= studentDAO.selectRecordByStudent(studentId);
         req.setAttribute("student", existingStudent);
+        List<CourseProgram> listCourses = courseDAO.selectAllCourses();
+        req.setAttribute( "listCourses", listCourses );
         
         req.getRequestDispatcher( "/auth/student-form.jsp" ).forward(req, res);
     }
@@ -105,8 +112,17 @@ public class StudentServlet extends HttpServlet {
         String country 	= req.getParameter("country");
 		int courseId = Integer.parseInt(req.getParameter("course_id"));
 		CourseProgram course = new CourseProgram(courseId); 
- 
-        studentDAO.insertRecord( new Student(name, age, gender, country, course) );
+        Student newStudent = new Student(name, age, gender, country, course);
+        if (studentDAO.insertRecord( newStudent ))
+        {
+            listStudent(req, res);
+        }
+        else
+        {
+            req.setAttribute( "student", newStudent );
+            req.setAttribute( "message", "Name already exists in our database. Please, try another one." );
+            req.getRequestDispatcher( "/auth/student-form.jsp" ).forward(req, res);
+        }
         //res.sendRedirect("student");
     }
  
@@ -120,9 +136,18 @@ public class StudentServlet extends HttpServlet {
         String country 	= req.getParameter("country");
 		int courseId = Integer.parseInt(req.getParameter("course_id"));
 		CourseProgram course = new CourseProgram(courseId);
- 
-        studentDAO.updateRecord( new Student(studentId, name, age, gender, country, course ) );
-        //res.sendRedirect("student");
+        Student newStudent = new Student(studentId, name, age, gender, country, course );
+        
+        if(studentDAO.updateRecord( newStudent ))
+        {
+            listStudent(req, res);
+        }
+        else
+        {
+            req.setAttribute( "student", newStudent );
+            req.setAttribute( "message", "Name already exists in our database. Please, try another one." );
+            req.getRequestDispatcher( "/auth/student-form.jsp" ).forward(req, res);
+        };
     }
  
     private void deleteStudent(HttpServletRequest req, HttpServletResponse res)

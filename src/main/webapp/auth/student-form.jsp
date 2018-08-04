@@ -3,88 +3,129 @@
 
 <%
 	Student student = (Student) request.getAttribute ("student");
+	List<CourseProgram> listCourses = ( ArrayList<CourseProgram> ) request.getAttribute ( "listCourses" );
 %>
 
 <jsp:include page="_top-page.jsp" />
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+			
+			<h3>Student profile ::
+				<% if ( editMode ) { %>Edit<% } else { %>Add New<% } %>
+			</h3>
 
-<div class="container">
-	<h1>Student Form</h1>
-	<h2>
-		<a href="<%= response.encodeURL( "/auth/student?action=new" ) %>" >Add New Student</a>
-		&nbsp;
-		<a href="<%= response.encodeURL( "/auth/student?action=list" ) %>" >List All Students</a>
-	</h2>
+			<form class="form-horizontal" data-toggle="validator" role="form" 
+			<% if ( editMode ) { %>
+				action="<%= response.encodeURL( "/auth/student?action=update" ) %>" method="post">
+			<% } else { %>
+				action="<%= response.encodeURL( "/auth/student?action=insert" ) %>" method="post">
+			<% } %>
+			
+				<% if ( editMode ) { %>
+					<input type="hidden" name="studentId" value="<%= student.getStudentId() %>" />
+				<% } %>
 
-	<% if (student != null) { %>
-		<form action="<%= response.encodeURL( "/auth/student?action=update" ) %>" method="post">
-	<% } else { %>
-		<form action="<%= response.encodeURL( "/auth/student?action=insert" ) %>" method="post">
-	<% } %>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+						<a href="<%= response.encodeURL( "/auth/student?action=new" ) %>" >
+							<button type="button" class="btn">Add New Student</button>
+						</a>
+						&nbsp;
+						<a href="<%= response.encodeURL( "/auth/student?action=list" ) %>" >
+							<button type="button" class="btn">List All Students</button>
+						</a>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+						<% if ( message != null && !message.isEmpty() ) { %>
+							<p><font color=red><%= message %></font></p>
+						<% } %>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="studentName" class="col-sm-4 control-label">Student Name:</label>
+                    <div class="col-sm-8">
+					
+                        <input type="text" name="name" size="50"
+							<% if (student != null) { out.print( "value='" + student.getName() +"'" ); } %>
+							placeholder="Name" data-minlength="1"  maxlength="40" required
+						/>
+						
+						<div class="help-block with-errors"></div>
+					</div>
+					
+                </div>
+
+                <div class="form-group">
+                    <label for="age" class="col-sm-4 control-label">Age</label>
+                    <div class="col-sm-8">
+					
+						<input type="number" name="age" size="50"
+							<% if (student != null) { out.print( "value='" + student.getAge() +"'" ); } %>
+							placeholder="Age" data-minlength="1"   required
+						/>
+						
+						<div class="help-block with-errors"></div>
+					</div>
+                </div>
+				
+                <div class="form-group">
+                    <label for="gender" class="col-sm-4 control-label">Gender:</label>
+                    <div class="col-sm-8">
+					
+						<input type="text" name="gender" size="50"
+							<% if (student != null) { out.print( "value='" + student.getGender() +"'" ); } %>
+							placeholder="Gender" data-minlength="1"   required
+						/>
+						
+						<div class="help-block with-errors"></div>
+					</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="country" class="col-sm-4 control-label">Country:</label>
+                    <div class="col-sm-8">
+					
+						<input type="text" name="country" size="50"
+							<% if (student != null) { out.print( "value='" + student.getCountry() +"'" ); } %>
+							placeholder="Country" data-minlength="1"   required
+						/>
+						<div class="help-block with-errors"></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+                    <label for="course" class="col-sm-4 control-label">Course:</label>
+                    <div class="col-sm-8">
+						<select name="course_id">
+							<% for(CourseProgram course : listCourses) { %>
+							<option <% out.print( "value='" + course.getCourseCode() +"'" ); %> > 
+								<% out.print( course.getCourseName() ); %>
+							</option>
+							<% } %>
+						</select>
+					</div>
+					<div class="help-block with-errors"></div>
+				</div>
 	
-	<table border="1" cellpadding="5">
-		<caption>
-			<h2>
-				<% if (student != null) { %>Edit Student<% } else { %>Add New Student<% } %>
-			</h2>
-		</caption>
-		<% if (student != null) { %>
-			<input type="hidden" name="studentId" value="<%= student.getStudentId() %>" />
-		<% } %>
-		<tr>
-			<th>Student name: </th>
-			<td>
-				<input type="text" name="name" size="50"
-					<% if (student != null) { out.print( "value='" + student.getName() +"'" ); } %>
-				/>
-			</td>
-        </tr>
-        
-        <tr>
-			<th>Age: </th>
-			<td>
-				<input type="text" name="age" size="50"
-					<% if (student != null) { out.print( "value='" + student.getAge() +"'" ); } %>
-				/>
-			</td>
-        </tr>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button type="submit" class="btn btn-sm btn-primary">Save</button>
+						&nbsp
+                        <button type="reset" class="btn btn-sm btn-primary">Reset</button>
+					</div>
+                </div>
+				
+            </form>
+			
+        </div> <!-- col -->
+    </div> <!-- row -->
+</div> <!-- container -->
 
-        <tr>
-			<th>Gender: </th>
-			<td>
-				<input type="text" name="gender" size="50"
-					<% if (student != null) { out.print( "value='" + student.getGender() +"'" ); } %>
-				/>
-			</td>
-        </tr>
-
-        <tr>
-			<th>Country: </th>
-			<td>
-				<input type="text" name="country" size="50"
-					<% if (student != null) { out.print( "value='" + student.getCountry() +"'" ); } %>
-				/>
-			</td>
-		</tr>
-		
-		<tr>
-			<th>Course:</th>
-			<td>
-				<select name="course_id">
-					<option value="1">CSAT</option>
-				</select>
-			</td>
-        </tr>
-		
-		<tr>
-			<td colspan="2" align="center">
-				<input type="reset" value="Reset" />
-				&nbsp;
-				<input type="submit" value="Save" />
-			</td>
-		</tr>
-	</table>
-	</form>
-</div>
 	
 <jsp:include page="_botton-page.jsp" />

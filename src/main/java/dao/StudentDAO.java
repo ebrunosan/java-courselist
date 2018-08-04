@@ -4,6 +4,8 @@ import main.java.DBUtil;
 import main.java.model.Student;
 import main.java.model.CourseProgram;
 
+import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,18 +25,18 @@ public class StudentDAO {
 	private void createTable() {
 		String sql = "CREATE TABLE IF NOT EXISTS student (" +
 						"student_id   SERIAL 	   PRIMARY KEY ," +
-						"name  varchar(50) NOT NULL ," +
+						"name  varchar(50) NOT NULL UNIQUE ," +
 						"age      varchar(3) NOT NULL ," +
 						"gender varchar(10) NOT NULL ," +
 						"course_id int NULL ," +
-						"country  varchar(150) NOT NULL);" ;
-						//" CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES course(course_code) )";
+						"country  varchar(150) NOT NULL," + 
+						" CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES courseProgram(course_code) )";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO treat exception
+			throw new IOException ( e );
 		}
 	}
 	
@@ -48,6 +50,14 @@ public class StudentDAO {
 			stmt.setString(4, student.getCountry());
 			stmt.setInt(5, student.getCourse().getCourseCode() );
 			stmt.executeUpdate();
+		} catch ( SQLException e ) {
+			if ( "23505".equals( e.getSQLState() ) ) {	// duplicate key
+				return false;
+			} else {
+				e.printStackTrace();
+				throw new IOException ( e );
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -68,6 +78,14 @@ public class StudentDAO {
 			stmt.setInt(5, student.getCourse().getCourseCode());
 			stmt.setInt(6, student.getStudentId());
 			rowUpdated = stmt.executeUpdate() > 0;
+		} catch ( SQLException e ) {
+			if ( "23505".equals( e.getSQLState() ) ) {	// duplicate key
+				return false;
+			} else {
+				e.printStackTrace();
+				throw new IOException ( e );
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
