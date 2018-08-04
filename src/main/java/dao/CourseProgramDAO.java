@@ -3,6 +3,8 @@ package main.java.dao;
 import main.java.DBUtil;
 import main.java.model.CourseProgram;
 
+import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -108,7 +110,7 @@ public class CourseProgramDAO {
 		return course;
 	}
 
-	public List<CourseProgram> selectAllCourses() throws Exception {
+	public List<CourseProgram> selectAllCourses() throws IOException {
 		List<CourseProgram> courseList = new ArrayList<CourseProgram>();
 
 		String sql = "SELECT course_code, course_name, duration, description FROM courseProgram ORDER BY course_code";
@@ -127,7 +129,7 @@ public class CourseProgramDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		
 		return courseList;

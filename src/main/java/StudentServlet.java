@@ -6,7 +6,9 @@ import main.java.model.Student;
 import main.java.model.CourseProgram;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -36,7 +38,6 @@ public class StudentServlet extends HttpServlet {
 		ServletContext context = getServletContext();
 		context.log( ">>> [StudentServlet | BEGIN]" );
 
-		//if ( StudentDAO == null ) { StudentDAO = new StudentDAO(); }
         studentDAO = new StudentDAO();
         courseDAO = new CourseProgramDAO();
 		
@@ -49,16 +50,13 @@ public class StudentServlet extends HttpServlet {
                 showNewStudent(req, res);
                 break;
             case "insert":
-                insertStudent(req, res);		// TODO check successful operation
-				listStudent(req, res);
+                insertStudent(req, res);
                 break;
             case "delete":
-                deleteStudent(req, res);		// TODO check successful operation
-				listStudent(req, res);
+                deleteStudent(req, res);
                 break;
             case "update":
-                updateStudent(req, res);		// TODO check successful operation
-				listStudent(req, res);
+                updateStudent(req, res);
                 break;
             case "edit":
                 showEditStudent(req, res);
@@ -75,7 +73,7 @@ public class StudentServlet extends HttpServlet {
     }
  
     private void listStudent(HttpServletRequest req, HttpServletResponse res)
-            throws SQLException, IOException, ServletException, Exception 
+            throws ServletException, IOException 
 	{
         List<Student> listStudents = studentDAO.selectAllRecords();
         req.setAttribute("listStudents", listStudents);
@@ -92,7 +90,7 @@ public class StudentServlet extends HttpServlet {
     }
  
     private void showEditStudent(HttpServletRequest req, HttpServletResponse res)
-            throws SQLException, ServletException, IOException, Exception
+            throws ServletException, IOException
 	{
 		int studentId 			= Integer.parseInt(req.getParameter("studentId"));
 		Student existingStudent 	= studentDAO.selectRecordByStudent(studentId);
@@ -104,15 +102,17 @@ public class StudentServlet extends HttpServlet {
     }
  
     private void insertStudent(HttpServletRequest req, HttpServletResponse res)
-            throws SQLException, IOException, Exception
+            throws ServletException, IOException
 	{
         String name 	= req.getParameter("name");
         String age 		= req.getParameter("age");
         String gender 	= req.getParameter("gender");
         String country 	= req.getParameter("country");
+
 		int courseId = Integer.parseInt(req.getParameter("course_id"));
 		CourseProgram course = new CourseProgram(courseId); 
         Student newStudent = new Student(name, age, gender, country, course);
+
         if (studentDAO.insertRecord( newStudent ))
         {
             listStudent(req, res);
@@ -123,11 +123,10 @@ public class StudentServlet extends HttpServlet {
             req.setAttribute( "message", "Name already exists in our database. Please, try another one." );
             req.getRequestDispatcher( "/auth/student-form.jsp" ).forward(req, res);
         }
-        //res.sendRedirect("student");
     }
  
     private void updateStudent(HttpServletRequest req, HttpServletResponse res)
-            throws SQLException, IOException, Exception 
+            throws ServletException, IOException 
 	{
 		int studentId 			= Integer.parseInt(req.getParameter("studentId"));
 		String name 	= req.getParameter("name");
@@ -151,11 +150,18 @@ public class StudentServlet extends HttpServlet {
     }
  
     private void deleteStudent(HttpServletRequest req, HttpServletResponse res)
-            throws SQLException, IOException, Exception
+            throws ServletException, IOException
 	{
 		int studentId  = Integer.parseInt(req.getParameter("studentId"));
 
-        studentDAO.deleteRecord( new Student(studentId));
-        //res.sendRedirect("student");
+        if ( studentDAO.deleteRecord( new Student(studentId)) )
+        {
+            listStudent(req, res);
+        }
+		else
+		{
+	        throw new IOException( "Fail when deleting student" );
+		}
+
     }
 }

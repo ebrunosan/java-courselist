@@ -17,12 +17,12 @@ import java.util.List;
 public class StudentDAO {
 	private Connection conn = null;
 	
-	public StudentDAO() {
+	public StudentDAO() throws IOException {
 		conn = DBUtil.getConnection();
 		createTable();
 	}
 
-	private void createTable() {
+	private void createTable() throws IOException {
 		String sql = "CREATE TABLE IF NOT EXISTS student (" +
 						"student_id   SERIAL 	   PRIMARY KEY ," +
 						"name  varchar(50) NOT NULL UNIQUE ," +
@@ -40,7 +40,7 @@ public class StudentDAO {
 		}
 	}
 	
-	public boolean insertRecord(Student student) throws Exception {
+	public boolean insertRecord(Student student) throws IOException {
 		String sql = "INSERT INTO student (name, age, gender, country, course_id) VALUES (?, ?, ?, ?, ?)";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -60,12 +60,12 @@ public class StudentDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		return true;
 	}
 
-	public boolean updateRecord(Student student) throws Exception {
+	public boolean updateRecord(Student student) throws IOException {
 		boolean rowUpdated = false;
 		
 		String sql = "UPDATE student SET name = ?, age = ?, gender = ?, country = ?, course_id = ? WHERE student_id = ?";
@@ -88,13 +88,13 @@ public class StudentDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		
 		return rowUpdated;
 	}
 
-	public boolean deleteRecord(Student student) throws Exception {
+	public boolean deleteRecord(Student student) throws IOException {
 		boolean rowDeleted = false;
 
 		String sql = "DELETE FROM student WHERE student_id = ?";
@@ -104,13 +104,13 @@ public class StudentDAO {
 			rowDeleted = stmt.executeUpdate() > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		
 		return rowDeleted;
 	}
 
-	public Student selectRecordByStudent(int studentId) throws Exception {
+	public Student selectRecordByStudent(int studentId) throws IOException {
 		Student student = null;
 
 		String sql = "SELECT name, age, gender, country, course_id FROM student WHERE student_id = ?";
@@ -130,13 +130,13 @@ public class StudentDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		
 		return student;
 	}
 
-	public List<Student> selectAllRecords() throws Exception {
+	public List<Student> selectAllRecords() throws IOException {
 		List<Student> studentsList = new ArrayList<Student>();
 
 		String sql = "SELECT student_id, name, age, gender, country, course_id FROM student ORDER BY student_id";
@@ -157,7 +157,7 @@ public class StudentDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		
 		return studentsList;

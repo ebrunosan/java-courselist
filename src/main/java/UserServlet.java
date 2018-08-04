@@ -5,8 +5,6 @@ import main.java.model.User;
 
 import java.io.IOException;
 
-import java.sql.SQLException;
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -71,7 +69,7 @@ public class UserServlet extends HttpServlet {
     }
  
     private void listUser( HttpServletRequest req, HttpServletResponse res )
-            throws SQLException, IOException, ServletException, Exception 
+            throws IOException, ServletException 
 	{
         List<User> listUsers = userDAO.selectAllRecords();
         req.setAttribute( "listUsers", listUsers );
@@ -79,13 +77,13 @@ public class UserServlet extends HttpServlet {
     }
  
     private void showNewUser( HttpServletRequest req, HttpServletResponse res )
-            throws ServletException, IOException, Exception
+            throws ServletException, IOException
 	{
         req.getRequestDispatcher( "/auth/user-form.jsp" ).forward(req, res);
     }
  
     private void showEditUser( HttpServletRequest req, HttpServletResponse res )
-            throws SQLException, ServletException, IOException, Exception
+            throws ServletException, IOException
 	{
 		int userId 			= Integer.parseInt( req.getParameter( "userId" ) );
 		User existingUser 	= userDAO.selectRecordByUser( userId );
@@ -95,7 +93,7 @@ public class UserServlet extends HttpServlet {
     }
  
     private void insertUser( HttpServletRequest req, HttpServletResponse res )
-            throws SQLException, IOException, Exception
+            throws ServletException, IOException
 	{
         String firstName 	= req.getParameter( "firstName" );
         String lastName 	= req.getParameter( "lastName" );
@@ -117,7 +115,7 @@ public class UserServlet extends HttpServlet {
     }
  
     private void updateUser( HttpServletRequest req, HttpServletResponse res )
-            throws SQLException, IOException, Exception 
+            throws ServletException, IOException 
 	{
 		int userId 			= Integer.parseInt( req.getParameter( "userId" ) );
         String firstName 	= req.getParameter( "firstName" );
@@ -140,7 +138,7 @@ public class UserServlet extends HttpServlet {
     }
  
     private void deleteUser( HttpServletRequest req, HttpServletResponse res )
-            throws SQLException, IOException, Exception
+            throws ServletException, IOException
 	{
 		int userId = Integer.parseInt( req.getParameter( "userId" ) );
         if ( userDAO.deleteRecord( userId ) )
