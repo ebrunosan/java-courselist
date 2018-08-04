@@ -88,13 +88,9 @@ public class ForgotPswdServlet extends HttpServlet {
 			String subject 	= "Password reset request";
 			Content content = new Content( "text/plain", "To reset your password, click the link below:");
 
-			//Content content = new Content( "text/plain", 
-			//	"To reset your password, click the link below:<br/><a href='"
-			//	+ resetTokenUrl + "'>Here</a><br/>OR copy/paste this link:" + resetTokenUrl );
-
 			Mail mail = new Mail( from, subject, to, content );
-			mail.personalization.get(0).addSubstitution("-resetTokenUrl-", resetTokenUrl);
-			mail.setTemplateId("790ff8ef-034c-467f-acf2-500fb3bf9920");
+			mail.personalization.get( 0 ).addSubstitution( "-resetTokenUrl-", resetTokenUrl );
+			mail.setTemplateId( "790ff8ef-034c-467f-acf2-500fb3bf9920" );
 	
 			request.setBody( mail.build() );
 			

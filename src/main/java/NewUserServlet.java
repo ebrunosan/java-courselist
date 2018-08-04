@@ -117,13 +117,10 @@ public class NewUserServlet extends HttpServlet {
 			Email to 		= new Email( emailToAddr );
 			String subject 	= "Welcome to our website";
 			Content content = new Content( "text/plain", "To complete your set up, click the link below:");
-			//Content content = new Content( "text/plain", 
-			//	"To complet your set up, please click the link below:<br/><a href='"
-			//	+ resetTokenUrl + "'>Here</a><br/>OR copy/paste this link:" + resetTokenUrl );
 
 			Mail mail = new Mail( from, subject, to, content );
-			mail.personalization.get(0).addSubstitution("-resetTokenUrl-", resetTokenUrl);
-			mail.setTemplateId("790ff8ef-034c-467f-acf2-500fb3bf9920");
+			mail.personalization.get( 0 ).addSubstitution( "-resetTokenUrl-", resetTokenUrl );
+			mail.setTemplateId( "790ff8ef-034c-467f-acf2-500fb3bf9920" );
 			
 			request.setBody( mail.build() );
 			
@@ -136,7 +133,6 @@ public class NewUserServlet extends HttpServlet {
 			System.err.println( ex.getMessage() );
 			return false;
 		}
-		
 		return true;
     }
 }
