@@ -17,16 +17,19 @@
       <span class="glyphicon glyphicon-user"></span>
       <h4>USER CRUD</h4>
       <p>Create and mantain the system's ACL (Access Control List)</p>
+	  <a href="<%= response.encodeURL( "user" ) %>">User</a>
     </div>
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-education"></span>
       <h4>STUDENTS CRUD</h4>
       <p>Create and mantain students and its courses</p>
+	  <a href="<%= response.encodeURL( "student" ) %>">Student</a>
     </div>
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-road"></span>
       <h4>COURSE CRUD</h4>
       <p>Create and mantain the courses database</p>
+	  <a href="<%= response.encodeURL( "course" ) %>">Course</a>
     </div>
   </div>
 </div>
