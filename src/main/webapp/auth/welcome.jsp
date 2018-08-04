@@ -2,15 +2,33 @@
 
 <jsp:include page="_top-page.jsp" />
 
-<div class="container">
-	<h2>Logged Area Main Page</h2>
-	<p>Hello user authenticated !!!</p>
-	
-	<hr />
-	
-	<p>Suggestion: fill this page with a simple message or instruction</p>
-	<p>Suggestion: fill this page with a simple message or instruction</p>
-	<p>Suggestion: fill this page with a simple message or instruction</p>
+<div class="jumbotron text-center">
+  <h1>Company</h1> 
+  <p>We specialize in bla bla bla</p> 
+</div>
+
+<!-- Container (Services Section) -->
+<div class="container-fluid text-center">
+  <h2>SERVICES</h2>
+  <h4>What we offer</h4>
+  <br>
+  <div class="row">
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-user"></span>
+      <h4>USER CRUD</h4>
+      <p>Create and mantain the system's ACL (Access Control List)</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-education"></span>
+      <h4>STUDENTS CRUD</h4>
+      <p>Create and mantain students and its courses</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-road"></span>
+      <h4>COURSE CRUD</h4>
+      <p>Create and mantain the courses database</p>
+    </div>
+  </div>
 </div>
 
 <jsp:include page="_botton-page.jsp" />

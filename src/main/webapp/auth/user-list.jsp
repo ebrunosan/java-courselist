@@ -41,7 +41,8 @@
 								<button type="button" class="btn">Edit</button>
 							</a>
 							&nbsp;
-							<a href = "<%= response.encodeURL( "/auth/user?action=delete&userId=" + user.getUserId() ) %>" >
+							<a href = "<%= response.encodeURL( "/auth/user?action=delete&userId=" + user.getUserId() ) %>" 
+								onclick="return confirm('Are you sure you want to delete?')">
 								<button type="button" class="btn">Delete</button>
 							</a>                     
 						</td>
