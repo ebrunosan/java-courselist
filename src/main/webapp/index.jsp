@@ -26,6 +26,7 @@
   <p>Fusce eu nulla eu enim laoreet dignissim. Pellentesque ornare, nisi in dapibus blandit, ante leo feugiat lectus, non molestie odio diam quis justo. Vivamus interdum eu felis ut posuere. Praesent lobortis feugiat enim aliquet cursus. Suspendisse tristique consectetur tellus. Pellentesque vulputate mattis condimentum. Ut eu luctus urna, vitae sagittis felis. Integer augue turpis, porta vel turpis vel, vestibulum iaculis metus. Morbi mollis elit laoreet blandit pharetra. Quisque at sem id enim facilisis imperdiet. Nulla bibendum libero et lectus aliquet imperdiet. Proin rutrum mi vulputate quam vehicula, id egestas leo placerat. Morbi sit amet mi ut tortor malesuada eleifend. Nam ut interdum urna.</p>
   
   <a href="/newuser.jsp"><button class="btn btn-default btn-lg">Sign up</button></a>
+  <br />
 </div>
 
 <jsp:include page="/auth/_botton-page.jsp" />
