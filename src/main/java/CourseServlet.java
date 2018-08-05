@@ -119,19 +119,18 @@ public class CourseServlet extends HttpServlet {
         String duration		= req.getParameter( "duration" );
         String description 	= req.getParameter( "description" );
          
-        CourseProgram newCourse = new CourseProgram( courseName, duration, description );
+        CourseProgram course = new CourseProgram( courseCode, courseName, duration, description );
 		
-		if ( courseDAO.updateCourse( newCourse ) )
+		if ( courseDAO.updateCourse( course ) )
         {
             listCourse(req, res);
         }
         else
         {
-			req.setAttribute( "course", newCourse );
+			req.setAttribute( "course", course );
             req.setAttribute( "message", "Course Name already exists in our database. Please, try another one." );
             req.getRequestDispatcher( "/auth/course-form.jsp" ).forward(req, res);
 		}
-
     }
  
     private void deleteCourse(HttpServletRequest req, HttpServletResponse res)

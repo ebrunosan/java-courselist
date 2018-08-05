@@ -113,19 +113,30 @@ public class StudentDAO {
 	public Student selectRecordByStudent(int studentId) throws IOException {
 		Student student = null;
 
-		String sql = "SELECT name, age, gender, country, course_id FROM student WHERE student_id = ?";
+		String sql = "SELECT s.name, s.age, s.gender, s.country, s.course_id " +
+					 " cp.course_code, cp.course_name, cp.duration, cp.description " +
+					 " FROM student s, courseProgram cp " +
+					 " WHERE s.course_id = cp.course_code " + 
+					 " AND s.student_id = ?";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setInt(1, studentId);
 			
 			try (ResultSet rs = stmt.executeQuery();) {
 				if ( rs.next() ) {
-					student = new Student( studentId, 
+					student = new Student( 
+						studentId, 
 						rs.getString("name"), 
 						rs.getString("age"), 
 						rs.getString("gender"), 
-						rs.getString("country"), new CourseProgram());
-						//rs.getInt("course_id")); find the course by the id
+						rs.getString("country"),
+						
+						new CourseProgram (
+							rs.getInt("course_code"),
+							rs.getString("course_name"),
+							rs.getString("duration"),
+							rs.getString("description") )
+					);
 				}
 			}
 		} catch (Exception e) {
@@ -139,7 +150,11 @@ public class StudentDAO {
 	public List<Student> selectAllRecords() throws IOException {
 		List<Student> studentsList = new ArrayList<Student>();
 
-		String sql = "SELECT student_id, name, age, gender, country, course_id FROM student ORDER BY student_id";
+		String sql = "SELECT s.student_id, s.name, s.age, s.gender, s.country, s.course_id " +
+					 " cp.course_code, cp.course_name, cp.duration, cp.description " +
+					 " FROM student s, courseProgram cp " +
+					 " WHERE s.course_id = cp.course_code " + 
+					 " ORDER BY s.student_id";
 
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			
@@ -150,9 +165,16 @@ public class StudentDAO {
 						rs.getString("name"), 
 						rs.getString("age"), 
 						rs.getString("gender"), 
-						rs.getString("country"), new CourseProgram());
-						//rs.getInt("course_id")); find the course by the id
-					studentsList.add(student);
+						rs.getString("country"),
+
+						new CourseProgram (
+							rs.getInt("course_code"),
+							rs.getString("course_name"),
+							rs.getString("duration"),
+							rs.getString("description") )
+					);
+
+					studentsList.add( student );
 				}
 			}
 		} catch (Exception e) {

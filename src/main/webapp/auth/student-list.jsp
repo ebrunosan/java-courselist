@@ -30,6 +30,7 @@
                     <th>Age</th>
                     <th>Gender</th>
                     <th>Country</th>
+                    <th>Course</th>
                     <th>Actions</th>
 				</tr>
 				<% for(Student student : listStudents) { %>
@@ -38,6 +39,7 @@
                         <td><%out.print(student.getAge()); %></td>
                         <td><%out.print(student.getGender()); %></td>
                         <td><%out.print(student.getCountry()); %></td>
+                        <td><%out.print(student.getCourse().getCourseName()); %></td>
 						<td>
 							<a href = "<%= response.encodeURL( "/auth/student?action=edit&studentId=" + student.getStudentId() ) %>" >Edit</a>
                             &nbsp;

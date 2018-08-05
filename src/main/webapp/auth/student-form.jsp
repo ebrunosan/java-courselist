@@ -64,7 +64,7 @@
 					
                         <input type="text" name="name" size="50" class="form-control"
 							<% if (student != null) { out.print( "value='" + student.getName() +"'" ); } %>
-							placeholder="Name" data-minlength="10"  maxlength="50" required
+							placeholder="Name" data-minlength="5" maxlength="50" required
 						/>
 						
 						<div class="help-block with-errors"></div>
