@@ -93,8 +93,9 @@ public class StudentServlet extends HttpServlet {
             throws ServletException, IOException
 	{
 		int studentId 			= Integer.parseInt(req.getParameter("studentId"));
-		Student existingStudent 	= studentDAO.selectRecordByStudent(studentId);
+		Student existingStudent = studentDAO.selectRecordByStudent(studentId);
         req.setAttribute("student", existingStudent);
+
         List<Course> listCourses = courseDAO.selectAllCourses();
         req.setAttribute( "listCourses", listCourses );
         
@@ -118,12 +119,18 @@ public class StudentServlet extends HttpServlet {
 
             if (course == null)         // The selected course no longer exists
             {
+                List<Course> listCourses = courseDAO.selectAllCourses();
+                req.setAttribute( "listCourses", listCourses );
+
                 req.setAttribute( "message", "The selected course no longer exists. You should try it again" );
                 req.getRequestDispatcher( "/auth/student-form.jsp" ).forward(req, res);
             }
-        } catch ( Exception e ) 
+        } catch ( NumberFormatException e ) 
         {
-            req.setAttribute( "message", "Course number invalid." );
+            List<Course> listCourses = courseDAO.selectAllCourses();
+            req.setAttribute( "listCourses", listCourses );
+
+            req.setAttribute( "message", "The selected course is invalid. You should try it again" );
             req.getRequestDispatcher( "/auth/student-form.jsp" ).forward(req, res);
         }
         
