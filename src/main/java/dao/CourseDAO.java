@@ -24,7 +24,7 @@ public class CourseDAO {
 	private void createTable() throws IOException {
 		String sql = "CREATE TABLE IF NOT EXISTS courseProgram (" +
 						"course_code   SERIAL 	   PRIMARY KEY ," +
-						"course_name   varchar(50) NOT NULL ," +
+						"course_name   varchar(50) NOT NULL UNIQUE ," +
 						"duration      varchar(20) NOT NULL ," +
 						"description   varchar(50) NOT NULL)";
 		

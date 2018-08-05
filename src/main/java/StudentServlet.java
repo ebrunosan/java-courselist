@@ -124,7 +124,7 @@ public class StudentServlet extends HttpServlet {
             // To make sure course still exists before insert. Avoid constraint exception
             course = courseDAO.selectRecordByCourse( courseId );
 
-            if (course == null)         // The selected course no longer exists
+            if (course == null)         // Means that the selected course no longer exists
             {
                 msg = "The selected course no longer exists. Please select another course";
             }
@@ -134,7 +134,7 @@ public class StudentServlet extends HttpServlet {
             msg = "The selected course is invalid. You should try it again";
         }
         
-        if ( msg.equals("") )           // No error regarding course
+        if ( msg.equals("") )           // No error regarding selected course
         {
             Student newStudent = new Student(name, age, gender, country, course);
 

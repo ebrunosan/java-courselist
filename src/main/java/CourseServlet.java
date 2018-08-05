@@ -144,7 +144,7 @@ public class CourseServlet extends HttpServlet {
         }
 		else
 		{
-            req.setAttribute( "message", "This course can not be deleted. You must have to remove all students from this course before do it." );
+            req.setAttribute( "message", "Deletion not possible. Only courses without students can be deleted." );
 		}
         listCourse(req, res);
     }
