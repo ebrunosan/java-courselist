@@ -110,40 +110,48 @@ public class StudentServlet extends HttpServlet {
         String gender 	= req.getParameter("gender");
         String country 	= req.getParameter("country");
 
-        Course course = null;
-        
+        String msg      = "";           // In case need to show message error
+        Course course   = null;         // check if the course still exists before insert
+
+        List<Course> listCourses = courseDAO.selectAllCourses();
+        req.setAttribute( "listCourses", listCourses );
+
         try 
-        {
+        {   
+            // To validate if course_id is not null in case course table is empty
             int courseId = Integer.parseInt(req.getParameter("course_id"));
+
+            // To make sure course still exists before insert. Avoid constraint exception
             course = courseDAO.selectRecordByCourse( courseId );
 
             if (course == null)         // The selected course no longer exists
             {
-                List<Course> listCourses = courseDAO.selectAllCourses();
-                req.setAttribute( "listCourses", listCourses );
-
-                req.setAttribute( "message", "The selected course no longer exists. You should try it again" );
-                req.getRequestDispatcher( "/auth/student-form.jsp" ).forward(req, res);
+                msg = "The selected course no longer exists. Please select another course";
             }
-        } catch ( NumberFormatException e ) 
+        } 
+        catch ( NumberFormatException e ) 
         {
-            List<Course> listCourses = courseDAO.selectAllCourses();
-            req.setAttribute( "listCourses", listCourses );
-
-            req.setAttribute( "message", "The selected course is invalid. You should try it again" );
-            req.getRequestDispatcher( "/auth/student-form.jsp" ).forward(req, res);
+            msg = "The selected course is invalid. You should try it again";
         }
         
-        Student newStudent = new Student(name, age, gender, country, course);
-
-        if (studentDAO.insertRecord( newStudent ))
+        if ( msg.equals("") )           // No error regarding course
         {
-            listStudent(req, res);
+            Student newStudent = new Student(name, age, gender, country, course);
+
+            if ( studentDAO.insertRecord( newStudent ) )
+            {
+                listStudent(req, res);  // in case insert successfully, dispatch to list students
+            }
+            else
+            {                           // Fail to insert student
+                req.setAttribute( "student", newStudent );
+                req.setAttribute( "message", "Name already exists in our database. Please, try another one." );
+                req.getRequestDispatcher( "/auth/student-form.jsp" ).forward(req, res);
+            }
         }
         else
-        {
-            req.setAttribute( "student", newStudent );
-            req.setAttribute( "message", "Name already exists in our database. Please, try another one." );
+        {                               // Display course error message
+            req.setAttribute( "message", msg );
             req.getRequestDispatcher( "/auth/student-form.jsp" ).forward(req, res);
         }
     }
