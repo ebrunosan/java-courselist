@@ -40,7 +40,7 @@ public class AuthFilter implements Filter {
 
 			if ( loggedIn || loginRequest )
 			{	// ---- IF default request -> redirect to welcome page
-                if ( session != null ) 
+                if ( session != null )
                 {
                     session.setAttribute( "uri", req.getRequestURI() );     // for setting the active menu
                 }
