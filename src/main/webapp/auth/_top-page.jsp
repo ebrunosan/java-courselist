@@ -28,7 +28,7 @@
     String studentMenuActive  = "";
     String courseMenuActive   = "";
    
-    String final CLASS_ACTIVE = " class='active' ";
+    String CLASS_ACTIVE       = " class='active' ";
    
 	String uriName 		      = (String) session.getAttribute( "uri" );
 
