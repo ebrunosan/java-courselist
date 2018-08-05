@@ -21,9 +21,33 @@
 	String userName 	= (String) session.getAttribute( "userName" );
 	String userId 		= (String) session.getAttribute( "userId" );
 
-	String uriName 		= (String) session.getAttribute( "uri" );
-	
-	boolean isLogged 	= ( userName != null );
+    boolean isLogged 	= ( userName != null );
+
+    String homeMenuActive     = "";
+    String userMenuActive     = "";
+    String studentMenuActive  = "";
+    String courseMenuActive   = "";
+   
+    String final CLASS_ACTIVE = " class='active' ";
+   
+	String uriName 		      = (String) session.getAttribute( "uri" );
+
+    if (uriName == null) { uriName = ""; }
+   
+    switch ( uriName ) {
+        case "/auth/user":
+            userMenuActive = CLASS_ACTIVE;
+            break;
+        case "/auth/student":
+            studentMenuActive = CLASS_ACTIVE;
+            break;
+        case "/auth/course":
+            courseMenuActive = CLASS_ACTIVE;
+            break;
+        default:
+            homeMenuActive = CLASS_ACTIVE;
+            break;
+    }
 %>
 
 <body>
@@ -39,10 +63,10 @@
 
 			<ul class="nav navbar-nav">
 				<% if ( isLogged ) { %>
-					<li><a href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>" >Home</a></li>
-					<li <%if (uriName.equals("/auth/user")) { out.print(" class='active' "); }%>><a href="<%= response.encodeURL( "user" ) %>">User</a></li>
-					<li <%if (uriName.equals("/auth/student")) { out.print(" class='active' "); }%>><a href="<%= response.encodeURL( "student" ) %>">Student</a></li>
-					<li <%if (uriName.equals("/auth/course")) { out.print(" class='active' "); }%>><a href="<%= response.encodeURL( "course" ) %>">Course</a></li>
+					<li <%= homeMenuActive %>><a href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>" >Home</a></li>
+					<li <%= studentMenuActive %>><a href="<%= response.encodeURL( "user" ) %>">User</a></li>
+					<li <%= studentMenuActive %>><a href="<%= response.encodeURL( "student" ) %>">Student</a></li>
+					<li <%= courseMenuActive %>><a href="<%= response.encodeURL( "course" ) %>">Course</a></li>
 				<% } else {%>
 					<li class="active"><a href="/index.jsp" >Home</a></li>
 				<% } %>
@@ -67,4 +91,3 @@
 			</ul>
 		</div>
 	</nav>
-    <% out.print(uriName + " | isUser=" + uriName.equals("/auth/user") + " | isStudent=" + uriName.equals("/auth/student")); %>
