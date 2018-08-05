@@ -16,12 +16,12 @@ import java.util.List;
 public class CourseProgramDAO {
 	private Connection conn = null;
 	
-	public CourseProgramDAO() {
+	public CourseProgramDAO() throws IOException {
 		conn = DBUtil.getConnection();
 		createTable();
 	}
 	
-	private void createTable() {
+	private void createTable() throws IOException {
 		String sql = "CREATE TABLE IF NOT EXISTS courseProgram (" +
 						"course_code   SERIAL 	   PRIMARY KEY ," +
 						"course_name   varchar(50)     NOT NULL ," +
@@ -32,11 +32,11 @@ public class CourseProgramDAO {
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO treat exception
+			throw new IOException ( e );
 		}
 	}
 	
-	public boolean insertCourse(CourseProgram course) throws Exception {
+	public boolean insertCourse(CourseProgram course) throws IOException {
 		String sql = "INSERT INTO courseProgram (course_name, duration, description) VALUES (?, ?, ?)";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -46,12 +46,12 @@ public class CourseProgramDAO {
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		return true;
 	}
 
-	public boolean updateCourse(CourseProgram course) throws Exception {
+	public boolean updateCourse(CourseProgram course) throws IOException {
 		boolean rowUpdated = false;
 		
 		String sql = "UPDATE courseProgram SET course_name = ?, duration = ?, description = ? WHERE course_code = ?";
@@ -64,13 +64,13 @@ public class CourseProgramDAO {
 			rowUpdated = stmt.executeUpdate() > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		
 		return rowUpdated;
 	}
 
-	public boolean deleteCourse(CourseProgram course) throws Exception {
+	public boolean deleteCourse(CourseProgram course) throws IOException {
 		boolean rowDeleted = false;
 
 		String sql = "DELETE FROM courseProgram WHERE course_code = ?";
@@ -80,13 +80,13 @@ public class CourseProgramDAO {
 			rowDeleted = stmt.executeUpdate() > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		
 		return rowDeleted;
 	}
 
-	public CourseProgram selectRecordByCourse(int courseCode) throws Exception {
+	public CourseProgram selectRecordByCourse(int courseCode) throws IOException {
 		CourseProgram course = null;
 
 		String sql = "SELECT course_code, course_name, duration, description FROM courseProgram WHERE course_code = ?";
@@ -104,7 +104,7 @@ public class CourseProgramDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			throw new IOException ( e );
 		}
 		
 		return course;

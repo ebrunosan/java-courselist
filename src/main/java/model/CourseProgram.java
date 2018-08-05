@@ -56,5 +56,4 @@ public class CourseProgram {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
 }

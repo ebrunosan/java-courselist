@@ -5,8 +5,6 @@ import main.java.model.CourseProgram;
 
 import java.io.IOException;
 
-import java.sql.SQLException;
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -46,16 +44,13 @@ public class CourseServlet extends HttpServlet {
                 showNewCourse(req, res);
                 break;
             case "insert":
-                insertCourse(req, res);		// TODO check successful operation
-				listCourse(req, res);
+                insertCourse(req, res);
                 break;
             case "delete":
-                deleteCourse(req, res);		// TODO check successful operation
-				listCourse(req, res);
+                deleteCourse(req, res);
                 break;
             case "update":
-                updateCourse(req, res);		// TODO check successful operation
-				listCourse(req, res);
+                updateCourse(req, res);
                 break;
             case "edit":
                 showEditCourse(req, res);
@@ -72,7 +67,7 @@ public class CourseServlet extends HttpServlet {
     }
  
     private void listCourse(HttpServletRequest req, HttpServletResponse res)
-            throws SQLException, IOException, ServletException, Exception 
+            throws IOException, ServletException 
 	{
         List<CourseProgram> listCourses = courseDAO.selectAllCourses();
         req.setAttribute( "listCourses", listCourses );
@@ -80,13 +75,13 @@ public class CourseServlet extends HttpServlet {
     }
  
     private void showNewCourse(HttpServletRequest req, HttpServletResponse res)
-            throws ServletException, IOException, Exception
+            throws IOException, ServletException 
 	{
         req.getRequestDispatcher( "/auth/course-form.jsp" ).forward(req, res);
     }
  
     private void showEditCourse(HttpServletRequest req, HttpServletResponse res)
-            throws SQLException, ServletException, IOException, Exception
+            throws IOException, ServletException 
 	{
 		int courseCode 			= Integer.parseInt( req.getParameter( "courseCode" ) );
 		CourseProgram existingCourse 	= courseDAO.selectRecordByCourse( courseCode );
@@ -96,34 +91,61 @@ public class CourseServlet extends HttpServlet {
     }
  
     private void insertCourse(HttpServletRequest req, HttpServletResponse res)
-            throws SQLException, IOException, Exception
+            throws IOException, ServletException 
 	{
         String courseName	= req.getParameter( "courseName" );
         String duration 	= req.getParameter( "duration" );
         String description 	= req.getParameter( "description" );
  
-        courseDAO.insertCourse( new CourseProgram( courseName, duration, description) );
-//        res.sendRedirect( "course" );
+        CourseProgram newCourse = new CourseProgram( courseName, duration, description );
+		
+		if (courseDAO.insertCourse( newCourse ))
+        {
+            listCourse(req, res);
+        }
+        else
+        {
+			req.setAttribute( "course", newCourse );
+            req.setAttribute( "message", "Course Name already exists in our database. Please, try another one." );
+            req.getRequestDispatcher( "/auth/course-form.jsp" ).forward(req, res);
+		}
     }
  
     private void updateCourse(HttpServletRequest req, HttpServletResponse res)
-            throws SQLException, IOException, Exception 
+            throws IOException, ServletException 
 	{
 		int courseCode 		= Integer.parseInt( req.getParameter( "courseCode" ) );
 		String courseName 	= req.getParameter( "courseName" );
         String duration		= req.getParameter( "duration" );
         String description 	= req.getParameter( "description" );
          
-        courseDAO.updateCourse( new CourseProgram( courseCode, courseName, duration, description ) );
-//        res.sendRedirect( "user" );
+        CourseProgram newCourse = new CourseProgram( courseName, duration, description );
+		
+		if (courseDAO.updateCourse( newCourse ))
+        {
+            listCourse(req, res);
+        }
+        else
+        {
+			req.setAttribute( "course", newCourse );
+            req.setAttribute( "message", "Course Name already exists in our database. Please, try another one." );
+            req.getRequestDispatcher( "/auth/course-form.jsp" ).forward(req, res);
+		}
+
     }
  
     private void deleteCourse(HttpServletRequest req, HttpServletResponse res)
-            throws SQLException, IOException, Exception
+            throws IOException, ServletException 
 	{
 		int courseCode 			= Integer.parseInt( req.getParameter( "courseCode" ) );
 
-        courseDAO.deleteCourse( new CourseProgram( courseCode ) );
-//        res.sendRedirect( "course" );
+        if(courseDAO.deleteCourse( new CourseProgram( courseCode )) ) 
+		{
+            listCourse(req, res);
+        }
+		else
+		{
+	        throw new IOException( "Fail when deleting course" );
+		}
     }
 }

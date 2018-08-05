@@ -2,67 +2,109 @@
 <%@ page import="main.java.model.CourseProgram,java.util.*" %>
 
 <%
+	String message 	= ( String ) request.getAttribute ( "message" );
 	CourseProgram course = (CourseProgram) request.getAttribute ("course");
+	
+	boolean editMode;
+	if ( course != null && course.getCourseCode() > 0 )
+	{
+		editMode = true;
+	}
+	else
+	{
+		editMode = false;
+	}
 %>
 
 <jsp:include page="_top-page.jsp" />
 
-<div class="container">
-	<h1>Courses/Programs</h1>
-	<h2>
-		<a href="<%= response.encodeURL( "/auth/course?action=new" ) %>" >Add New Course/Program</a>
-		&nbsp;
-		<a href="<%= response.encodeURL( "/auth/course?action=list" ) %>" >List All Courses/Programs</a>
-	</h2>
+<div class="container-fluid">
+	 <div class="row">
+		<div class="col-sm-offset-2 col-sm-8">
+		
+			<h3>Courses/Programs::
+				<% if ( editMode ) { %>Edit<% } else { %>Add New<% } %>
+			</h3>
+			
+			<form class="form-horizontal" data-toggle="validator" role="form" 
+				<% if ( editMode ) { %>
+					action="<%= response.encodeURL( "/auth/course?action=update" ) %>" method="post">
+				<% } else { %>
+					action="<%= response.encodeURL( "/auth/course?action=insert" ) %>" method="post">
+				<% } %>
+			
+				<% if ( editMode ) { %>
+					<input type="hidden" name="courseCode" value="<%= course.getCourseCode() %>" />
+				<% } %>
+				
+				<div class="form-group">
+					<div class="col-sm-offset-4 col-sm-8">
+						<a href="<%= response.encodeURL( "/auth/course?action=new" ) %>" >
+						<button type="button" class="btn">Add New Course/Program</button>
+						</a>
+						&nbsp;
+						<a href="<%= response.encodeURL( "/auth/course?action=list" ) %>" >
+						<button type="button" class="btn">List All Courses/Programs</button>
+						</a>
+					 </div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-offset-4 col-sm-8">
+						<% if ( message != null && !message.isEmpty() ) { %>
+							<p><font color=red><%= message %></font></p>
+						<% } %>
+					</div>
+				</div>
 
-	<% if (course != null) { %>
-		<form action="<%= response.encodeURL( "/auth/course?action=update" ) %>" method="post">
-	<% } else { %>
-		<form action="<%= response.encodeURL( "/auth/course?action=insert" ) %>" method="post">
-	<% } %>
-	
-	<table border="1" cellpadding="5">
-		<caption>
-			<h2>
-				<% if (course != null) { %>Edit Course<% } else { %>Add New Course<% } %>
-			</h2>
-		</caption>
-		<% if (course != null) { %>
-			<input type="hidden" name="courseCode" value="<%= course.getCourseCode() %>" />
-		<% } %>
-		<tr>
-			<th>Course name: </th>
-			<td>
-				<input type="text" name="courseName" size="50"
-					<% if (course != null) { out.print( "value='" + course.getCourseName() +"'" ); } %>
-				/>
-			</td>
-		</tr>
-		<tr>
-			<th>Duration: </th>
-			<td>
-				<input type="text" name="duration" size="50"
-					<% if (course != null) { out.print( "value='" + course.getDuration() + "'" ); } %>
-				/>
-			</td>
-		</tr>
-		<tr>
-			<th>Description: </th>
-			<td>
-				<input type="text" name="description" size="50"
-					<% if (course != null) { out.print( "value='" + course.getDescription() + "'" ); } %>
-				/>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<input type="reset" value="Reset" />
-				&nbsp;
-				<input type="submit" value="Save" />
-			</td>
-		</tr>
-	</table>
-	</form>
-</div>
+				
+				<div class="form-group">
+					<label for="courseName" class="col-sm-4 control-label">Course Name:</label>
+					<div class="col-sm-8">
+						<input type="text" name="courseName" size="50" class="form-control"
+							<% if (course != null) { out.print( "value='" + course.getCourseName() +"'" ); } %> 
+							placeholder="Course Name" data-minlength="1"  maxlength="50" required
+						/>
+						<div class="help-block with-errors"></div>
+					</div>
+						
+				</div>
+				
+				<div class="form-group">
+					<label for="duration" class="col-sm-4 control-label">Duration:</label>
+					<div class="col-sm-8">
+							<input type="text" name="duration" size="50" class="form-control"
+								<% if (course != null) { out.print( "value='" + course.getDuration() + "'" ); } %>
+								placeholder="Duration" data-minlength="1"  maxlength="50" required
+							/>
+						<div class="help-block with-errors"></div>
+					</div>
+						
+				</div>
+					
+					
+				<div class="form-group">
+					<label for="description" class="col-sm-4 control-label">Description:</label>
+					<div class="col-sm-8">
+							<input type="text" name="description" size="50" class="form-control"
+								<% if (course != null) { out.print( "value='" + course.getDescription() + "'" ); } %>
+								placeholder="Description" data-minlength="1"  maxlength="50" required
+							/>
+						<div class="help-block with-errors"></div>
+					</div>
+						
+				</div>
+					
+				<div class="form-group">
+						<div class="col-sm-offset-4 col-sm-8">
+							<button type="submit" class="btn btn-sm btn-primary">Save</button>
+							&nbsp
+							<button type="reset" class="btn btn-sm btn-primary">Reset</button>
+						</div>
+					</div>
+			</form>
+		</div> <!-- col -->
+	</div> <!-- row -->
+</div> <!--container -->
 	
 <jsp:include page="_botton-page.jsp" />

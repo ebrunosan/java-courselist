@@ -62,9 +62,9 @@
                     <label for="studentName" class="col-sm-4 control-label">Student Name:</label>
                     <div class="col-sm-8">
 					
-                        <input type="text" name="name" size="50"
+                        <input type="text" name="name" size="50" class="form-control"
 							<% if (student != null) { out.print( "value='" + student.getName() +"'" ); } %>
-							placeholder="Name" data-minlength="1"  maxlength="40" required
+							placeholder="Name" data-minlength="1"  maxlength="50" required
 						/>
 						
 						<div class="help-block with-errors"></div>
@@ -76,9 +76,9 @@
                     <label for="age" class="col-sm-4 control-label">Age</label>
                     <div class="col-sm-8">
 					
-						<input type="number" name="age" size="50"
+						<input type="number" name="age" size="50" class="form-control"
 							<% if (student != null) { out.print( "value='" + student.getAge() +"'" ); } %>
-							placeholder="Age" data-minlength="1"   required
+							placeholder="Age" data-minlength="1" maxlength="3"  required
 						/>
 						
 						<div class="help-block with-errors"></div>
@@ -89,9 +89,9 @@
                     <label for="gender" class="col-sm-4 control-label">Gender:</label>
                     <div class="col-sm-8">
 					
-						<input type="text" name="gender" size="50"
+						<input type="text" name="gender" size="50" class="form-control"
 							<% if (student != null) { out.print( "value='" + student.getGender() +"'" ); } %>
-							placeholder="Gender" data-minlength="1"   required
+							placeholder="Gender" data-minlength="1"  maxlength="10" required
 						/>
 						
 						<div class="help-block with-errors"></div>
@@ -102,9 +102,9 @@
                     <label for="country" class="col-sm-4 control-label">Country:</label>
                     <div class="col-sm-8">
 					
-						<input type="text" name="country" size="50"
+						<input type="text" name="country" size="50" class="form-control"
 							<% if (student != null) { out.print( "value='" + student.getCountry() +"'" ); } %>
-							placeholder="Country" data-minlength="1"   required
+							placeholder="Country" data-minlength="1" maxlength="150"  required
 						/>
 						<div class="help-block with-errors"></div>
 					</div>
@@ -113,7 +113,7 @@
 				<div class="form-group">
                     <label for="course" class="col-sm-4 control-label">Course:</label>
                     <div class="col-sm-8">
-						<select name="course_id">
+						<select name="course_id" class="form-control">
 							<% for(CourseProgram course : listCourses) { %>
 							<option <% out.print( "value='" + course.getCourseCode() +"'" ); %> > 
 								<% out.print( course.getCourseName() ); %>

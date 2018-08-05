@@ -7,37 +7,49 @@
 
 <jsp:include page="_top-page.jsp" />
 
-<div class="container">
-	<h1>Courses Management</h1>
-	<h2>
-		<a href="<%= response.encodeURL( "/auth/course?action=new" ) %>" >Add New Course</a>
-		&nbsp;
-		<a href="<%= response.encodeURL( "/auth/course?action=list" ) %>" >List All Courses</a>
-	</h2>
+<div class="container-fluid">
+	<div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+		
+		<h3>Courses Management</h3>
+		<div class="col-sm-offset-4 col-sm-8">
+			<a href="<%= response.encodeURL( "/auth/course?action=new" ) %>" >
+			<button type="button" class="btn">Add New Course
+			</button>
+			</a>
+			&nbsp;
+			<a href="<%= response.encodeURL( "/auth/course?action=list" ) %>" >
+			<button type="button" class="btn">List All Courses
+			</button>
+			</a>
+		</div>
 
-	<table border="1" cellpadding="5">
-		<caption><h2>List of Courses</h2></caption>
-		<tr>
-			<th>Course Code</th>
-			<th>Course Name</th>
-			<th>Duration</th>
-			<th>Description</th>
-			<th>Actions</th>
-		</tr>
-		<% for ( CourseProgram course : listCourses ) { %>
+		<table class="table table-striped">
+			<caption><h2>List of Courses</h2></caption>
 			<tr>
-				<td><%= course.getCourseCode() %></td>
-				<td><%= course.getCourseName() %></td>
-				<td><%= course.getDuration() %></td>
-				<td><%= course.getDescription() %></td>
-				<td>
-					<a href = "<%= response.encodeURL( "/auth/course?action=edit&courseCode=" + course.getCourseCode() ) %>" >Edit</a>
-					&nbsp;
-					<a href = "<%= response.encodeURL( "/auth/course?action=delete&courseCode=" + course.getCourseCode() ) %>" >Delete</a>                     
-				</td>
+				<th>Course Name</th>
+				<th>Duration</th>
+				<th>Description</th>
+				<th>Actions</th>
 			</tr>
-		<% } %>
-	</table>
-</div>   
+			<% for ( CourseProgram course : listCourses ) { %>
+				<tr>
+					<td><%= course.getCourseName() %></td>
+					<td><%= course.getDuration() %></td>
+					<td><%= course.getDescription() %></td>
+					<td>
+						<a href = "<%= response.encodeURL( "/auth/course?action=edit&courseCode=" + course.getCourseCode() ) %>" >Edit</a>
+						&nbsp;
+						<a href = "<%= response.encodeURL( "/auth/course?action=delete&courseCode=" + course.getCourseCode() ) %>" 
+							onclick="return confirm('Are you sure you want to delete?')">
+							<button type="button" class="btn">Delete</button>
+						</a>                     
+					</td>
+				</tr>
+			<% } %>
+		</table>
+		</div> <!-- col -->
+    </div> <!-- row -->
+</div>  <!-- container -->
 
 <jsp:include page="_botton-page.jsp" />
