@@ -24,13 +24,13 @@ public class StudentDAO {
 
 	private void createTable() throws IOException {
 		String sql = "CREATE TABLE IF NOT EXISTS student (" +
-						"student_id   SERIAL 	   PRIMARY KEY ," +
-						"name  varchar(50) NOT NULL UNIQUE ," +
-						"age      varchar(3) NOT NULL ," +
-						"gender varchar(10) NOT NULL ," +
-						"course_id int NULL ," +
-						"country  varchar(150) NOT NULL," + 
-						" CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES courseProgram(course_code) )";
+						"student_id SERIAL 	   	PRIMARY KEY ," +
+						"name  		varchar(50) NOT NULL UNIQUE ," +
+						"age      	varchar(3) 	NOT NULL ," +
+						"gender 	varchar(10) NOT NULL ," +
+						"course_id 	int 		NULL ," +
+						"country  	varchar(50) NOT NULL," + 
+						"CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES courseProgram(course_code) )";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.executeUpdate();

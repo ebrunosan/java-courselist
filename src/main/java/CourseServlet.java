@@ -121,7 +121,7 @@ public class CourseServlet extends HttpServlet {
          
         CourseProgram newCourse = new CourseProgram( courseName, duration, description );
 		
-		if (courseDAO.updateCourse( newCourse ))
+		if ( courseDAO.updateCourse( newCourse ) )
         {
             listCourse(req, res);
         }

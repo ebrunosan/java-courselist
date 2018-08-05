@@ -37,7 +37,7 @@
 
 			<ul class="nav navbar-nav">
 				<% if ( isLogged ) { %>
-					<li class="active"><a href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>" >Home</a></li>
+					<li><a href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>" >Home</a></li>
 					<li><a href="<%= response.encodeURL( "user" ) %>">User</a></li>
 					<li><a href="<%= response.encodeURL( "student" ) %>">Student</a></li>
 					<li><a href="<%= response.encodeURL( "course" ) %>">Course</a></li>

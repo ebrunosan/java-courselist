@@ -11,16 +11,14 @@
 	<div class="row">
         <div class="col-sm-offset-2 col-sm-8">
 		
-		<h3>Courses Management</h3>
+		<h3>Courses Management::List</h3>
 		<div class="col-sm-offset-4 col-sm-8">
 			<a href="<%= response.encodeURL( "/auth/course?action=new" ) %>" >
-			<button type="button" class="btn">Add New Course
-			</button>
+				<button type="button" class="btn">Add New Course</button>
 			</a>
 			&nbsp;
 			<a href="<%= response.encodeURL( "/auth/course?action=list" ) %>" >
-			<button type="button" class="btn">List All Courses
-			</button>
+				<button type="button" class="btn">List All Courses</button>
 			</a>
 		</div>
 

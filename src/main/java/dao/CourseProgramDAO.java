@@ -36,22 +36,30 @@ public class CourseProgramDAO {
 		}
 	}
 	
-	public boolean insertCourse(CourseProgram course) throws IOException {
+	public boolean insertCourse( CourseProgram course ) throws IOException {
 		String sql = "INSERT INTO courseProgram (course_name, duration, description) VALUES (?, ?, ?)";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, course.getCourseName());
 			stmt.setString(2, course.getDuration());
 			stmt.setString(3, course.getDescription());
+			
 			stmt.executeUpdate();
-		} catch (Exception e) {
+		} catch ( SQLException e ) {
+			if ( "23505".equals( e.getSQLState() ) ) {	// duplicate key
+				return false;
+			} else {
+				e.printStackTrace();
+				throw new IOException ( e );
+			}
+		} catch ( Exception e ) {
 			e.printStackTrace();
 			throw new IOException ( e );
 		}
 		return true;
 	}
 
-	public boolean updateCourse(CourseProgram course) throws IOException {
+	public boolean updateCourse( CourseProgram course ) throws IOException {
 		boolean rowUpdated = false;
 		
 		String sql = "UPDATE courseProgram SET course_name = ?, duration = ?, description = ? WHERE course_code = ?";
@@ -61,8 +69,16 @@ public class CourseProgramDAO {
 			stmt.setString(2, course.getDuration());
 			stmt.setString(3, course.getDescription());
 			stmt.setInt(4, course.getCourseCode());
+
 			rowUpdated = stmt.executeUpdate() > 0;
-		} catch (Exception e) {
+		} catch ( SQLException e ) {
+			if ( "23505".equals( e.getSQLState() ) ) {	// duplicate key
+				return false;
+			} else {
+				e.printStackTrace();
+				throw new IOException ( e );
+			}
+		} catch ( Exception e ) {
 			e.printStackTrace();
 			throw new IOException ( e );
 		}
@@ -77,6 +93,7 @@ public class CourseProgramDAO {
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setInt(1, course.getCourseCode());
+
 			rowDeleted = stmt.executeUpdate() > 0;
 		} catch (Exception e) {
 			e.printStackTrace();

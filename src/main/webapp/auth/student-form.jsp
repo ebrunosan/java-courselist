@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-sm-offset-2 col-sm-8">
 			
-			<h3>Student profile ::
+			<h3>Students Management::
 				<% if ( editMode ) { %>Edit<% } else { %>Add New<% } %>
 			</h3>
 
@@ -64,7 +64,7 @@
 					
                         <input type="text" name="name" size="50" class="form-control"
 							<% if (student != null) { out.print( "value='" + student.getName() +"'" ); } %>
-							placeholder="Name" data-minlength="1"  maxlength="50" required
+							placeholder="Name" data-minlength="10"  maxlength="50" required
 						/>
 						
 						<div class="help-block with-errors"></div>
@@ -76,9 +76,9 @@
                     <label for="age" class="col-sm-4 control-label">Age</label>
                     <div class="col-sm-8">
 					
-						<input type="number" name="age" size="50" class="form-control"
+						<input type="number" name="age" size="3" class="form-control"
 							<% if (student != null) { out.print( "value='" + student.getAge() +"'" ); } %>
-							placeholder="Age" data-minlength="1" maxlength="3"  required
+							placeholder="Age" data-minlength="2" maxlength="3" min="18" max="99" required
 						/>
 						
 						<div class="help-block with-errors"></div>
@@ -89,7 +89,7 @@
                     <label for="gender" class="col-sm-4 control-label">Gender:</label>
                     <div class="col-sm-8">
 					
-						<input type="text" name="gender" size="50" class="form-control"
+						<input type="text" name="gender" size="10" class="form-control"
 							<% if (student != null) { out.print( "value='" + student.getGender() +"'" ); } %>
 							placeholder="Gender" data-minlength="1"  maxlength="10" required
 						/>
@@ -104,7 +104,7 @@
 					
 						<input type="text" name="country" size="50" class="form-control"
 							<% if (student != null) { out.print( "value='" + student.getCountry() +"'" ); } %>
-							placeholder="Country" data-minlength="1" maxlength="150"  required
+							placeholder="Country" data-minlength="2" maxlength="50"  required
 						/>
 						<div class="help-block with-errors"></div>
 					</div>

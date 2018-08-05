@@ -22,7 +22,7 @@
 	 <div class="row">
 		<div class="col-sm-offset-2 col-sm-8">
 		
-			<h3>Courses/Programs::
+			<h3>Courses Management::
 				<% if ( editMode ) { %>Edit<% } else { %>Add New<% } %>
 			</h3>
 			

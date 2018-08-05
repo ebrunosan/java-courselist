@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-sm-offset-2 col-sm-8">
 			
-			<h3>Users List</h3>
+			<h3>Users Management::List</h3>
 			<div class="col-sm-offset-4 col-sm-8">
 				<a href="<%= response.encodeURL( "/auth/user?action=new" ) %>" >
 					<button type="button" class="btn">Add New User</button>
