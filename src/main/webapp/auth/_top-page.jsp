@@ -13,7 +13,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
 
-	<title>BLB Website</title>
+	<title>BLB Company</title>
 </head>
 
 <%
@@ -57,7 +57,7 @@
 				<% if ( isLogged ) { %>
 					<a class="navbar-brand" href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>">BLB Website</a>
 				<% } else {%>
-					<a class="navbar-brand" href="/index.jsp">BLB Website</a>
+					<a class="navbar-brand" href="/index.jsp">BLB Company</a>
 				<% } %>
 			</div>
 

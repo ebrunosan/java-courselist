@@ -28,6 +28,5 @@ public class LogoutServlet extends HttpServlet
 			session.invalidate(); 
 		}
     	req.getRequestDispatcher( "/index.jsp" ).forward(req, res);
-//        res.sendRedirect( "/index.jsp" );
     }
 }
