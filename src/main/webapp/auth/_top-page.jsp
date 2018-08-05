@@ -21,7 +21,7 @@
 	String userName 	= (String) session.getAttribute( "userName" );
 	String userId 		= (String) session.getAttribute( "userId" );
 
-	String uriName 		= (String) request.getRequestURI();
+	String uriName 		= (String) session.getAttribute( "uri" );
 	
 	boolean isLogged 	= ( userName != null );
 %>

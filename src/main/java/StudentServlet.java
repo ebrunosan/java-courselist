@@ -109,8 +109,22 @@ public class StudentServlet extends HttpServlet {
         String gender 	= req.getParameter("gender");
         String country 	= req.getParameter("country");
 
-		int courseId = Integer.parseInt(req.getParameter("course_id"));
-		Course course = new Course(courseId); 
+        try 
+        {
+            int courseId = Integer.parseInt(req.getParameter("course_id"));
+            Course course = courseDAO.selectRecordByCourse( courseId );
+
+            if (course == null)         // The selected course no longer exists
+            {
+                req.setAttribute( "message", "The selected course no longer exists. You should try it again" );
+                req.getRequestDispatcher( "/auth/student-form.jsp" ).forward(req, res);
+            }
+        } catch ( Exception e ) 
+        {
+            req.setAttribute( "message", "Course number invalid." );
+            req.getRequestDispatcher( "/auth/student-form.jsp" ).forward(req, res);
+        }
+        
         Student newStudent = new Student(name, age, gender, country, course);
 
         if (studentDAO.insertRecord( newStudent ))

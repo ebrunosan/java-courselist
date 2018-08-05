@@ -76,9 +76,9 @@
                     <label for="age" class="col-sm-4 control-label">Age</label>
                     <div class="col-sm-8">
 					
-						<input type="number" name="age" size="3" class="form-control"
+						<input type="number" name="age" onkeydown="return false" class="form-control"
 							<% if (student != null) { out.print( "value='" + student.getAge() +"'" ); } %>
-							placeholder="Age" data-minlength="2" maxlength="3" min="18" max="99" required
+							placeholder="Age" min="18" max="99" required
 						/>
 						
 						<div class="help-block with-errors"></div>
