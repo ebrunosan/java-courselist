@@ -109,10 +109,12 @@ public class StudentServlet extends HttpServlet {
         String gender 	= req.getParameter("gender");
         String country 	= req.getParameter("country");
 
+        Course course = null;
+        
         try 
         {
             int courseId = Integer.parseInt(req.getParameter("course_id"));
-            Course course = courseDAO.selectRecordByCourse( courseId );
+            course = courseDAO.selectRecordByCourse( courseId );
 
             if (course == null)         // The selected course no longer exists
             {
