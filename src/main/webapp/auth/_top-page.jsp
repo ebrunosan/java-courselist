@@ -55,7 +55,7 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<% if ( isLogged ) { %>
-					<a class="navbar-brand" href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>">BLB Website</a>
+					<a class="navbar-brand" href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>">BLB Company</a>
 				<% } else {%>
 					<a class="navbar-brand" href="/index.jsp">BLB Company</a>
 				<% } %>
