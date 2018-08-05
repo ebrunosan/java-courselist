@@ -40,7 +40,10 @@ public class AuthFilter implements Filter {
 
 			if ( loggedIn || loginRequest )
 			{	// ---- IF default request -> redirect to welcome page
-				session.setAttribute( "uri", req.getRequestURI() );     // for setting the active menu
+                if ( session != null ) 
+                {
+                    session.setAttribute( "uri", req.getRequestURI() );     // for setting the active menu
+                }
                 
                 chain.doFilter(req, res);			
 				this.context.log( "<<< [AuthFilter | END] chaining the request" );

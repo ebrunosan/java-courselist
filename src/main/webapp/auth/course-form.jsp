@@ -22,7 +22,7 @@
 	 <div class="row">
 		<div class="col-sm-offset-2 col-sm-8">
 		
-			<h3>Courses Management::
+			<h3>Courses Management ::
 				<% if ( editMode ) { %>Edit<% } else { %>Add New<% } %>
 			</h3>
 			
@@ -57,7 +57,6 @@
 					</div>
 				</div>
 
-				
 				<div class="form-group">
 					<label for="courseName" class="col-sm-4 control-label">Course Name:</label>
 					<div class="col-sm-8">
@@ -67,7 +66,6 @@
 						/>
 						<div class="help-block with-errors"></div>
 					</div>
-						
 				</div>
 				
 				<div class="form-group">
@@ -79,9 +77,7 @@
 							/>
 						<div class="help-block with-errors"></div>
 					</div>
-						
 				</div>
-					
 					
 				<div class="form-group">
 					<label for="description" class="col-sm-4 control-label">Description:</label>
@@ -92,16 +88,15 @@
 							/>
 						<div class="help-block with-errors"></div>
 					</div>
-						
 				</div>
 					
 				<div class="form-group">
-						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-sm btn-primary">Save</button>
-							&nbsp
-							<button type="reset" class="btn btn-sm btn-primary">Reset</button>
-						</div>
-					</div>
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                        &nbsp
+                        <button type="reset" class="btn btn-sm btn-primary">Reset</button>
+                    </div>
+				</div>
 			</form>
 		</div> <!-- col -->
 	</div> <!-- row -->

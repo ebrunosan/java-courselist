@@ -64,7 +64,7 @@
 			<ul class="nav navbar-nav">
 				<% if ( isLogged ) { %>
 					<li <%= homeMenuActive %>><a href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>" >Home</a></li>
-					<li <%= studentMenuActive %>><a href="<%= response.encodeURL( "user" ) %>">User</a></li>
+					<li <%= userMenuActive %>><a href="<%= response.encodeURL( "user" ) %>">User</a></li>
 					<li <%= studentMenuActive %>><a href="<%= response.encodeURL( "student" ) %>">Student</a></li>
 					<li <%= courseMenuActive %>><a href="<%= response.encodeURL( "course" ) %>">Course</a></li>
 				<% } else {%>

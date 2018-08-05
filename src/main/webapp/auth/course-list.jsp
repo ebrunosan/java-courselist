@@ -12,7 +12,12 @@
 	<div class="row">
         <div class="col-sm-offset-2 col-sm-8">
 		
-		<h3>Courses Management::List</h3>
+		<h3>Courses Management :: List</h3>
+            
+        <% if ( message != null && !message.isEmpty() ) { %>
+            <p><font color=red><%= message %></font></p>
+        <% } %>
+
 		<div class="col-sm-offset-4 col-sm-8">
 			<a href="<%= response.encodeURL( "/auth/course?action=new" ) %>" >
 				<button type="button" class="btn">Add New Course</button>
@@ -22,12 +27,6 @@
 				<button type="button" class="btn">List All Courses</button>
 			</a>
 		</div>
-
-        <div class="col-sm-offset-4 col-sm-8">
-            <% if ( message != null && !message.isEmpty() ) { %>
-                <p><font color=red><%= message %></font></p>
-            <% } %>
-        </div>
 
 		<table class="table table-striped">
 			<caption><h2>List of Courses</h2></caption>

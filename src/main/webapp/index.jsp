@@ -3,8 +3,8 @@
 <jsp:include page="/auth/_top-page.jsp" />
 
 <div class="jumbotron text-center">
-  <h1>Company</h1> 
-  <p>We specialize in bla bla bla</p> 
+  <h1>BLB Company</h1> 
+  <p>We specialize in Software Development. Hire us!</p> 
   <form class="form-inline">
     <div class="input-group">
       <input type="email" class="form-control" size="50" placeholder="Email Address" required>

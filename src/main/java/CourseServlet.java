@@ -140,11 +140,11 @@ public class CourseServlet extends HttpServlet {
 
         if ( courseDAO.deleteCourse( new Course( courseCode ) ) ) 
 		{
-            req.setAttribute( "message", "Delete successful!" );
+            req.setAttribute( "message", "" );
         }
 		else
 		{
-            req.setAttribute( "message", "This course can not be able. Remove all students from this course before do it." );
+            req.setAttribute( "message", "This course can not be deleted. You must have to remove all students from this course before do it." );
 		}
         listCourse(req, res);
     }

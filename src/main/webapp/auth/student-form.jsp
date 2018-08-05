@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-sm-offset-2 col-sm-8">
 			
-			<h3>Students Management::
+			<h3>Students Management ::
 				<% if ( editMode ) { %>Edit<% } else { %>Add New<% } %>
 			</h3>
 
@@ -69,7 +69,6 @@
 						
 						<div class="help-block with-errors"></div>
 					</div>
-					
                 </div>
 
                 <div class="form-group">
