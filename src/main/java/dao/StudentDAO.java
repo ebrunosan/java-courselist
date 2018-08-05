@@ -113,7 +113,7 @@ public class StudentDAO {
 	public Student selectRecordByStudent(int studentId) throws IOException {
 		Student student = null;
 
-		String sql = "SELECT s.name, s.age, s.gender, s.country, s.course_id " +
+		String sql = "SELECT s.name, s.age, s.gender, s.country, s.course_id, " +
 					 " cp.course_code, cp.course_name, cp.duration, cp.description " +
 					 " FROM student s, courseProgram cp " +
 					 " WHERE s.course_id = cp.course_code " + 
@@ -150,7 +150,7 @@ public class StudentDAO {
 	public List<Student> selectAllRecords() throws IOException {
 		List<Student> studentsList = new ArrayList<Student>();
 
-		String sql = "SELECT s.student_id, s.name, s.age, s.gender, s.country, s.course_id " +
+		String sql = "SELECT s.student_id, s.name, s.age, s.gender, s.country, s.course_id, " +
 					 " cp.course_code, cp.course_name, cp.duration, cp.description " +
 					 " FROM student s, courseProgram cp " +
 					 " WHERE s.course_id = cp.course_code " + 

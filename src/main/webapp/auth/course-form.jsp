@@ -73,9 +73,9 @@
 				<div class="form-group">
 					<label for="duration" class="col-sm-4 control-label">Duration:</label>
 					<div class="col-sm-8">
-							<input type="text" name="duration" size="50" class="form-control"
+							<input type="text" name="duration" size="6" class="form-control"
 								<% if (course != null) { out.print( "value='" + course.getDuration() + "'" ); } %>
-								placeholder="Duration" data-minlength="1"  maxlength="50" required
+								placeholder="Duration" data-minlength="1"  maxlength="6" required
 							/>
 						<div class="help-block with-errors"></div>
 					</div>

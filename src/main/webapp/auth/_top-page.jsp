@@ -13,7 +13,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
 
-	<title>:: SYSTEM NAME - To Be Changed ::</title>
+	<title>BLB Website</title>
 </head>
 
 <%
@@ -21,6 +21,8 @@
 	String userName 	= (String) session.getAttribute( "userName" );
 	String userId 		= (String) session.getAttribute( "userId" );
 
+	String uriName 		= (String) request.getRequestURI();
+	
 	boolean isLogged 	= ( userName != null );
 %>
 
@@ -29,18 +31,18 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<% if ( isLogged ) { %>
-					<a class="navbar-brand" href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>">:: WebSiteName ::</a>
+					<a class="navbar-brand" href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>">BLB Website</a>
 				<% } else {%>
-					<a class="navbar-brand" href="/index.jsp">:: WebSiteName ::</a>
+					<a class="navbar-brand" href="/index.jsp">BLB Website</a>
 				<% } %>
 			</div>
 
 			<ul class="nav navbar-nav">
 				<% if ( isLogged ) { %>
 					<li><a href="<%= response.encodeURL( "/auth/welcome.jsp" ) %>" >Home</a></li>
-					<li><a href="<%= response.encodeURL( "user" ) %>">User</a></li>
-					<li><a href="<%= response.encodeURL( "student" ) %>">Student</a></li>
-					<li><a href="<%= response.encodeURL( "course" ) %>">Course</a></li>
+					<li <%if (uriName.equals("/auth/user")) { out.print(" class='active' "); }%>><a href="<%= response.encodeURL( "user" ) %>">User</a></li>
+					<li <%if (uriName.equals("/auth/student")) { out.print(" class='active' "); }%>><a href="<%= response.encodeURL( "student" ) %>">Student</a></li>
+					<li <%if (uriName.equals("/auth/course")) { out.print(" class='active' "); }%>><a href="<%= response.encodeURL( "course" ) %>">Course</a></li>
 				<% } else {%>
 					<li class="active"><a href="/index.jsp" >Home</a></li>
 				<% } %>
