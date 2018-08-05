@@ -67,3 +67,4 @@
 			</ul>
 		</div>
 	</nav>
+    <% out.print(uriName + " | isUser=" + uriName.equals("/auth/user") + " | isStudent=" + uriName.equals("/auth/student")) %>

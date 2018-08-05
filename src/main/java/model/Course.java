@@ -1,25 +1,25 @@
 package main.java.model;
 
-public class CourseProgram {
+public class Course {
 	protected int courseCode;
 	protected String courseName;
 	protected String duration;
 	protected String description;
 
-	public CourseProgram() { }
+	public Course() { }
 
-	public CourseProgram(int courseCode) {
+	public Course(int courseCode) {
 		this.courseCode = courseCode;
 	}
 	
-	public CourseProgram(int courseCode, String courseName, String duration, String description) {
+	public Course(int courseCode, String courseName, String duration, String description) {
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.duration = duration;
 		this.description = description;
 	}
 	
-	public CourseProgram(String courseName, String duration, String description) {
+	public Course(String courseName, String duration, String description) {
 		this.courseName = courseName;
 		this.duration = duration;
 		this.description = description;

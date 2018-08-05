@@ -1,7 +1,7 @@
 package main.java;
 
-import main.java.dao.CourseProgramDAO;
-import main.java.model.CourseProgram;
+import main.java.dao.CourseDAO;
+import main.java.model.Course;
 
 import java.io.IOException;
 
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings( "serial" )
 public class CourseServlet extends HttpServlet {
-	private CourseProgramDAO courseDAO;
+	private CourseDAO courseDAO;
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -33,7 +33,7 @@ public class CourseServlet extends HttpServlet {
 		ServletContext context = getServletContext();
 		context.log( ">>> [CourseServlet | BEGIN]" );
 
-		courseDAO = new CourseProgramDAO();
+		courseDAO = new CourseDAO();
 		
 		String action = req.getParameter( "action" );
 		if (action == null) { action = "list"; }	// default action
@@ -69,7 +69,7 @@ public class CourseServlet extends HttpServlet {
     private void listCourse(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException 
 	{
-        List<CourseProgram> listCourses = courseDAO.selectAllCourses();
+        List<Course> listCourses = courseDAO.selectAllCourses();
         req.setAttribute( "listCourses", listCourses );
         req.getRequestDispatcher( "/auth/course-list.jsp" ).forward(req, res);
     }
@@ -84,7 +84,7 @@ public class CourseServlet extends HttpServlet {
             throws IOException, ServletException 
 	{
 		int courseCode 			= Integer.parseInt( req.getParameter( "courseCode" ) );
-		CourseProgram existingCourse 	= courseDAO.selectRecordByCourse( courseCode );
+		Course existingCourse 	= courseDAO.selectRecordByCourse( courseCode );
         req.setAttribute( "course", existingCourse );
         
         req.getRequestDispatcher( "/auth/course-form.jsp" ).forward(req, res);
@@ -97,7 +97,7 @@ public class CourseServlet extends HttpServlet {
         String duration 	= req.getParameter( "duration" );
         String description 	= req.getParameter( "description" );
  
-        CourseProgram newCourse = new CourseProgram( courseName, duration, description );
+        Course newCourse = new Course( courseName, duration, description );
 		
 		if (courseDAO.insertCourse( newCourse ))
         {
@@ -119,7 +119,7 @@ public class CourseServlet extends HttpServlet {
         String duration		= req.getParameter( "duration" );
         String description 	= req.getParameter( "description" );
          
-        CourseProgram course = new CourseProgram( courseCode, courseName, duration, description );
+        Course course = new Course( courseCode, courseName, duration, description );
 		
 		if ( courseDAO.updateCourse( course ) )
         {
@@ -138,13 +138,14 @@ public class CourseServlet extends HttpServlet {
 	{
 		int courseCode 			= Integer.parseInt( req.getParameter( "courseCode" ) );
 
-        if(courseDAO.deleteCourse( new CourseProgram( courseCode )) ) 
+        if ( courseDAO.deleteCourse( new Course( courseCode ) ) ) 
 		{
-            listCourse(req, res);
+            req.setAttribute( "message", "Delete successful!" );
         }
 		else
 		{
-	        throw new IOException( "Fail when deleting course" );
+            req.setAttribute( "message", "This course can not be able. Remove all students from this course before do it." );
 		}
+        listCourse(req, res);
     }
 }

@@ -1,6 +1,6 @@
 package main.java.model;
 
-import main.java.model.CourseProgram;
+import main.java.model.Course;
 
 public class Student {
 	private int studentId;
@@ -8,18 +8,18 @@ public class Student {
 	private String age;
 	private String gender;
 	private String country;
-	private CourseProgram course;
+	private Course course;
 
 	public Student(){
-		this.course = new CourseProgram();
+		this.course = new Course();
 	}
 		
 	public Student(int studentId) {
 		this.studentId = studentId;
-		this.course = new CourseProgram();
+		this.course = new Course();
 	}
 	
-	public Student(int studentId, String name, String age, String gender, String country, CourseProgram course) {
+	public Student(int studentId, String name, String age, String gender, String country, Course course) {
 		this.studentId = studentId;
 		this.name = name;
 		this.age = age;
@@ -28,7 +28,7 @@ public class Student {
 		this.country = country;
 	}
 	
-	public Student(String name, String age, String gender, String country, CourseProgram course) {
+	public Student(String name, String age, String gender, String country, Course course) {
 		this.name = name;
 		this.age = age;
 		this.gender = gender;
@@ -60,11 +60,11 @@ public class Student {
 		this.age = age;
 	}
 
-	public CourseProgram getCourse() {
+	public Course getCourse() {
 		return this.course;
 	}
 
-	public void setCourse(CourseProgram course) {
+	public void setCourse(Course course) {
 		this.course = course;
 	}
 	

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="main.java.model.CourseProgram,java.util.*" %>
+<%@ page import="main.java.model.Course,java.util.*" %>
 
 <%
 	String message 	= ( String ) request.getAttribute ( "message" );
-	CourseProgram course = (CourseProgram) request.getAttribute ("course");
+	Course course = (Course) request.getAttribute ("course");
 	
 	boolean editMode;
 	if ( course != null && course.getCourseCode() > 0 )

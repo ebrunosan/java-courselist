@@ -2,7 +2,7 @@ package main.java.dao;
 
 import main.java.DBUtil;
 import main.java.model.Student;
-import main.java.model.CourseProgram;
+import main.java.model.Course;
 
 import java.io.IOException;
 
@@ -30,7 +30,8 @@ public class StudentDAO {
 						"gender 	varchar(10) NOT NULL ," +
 						"course_id 	int 		NULL ," +
 						"country  	varchar(50) NOT NULL," + 
-						"CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES courseProgram(course_code) )";
+						" CONSTRAINT fk_course FOREIGN KEY (course_id) " +
+						" REFERENCES courseProgram(course_code) )";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.executeUpdate();
@@ -131,7 +132,7 @@ public class StudentDAO {
 						rs.getString("gender"), 
 						rs.getString("country"),
 						
-						new CourseProgram (
+						new Course (
 							rs.getInt("course_code"),
 							rs.getString("course_name"),
 							rs.getString("duration"),
@@ -167,7 +168,7 @@ public class StudentDAO {
 						rs.getString("gender"), 
 						rs.getString("country"),
 
-						new CourseProgram (
+						new Course (
 							rs.getInt("course_code"),
 							rs.getString("course_name"),
 							rs.getString("duration"),

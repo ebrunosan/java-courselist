@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="main.java.model.CourseProgram,java.util.*" %>
+<%@ page import="main.java.model.Course,java.util.*" %>
 
 <%
-	List<CourseProgram> listCourses = ( ArrayList<CourseProgram> ) request.getAttribute ( "listCourses" );
+	List<Course> listCourses = ( ArrayList<Course> ) request.getAttribute ( "listCourses" );
+	String message 	= ( String ) request.getAttribute ( "message" );
 %>
 
 <jsp:include page="_top-page.jsp" />
@@ -22,6 +23,12 @@
 			</a>
 		</div>
 
+        <div class="col-sm-offset-4 col-sm-8">
+            <% if ( message != null && !message.isEmpty() ) { %>
+                <p><font color=red><%= message %></font></p>
+            <% } %>
+        </div>
+
 		<table class="table table-striped">
 			<caption><h2>List of Courses</h2></caption>
 			<tr>
@@ -30,7 +37,7 @@
 				<th>Description</th>
 				<th>Actions</th>
 			</tr>
-			<% for ( CourseProgram course : listCourses ) { %>
+			<% for ( Course course : listCourses ) { %>
 				<tr>
 					<td><%= course.getCourseName() %></td>
 					<td><%= course.getDuration() %></td>

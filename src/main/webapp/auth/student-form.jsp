@@ -4,7 +4,7 @@
 <%
 	String message 	= ( String ) request.getAttribute ( "message" );
 	Student student = (Student) request.getAttribute ("student");
-	List<CourseProgram> listCourses = ( ArrayList<CourseProgram> ) request.getAttribute ( "listCourses" );
+	List<Course> listCourses = ( ArrayList<Course> ) request.getAttribute ( "listCourses" );
 	
 	boolean editMode;
 	if ( student != null && student.getStudentId() > 0 )
@@ -114,7 +114,7 @@
                     <label for="course" class="col-sm-4 control-label">Course:</label>
                     <div class="col-sm-8">
 						<select name="course_id" class="form-control">
-							<% for(CourseProgram course : listCourses) { %>
+							<% for(Course course : listCourses) { %>
 							<option <% out.print( "value='" + course.getCourseCode() +"'" ); %> > 
 								<% out.print( course.getCourseName() ); %>
 							</option>

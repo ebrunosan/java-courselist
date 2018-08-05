@@ -1,7 +1,7 @@
 package main.java.dao;
 
 import main.java.DBUtil;
-import main.java.model.CourseProgram;
+import main.java.model.Course;
 
 import java.io.IOException;
 
@@ -13,10 +13,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseProgramDAO {
+public class CourseDAO {
 	private Connection conn = null;
 	
-	public CourseProgramDAO() throws IOException {
+	public CourseDAO() throws IOException {
 		conn = DBUtil.getConnection();
 		createTable();
 	}
@@ -24,9 +24,9 @@ public class CourseProgramDAO {
 	private void createTable() throws IOException {
 		String sql = "CREATE TABLE IF NOT EXISTS courseProgram (" +
 						"course_code   SERIAL 	   PRIMARY KEY ," +
-						"course_name   varchar(50)     NOT NULL ," +
-						"duration      varchar(6) 	   NOT NULL ," +
-						"description   varchar(50)     NULL)";
+						"course_name   varchar(50) NOT NULL ," +
+						"duration      varchar(20) NOT NULL ," +
+						"description   varchar(50) NOT NULL)";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.executeUpdate();
@@ -36,7 +36,7 @@ public class CourseProgramDAO {
 		}
 	}
 	
-	public boolean insertCourse( CourseProgram course ) throws IOException {
+	public boolean insertCourse( Course course ) throws IOException {
 		String sql = "INSERT INTO courseProgram (course_name, duration, description) VALUES (?, ?, ?)";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -59,7 +59,7 @@ public class CourseProgramDAO {
 		return true;
 	}
 
-	public boolean updateCourse( CourseProgram course ) throws IOException {
+	public boolean updateCourse( Course course ) throws IOException {
 		boolean rowUpdated = false;
 		
 		String sql = "UPDATE courseProgram SET course_name = ?, duration = ?, description = ? WHERE course_code = ?";
@@ -86,7 +86,7 @@ public class CourseProgramDAO {
 		return rowUpdated;
 	}
 
-	public boolean deleteCourse(CourseProgram course) throws IOException {
+	public boolean deleteCourse(Course course) throws IOException {
 		boolean rowDeleted = false;
 
 		String sql = "DELETE FROM courseProgram WHERE course_code = ?";
@@ -95,6 +95,13 @@ public class CourseProgramDAO {
 			stmt.setInt(1, course.getCourseCode());
 
 			rowDeleted = stmt.executeUpdate() > 0;
+		} catch ( SQLException e ) {
+			if ( "23503".equals( e.getSQLState() ) ) {	// violates foreign key
+				return false;
+			} else {
+				e.printStackTrace();
+				throw new IOException ( e );
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new IOException ( e );
@@ -103,8 +110,8 @@ public class CourseProgramDAO {
 		return rowDeleted;
 	}
 
-	public CourseProgram selectRecordByCourse(int courseCode) throws IOException {
-		CourseProgram course = null;
+	public Course selectRecordByCourse(int courseCode) throws IOException {
+		Course course = null;
 
 		String sql = "SELECT course_code, course_name, duration, description FROM courseProgram WHERE course_code = ?";
 		
@@ -113,7 +120,7 @@ public class CourseProgramDAO {
 			
 			try (ResultSet rs = stmt.executeQuery();) {
 				if ( rs.next() ) {
-					course = new CourseProgram( courseCode, 
+					course = new Course( courseCode, 
 						rs.getString("course_name"), 
 						rs.getString("duration"), 
 						rs.getString("description"));
@@ -127,8 +134,8 @@ public class CourseProgramDAO {
 		return course;
 	}
 
-	public List<CourseProgram> selectAllCourses() throws IOException {
-		List<CourseProgram> courseList = new ArrayList<CourseProgram>();
+	public List<Course> selectAllCourses() throws IOException {
+		List<Course> courseList = new ArrayList<Course>();
 
 		String sql = "SELECT course_code, course_name, duration, description FROM courseProgram ORDER BY course_code";
 
@@ -136,7 +143,7 @@ public class CourseProgramDAO {
 			
 			try (ResultSet rs = stmt.executeQuery();) {
 				while ( rs.next() ) {
-					CourseProgram course = new CourseProgram(
+					Course course = new Course(
 						rs.getInt("course_code"), 
 						rs.getString("course_name"), 
 						rs.getString("duration"), 
