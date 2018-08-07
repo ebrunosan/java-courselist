@@ -1,6 +1,5 @@
 package main.java.dao;
 
-import main.java.DBUtil;
 import main.java.model.Student;
 import main.java.model.Course;
 

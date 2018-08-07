@@ -1,6 +1,5 @@
 package main.java.dao;
 
-import main.java.DBUtil;
 import main.java.model.User;
 
 import java.io.IOException;
@@ -104,7 +103,7 @@ public class UserDAO {
 		return rowDeleted;
 	}
 
-	public User getUserResultSet( ResultSet rs ) throws IOException {
+	private User getUserResultSet( ResultSet rs ) throws IOException {
 		User user = null;
 		try {
 			if ( rs.next() ) {
